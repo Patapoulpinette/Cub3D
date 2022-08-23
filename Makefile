@@ -6,7 +6,7 @@
 #    By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/03 14:53:19 by dbouron           #+#    #+#              #
-#    Updated: 2022/08/23 21:57:50 by dbouron          ###   ########.fr        #
+#    Updated: 2022/08/23 21:58:29 by dbouron          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ LIBFT = ./libft
 LIBFT_EXEC = ./libft/libft.a
 
 SRCS =	$(shell find sources -name "*.c")
+SRCS +=	$(shell find GNL -name "*.c")
 HEADFILE = $(shell find includes -name "*.h")
 HEADFILE += $(shell find GNL -name "*.h")
 HEADFILE += $(shell find libft -name "*.h")
