@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:03:34 by dbouron           #+#    #+#             */
-/*   Updated: 2022/08/22 12:06:24 by dbouron          ###   ########.fr       */
+/*   Updated: 2022/08/24 11:35:35 by dbouron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ void	display_window(t_maps_coord *map)
 	structs.mlx = &mlx;
 	structs.image = &image;
 	structs.map = map;
-	mlx.x_win = X_RESOLUTION;
-	mlx.y_win = Y_RESOLUTION;
+	mlx.x_win = SCREEN_WIDTH;
+	mlx.y_win = SCREEN_HEIGHT;
 	mlx.mlx = mlx_init();
 	mlx.window = mlx_new_window(mlx.mlx, mlx.x_win,
 			mlx.y_win, map->name);

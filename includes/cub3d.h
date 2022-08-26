@@ -6,15 +6,17 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/08/23 21:59:51 by dbouron          ###   ########.fr       */
+/*   Updated: 2022/08/25 11:38:21 by dbouron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define X_RESOLUTION 5120
-# define Y_RESOLUTION 2880
+# define SCREEN_WIDTH 640
+# define SCREEN_HEIGHT 480
+# define SCREEN_HALF_WIDTH 640 / 2
+# define SCREEN_HALF_HEIGHT 480 / 2
 
 # include "mlx.h"
 # include "get_next_line.h"
@@ -58,7 +60,17 @@ typedef struct s_maps_coord
 
 typedef struct s_algo_params
 {
-
+	time_t	render_delay;
+	int		player_FOV;
+	int		player_half_FOV;
+	int		player_X; //à enlever à terme car viendra de la map parsée
+	int		player_Y; //à enlever à terme car viendra de la map parsée
+	int		player_angle; //à enlever à terme car viendra de la map parsée
+	int		rayCasting_increment_angle;
+	int		rayCasting_precision;
+			map;
+			screen;
+			screen_context;
 }				t_algo_params;
 
 typedef struct s_structs
@@ -70,6 +82,9 @@ typedef struct s_structs
 
 //parsing
 void	parsing(t_maps_coord *map, char *str);
+
+//initializing
+void	initialize_values(t_algo_params *algo_params);
 
 //graphical_part
 void	create_image(t_mlx_params *mlx, t_image *image);

@@ -75,4 +75,4 @@ add_executable(Cub3D
         sources/graphical_part.c
         sources/main.c
         sources/parsing.c
-        sources/utils.c)
+        sources/utils.c sources/initializing.c)
