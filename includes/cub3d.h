@@ -68,9 +68,7 @@ typedef struct s_algo_params
 	int		player_angle; //à enlever à terme car viendra de la map parsée
 	int		rayCasting_increment_angle;
 	int		rayCasting_precision;
-			map;
-			screen;
-			screen_context;
+	char	**map; //à enlever à terme car viendra de la map parsée
 }				t_algo_params;
 
 typedef struct s_structs
