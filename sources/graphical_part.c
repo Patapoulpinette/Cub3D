@@ -44,7 +44,7 @@ int	exit_program(void)
 	exit(EXIT_SUCCESS);
 }
 
-void	display_window(t_maps_coord *map)
+void	display_window(void)
 {
 	t_mlx_params	mlx;
 	t_image			image;
@@ -52,14 +52,13 @@ void	display_window(t_maps_coord *map)
 
 	structs.mlx = &mlx;
 	structs.image = &image;
-	structs.map = map;
 	mlx.x_win = SCREEN_WIDTH;
 	mlx.y_win = SCREEN_HEIGHT;
 	mlx.mlx = mlx_init();
 	mlx.window = mlx_new_window(mlx.mlx, mlx.x_win,
-			mlx.y_win, map->name);
+			mlx.y_win, "Cub3D");
 	create_image(&mlx, &image);
-	//draw_in_image(&image, map);
+	draw_in_image(&image);
 	mlx_put_image_to_window(mlx.mlx, mlx.window, image.img, 0, 0);
 	mlx_destroy_image(mlx.mlx, image.img);
 	mlx_key_hook(mlx.window, press_key, &structs);

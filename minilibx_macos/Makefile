@@ -8,6 +8,8 @@ OBJ=$(OBJ1:.m=.o)
 CFLAGS+= -O2
 CFLAGS+= -DSTRINGPUTX11 -Wno-deprecated-declarations
 
+.SILENT:
+
 all: $(NOM)
 
 $(NOM):	$(OBJ)

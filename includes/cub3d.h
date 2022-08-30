@@ -60,6 +60,17 @@ typedef struct s_maps_coord
 
 typedef struct s_algo_params
 {
+	int	x;
+	int	y;
+	int	dx;
+	int	dy;
+	int	dx1;
+	int	dy1;
+	int	px;
+	int	py;
+	int	xe;
+	int	ye;
+	//*************************************
 	time_t	render_delay;
 	int		player_FOV;
 	int		player_half_FOV;
@@ -71,15 +82,22 @@ typedef struct s_algo_params
 	char	**map; //à enlever à terme car viendra de la map parsée
 }				t_algo_params;
 
+typedef struct s_points
+{
+	int	x0;
+	int	y0;
+	int	x1;
+	int	y1;
+}				t_points;
+
 typedef struct s_structs
 {
 	t_mlx_params	*mlx;
 	t_image			*image;
-	t_maps_coord	*map;
+	//t_maps_coord	*map;
 }				t_structs;
 
 //parsing
-void	parsing(t_maps_coord *map, char *str);
 
 //initializing
 void	initialize_values(t_algo_params *algo_params);
@@ -88,13 +106,14 @@ void	initialize_values(t_algo_params *algo_params);
 void	create_image(t_mlx_params *mlx, t_image *image);
 int		press_key(int key, t_structs *structs);
 int		exit_program(void);
-void	display_window(t_maps_coord *map);
+void	display_window(void); //t_maps_coord *map
 
 //drawing_part
-
+void	draw_in_image(t_image *image);
+void	my_img_pixel_put(t_image *image, int x, int y, int color);
 
 //algorithm
-
+void	bhm_line(t_image *image, t_points *pt, int color);
 
 //bonus
 

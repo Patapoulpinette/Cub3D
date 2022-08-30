@@ -14,15 +14,14 @@
 
 int	main(int argc, char **argv)
 {
-	t_maps_coord	map;
 	t_algo_params	algo_params;
 
-	if (argc == 2)
+	(void) argv; //à enlever
+	(void) argc; //à enlever
+	if (argc == 1)//changer a 2 quand on aura le parsing
 	{
-		parsing(&map, argv[1]);
 		initialize_values(&algo_params);
-		display_window(&map);
-		//free tableau de char;
+		display_window();
 	}
 	return (0);
 }
