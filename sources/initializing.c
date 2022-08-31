@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void	initialize_values(t_algo_params *algo_params)
+void	initialize_values(t_raycasting *raycasting)
 {
 	char	*mappy[] = {
 			"1111111111",
@@ -27,13 +27,13 @@ void	initialize_values(t_algo_params *algo_params)
 			"1111111111",
 	}; //à enlever à terme car viendra de la map parsée
 
-	algo_params->render_delay = 30;
-	algo_params->player_FOV = 60;
-	algo_params->player_half_FOV = algo_params->player_FOV / 2;
-	algo_params->player_X = 2; //à enlever à terme car viendra de la map parsée
-	algo_params->player_Y = 2; //à enlever à terme car viendra de la map parsée
-	algo_params->player_angle = 90; //à enlever à terme car viendra de la map parsée
-	algo_params->rayCasting_increment_angle = algo_params->player_FOV / SCREEN_WIDTH;
-	algo_params->rayCasting_precision = 64;
-	algo_params->map = mappy;
+	raycasting->render_delay = 30;
+	raycasting->player_FOV = 60;
+	raycasting->player_half_FOV = raycasting->player_FOV / 2;
+	raycasting->player_X = 2; //à enlever à terme car viendra de la map parsée
+	raycasting->player_Y = 2; //à enlever à terme car viendra de la map parsée
+	raycasting->player_angle = 90; //à enlever à terme car viendra de la map parsée
+	raycasting->increment_angle = raycasting->player_FOV / SCREEN_WIDTH;
+	raycasting->rayCasting_precision = 64;
+	raycasting->map = mappy;
 }

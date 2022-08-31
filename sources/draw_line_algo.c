@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-static void	drawline_1(t_image *image, t_points *pt, t_algo_params *algo, \
+static void	drawline_1(t_image *image, t_points *pt, t_line_algo *algo, \
 					int color)
 {
 	if (algo->dx >= 0)
@@ -30,7 +30,7 @@ static void	drawline_1(t_image *image, t_points *pt, t_algo_params *algo, \
 	my_img_pixel_put(image, algo->x, algo->y, color);
 }
 
-static void	drawline_2(t_image *image, t_algo_params *algo, int color)
+static void	drawline_2(t_image *image, t_line_algo *algo, int color)
 {
 	while (algo->x < algo->xe)
 	{
@@ -50,7 +50,7 @@ static void	drawline_2(t_image *image, t_algo_params *algo, int color)
 	}
 }
 
-static void	drawline_3(t_image *image, t_points *pt, t_algo_params *algo, \
+static void	drawline_3(t_image *image, t_points *pt, t_line_algo *algo, \
 					int color)
 {
 	if (algo->dy >= 0)
@@ -68,7 +68,7 @@ static void	drawline_3(t_image *image, t_points *pt, t_algo_params *algo, \
 	my_img_pixel_put(image, algo->x, algo->y, color);
 }
 
-static void	drawline_4(t_image *image, t_algo_params *algo, int color)
+static void	drawline_4(t_image *image, t_line_algo *algo, int color)
 {
 	while (algo->y < algo->ye)
 	{
@@ -90,7 +90,7 @@ static void	drawline_4(t_image *image, t_algo_params *algo, int color)
 
 void	bhm_line(t_image *image, t_points *pt, int color)
 {
-	t_algo_params	algo;
+	t_line_algo	algo;
 
 	algo.dx = pt->x1 - pt->x0;
 	algo.dy = pt->y1 - pt->y0;
