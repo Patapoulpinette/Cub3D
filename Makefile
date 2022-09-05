@@ -6,7 +6,7 @@
 #    By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/03 14:53:19 by dbouron           #+#    #+#              #
-#    Updated: 2022/08/23 21:58:29 by dbouron          ###   ########.fr        #
+#    Updated: 2022/09/05 15:43:21 by dbouron          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ HEADFILE += $(shell find GNL -name "*.h")
 HEADFILE += $(shell find libft -name "*.h")
 HEADFILE += $(shell find minilibx_macos -name "*.h")
 
-CFLAGS = -Wall -Wextra -Werror -I includes/ -I libft/ -I minilibx_macos/ -I GNL/
+CFLAGS = -Wall -Wextra -Werror
+CFLAGS += -I includes/ -I libft/ -I minilibx_macos/ -I GNL/
 
 # **************************************************************************** #
 #                                    COLORS                                    #

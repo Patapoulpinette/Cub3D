@@ -174,10 +174,10 @@ void	draw_in_image(t_image *image, t_raycasting *raycasting)
 
 void	my_img_pixel_put(t_image *image, int x, int y, int color)
 {
-	char *dst;
+	char	*dst;
 
 	if (x < 0 || y < 0 || x >= image->x_img || y >= image->y_img)
-		return;
+		return ;
 	dst = image->addr + (y * image->size_line + x
 			* (image->bits_per_pixel / 8));
 	*(unsigned int *) dst = color;

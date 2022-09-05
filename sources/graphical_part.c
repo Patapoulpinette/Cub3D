@@ -60,8 +60,8 @@ void	display_window(void)
 	mlx.window = mlx_new_window(mlx.mlx, mlx.x_win,
 			mlx.y_win, "Cub3D");
 	create_image(&mlx, &image);
-	init_raycasting_values(raycasting);
-	draw_in_image(&image, raycasting);
+	init_raycasting_values(&raycasting);
+	draw_in_image(&image, &raycasting);
 	mlx_put_image_to_window(mlx.mlx, mlx.window, image.img, 0, 0);
 	mlx_destroy_image(mlx.mlx, image.img);
 	mlx_key_hook(mlx.window, press_key, &structs);
