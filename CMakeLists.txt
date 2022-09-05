@@ -74,7 +74,6 @@ add_executable(Cub3D
         sources/free.c
         sources/graphical_part.c
         sources/main.c
-        sources/parsing.c
         sources/utils.c
         sources/initializing.c
         sources/raycasting.c)
