@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void	draw_in_image(t_image *image)
+/*static void	ft_test(t_image *image)
 {
 	t_points points;
 
@@ -160,6 +160,16 @@ void	draw_in_image(t_image *image)
 	points.x1 = 640;
 	points.y1 = 399;
 	bhm_line(image, &points, 0x000000);
+}*/
+
+void	draw_in_image(t_image *image, t_raycasting *raycasting)
+{
+	//(void) image;
+	//(void) raycasting;
+
+	raycasting_algo(image, raycasting);
+
+	//ft_test(image);
 }
 
 void	my_img_pixel_put(t_image *image, int x, int y, int color)

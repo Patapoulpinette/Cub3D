@@ -21,6 +21,38 @@
 # define WALL_COLOR 0x606c38
 # define SKY_COLOR 0xbde0fe
 
+
+#define mapWidth 24
+#define mapHeight 24
+
+int worldMap[mapWidth][mapHeight]=
+		{
+				{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+				{1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
+				{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
+				{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
+				{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
+				{1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
+				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+				{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+				{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+				{1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+				{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+				{1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+				{1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+				{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+				{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+		};
+
 # include "mlx.h"
 # include "get_next_line.h"
 # include "libft.h"
@@ -77,17 +109,14 @@ typedef struct s_line_algo
 
 typedef struct s_raycasting
 {
-	time_t	render_delay;
-	int		player_FOV;
-	int		player_half_FOV;
-	int		player_X; //à enlever à terme car viendra de la map parsée
-	int		player_Y; //à enlever à terme car viendra de la map parsée
-	int		ray_X;
-	int		ray_Y;
-	int		player_angle; //à enlever à terme car viendra de la map parsée
-	int		increment_angle;
-	int		rayCasting_precision;
-	char	**map; //à enlever à terme car viendra de la map parsée
+	double	player_x;
+	double	player_y;
+	double	direction_x;
+	double	direction_y;
+	double	camera_x;
+	double	camera_y;
+	double	frame_time;
+	double	old_frame_time;
 }				t_raycasting;
 
 typedef struct s_points
@@ -103,12 +132,13 @@ typedef struct s_structs
 	t_mlx_params	*mlx;
 	t_image			*image;
 	//t_maps_coord	*map;
+	t_raycasting	*raycasting;
 }				t_structs;
 
 //parsing
 
 //initializing
-void	initialize_values(t_raycasting *raycasting);
+void	init_raycasting_values(t_raycasting *raycasting);
 
 //graphical_part
 void	create_image(t_mlx_params *mlx, t_image *image);
@@ -117,7 +147,7 @@ int		exit_program(void);
 void	display_window(void); //t_maps_coord *map
 
 //drawing_part
-void	draw_in_image(t_image *image);
+void	draw_in_image(t_image *image, t_raycasting *raycasting);
 void	my_img_pixel_put(t_image *image, int x, int y, int color);
 
 //draw_line_algorithm
@@ -125,6 +155,8 @@ void	bhm_line(t_image *image, t_points *pt, int color);
 
 //raycasting
 double	degree_to_radian(int degree);
+double 	pythagoras(int a, int b);
+void	raycasting_algo(t_image *image, t_raycasting *raycasting);
 
 //utils
 size_t	ft_tablen(char **tab);

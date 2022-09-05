@@ -14,13 +14,11 @@
 
 int	main(int argc, char **argv)
 {
-	t_raycasting	raycasting;
 
 	(void) argv; //à enlever
 	(void) argc; //à enlever
 	if (argc == 1)//changer a 2 quand on aura le parsing
 	{
-		initialize_values(&raycasting);
 		display_window();
 	}
 	return (0);

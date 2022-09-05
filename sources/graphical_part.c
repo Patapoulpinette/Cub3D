@@ -48,17 +48,20 @@ void	display_window(void)
 {
 	t_mlx_params	mlx;
 	t_image			image;
+	t_raycasting	raycasting;
 	t_structs		structs;
 
 	structs.mlx = &mlx;
 	structs.image = &image;
+	structs.raycasting = &raycasting;
 	mlx.x_win = SCREEN_WIDTH;
 	mlx.y_win = SCREEN_HEIGHT;
 	mlx.mlx = mlx_init();
 	mlx.window = mlx_new_window(mlx.mlx, mlx.x_win,
 			mlx.y_win, "Cub3D");
 	create_image(&mlx, &image);
-	draw_in_image(&image);
+	init_raycasting_values(raycasting);
+	draw_in_image(&image, raycasting);
 	mlx_put_image_to_window(mlx.mlx, mlx.window, image.img, 0, 0);
 	mlx_destroy_image(mlx.mlx, image.img);
 	mlx_key_hook(mlx.window, press_key, &structs);
