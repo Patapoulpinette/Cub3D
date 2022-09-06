@@ -6,7 +6,7 @@
 #    By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/03 14:53:19 by dbouron           #+#    #+#              #
-#    Updated: 2022/09/05 15:43:21 by dbouron          ###   ########.fr        #
+#    Updated: 2022/09/06 12:13:37 by dbouron          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,6 +80,11 @@ compile_minilibx :
 compile_libft :
 	@make -C $(LIBFT)
 
+git :
+	@git add .
+	@printf "Message of the commit: " && read msg && git commit -m "$$msg"
+	@git push
+
 clean :
 	rm -rf $(OBJS)
 	@make clean -C $(MINILIBX)
@@ -93,4 +98,4 @@ fclean : clean
 
 re : fclean all
 
-.PHONY: all compile_minilibx compile_libft clean fclean re
+.PHONY: all compile_minilibx compile_libft git clean fclean re
