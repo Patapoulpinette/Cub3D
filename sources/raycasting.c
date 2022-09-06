@@ -6,21 +6,21 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:02:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/06 12:23:31 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/06 18:33:43 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-double	degree_to_radian(int degree)
+/* double	degree_to_radian(int degree)
 {
 	return (degree * M_PI / 180);
-}
+} */
 
-double	pythagoras(int a, int b)
+/* double	pythagoras(int a, int b)
 {
 	return (sqrt(pow(a, 2) + pow(b, 2)));
-}
+} */
 
 void	raycasting_algo(t_image *image, t_raycasting *raycasting)
 {
@@ -43,7 +43,7 @@ void	raycasting_algo(t_image *image, t_raycasting *raycasting)
 	int			draw_start;
 	int			draw_end;
 	t_points	pt;
-	char			world_map[mapWidth][mapHeight] =
+	char			*world_map[] =
 				{
 					"111111111111111111111111",
 					"100000000000000000000001",
@@ -176,7 +176,72 @@ void	raycasting_algo(t_image *image, t_raycasting *raycasting)
 	}
 }
 
-/* void	move_player()
+void	move_player(int key, t_structs *structs)
 {
+	char	*world_map[] = {
+					"111111111111111111111111",
+					"100000000000000000000001",
+					"100000000000000000000001",
+					"100000000000000000000001",
+					"100000222220000303030001",
+					"100000200020000000000001",
+					"100000200020000300030001",
+					"100000200020000000000001",
+					"100000220220000303030001",
+					"100000000000000000000001",
+					"100000000000000000000001",
+					"100000000000000000000001",
+					"100000000000000000000001",
+					"100000000000000000000001",
+					"100000000000000000000001",
+					"100000000000000000000001",
+					"144444444000000000000001",
+					"140400004000000000000001",
+					"140000504000000000000001",
+					"140400004000000000000001",
+					"140444444000000000000001",
+					"140000000000000000000001",
+					"144444444000000000000001",
+					"111111111111111111111111"
+				};
+
+	if (key == 13)//move forward
+	{
+		if(world_map[(int)(structs->raycasting->player_x + structs->raycasting->direction_x * structs->raycasting->move_speed)][(int)(structs->raycasting->player_y)] == '0')
+			structs->raycasting->player_x += structs->raycasting->direction_x * structs->raycasting->move_speed;
+		if(world_map[(int)(structs->raycasting->player_x)][(int)(structs->raycasting->player_y + structs->raycasting->direction_y * structs->raycasting->move_speed)] == '0')
+			structs->raycasting->player_y += structs->raycasting->direction_y * structs->raycasting->move_speed;
+	}
+	if (key == 1)//move backwards
+	{
+		if(world_map[(int)(structs->raycasting->player_x - structs->raycasting->direction_x * structs->raycasting->move_speed)][(int)(structs->raycasting->player_y)] == '0')
+			structs->raycasting->player_x -= structs->raycasting->direction_x * structs->raycasting->move_speed;
+		if(world_map[(int)(structs->raycasting->player_x)][(int)(structs->raycasting->player_y - structs->raycasting->direction_y * structs->raycasting->move_speed)] == '0')
+			structs->raycasting->player_y -= structs->raycasting->direction_y * structs->raycasting->move_speed;
+	}
+}
+
+void	rotate_camera(int key, t_structs *structs)
+{
+	double	old_direction_x;
+	double	old_camera_plane_x;
 	
-} */
+	if (key == 123)//rotate camera to the left
+	{
+		old_direction_x = structs->raycasting->direction_x;
+		structs->raycasting->direction_x = structs->raycasting->direction_x * cos(structs->raycasting->rot_speed) - structs->raycasting->direction_y * sin(structs->raycasting->rot_speed);
+		structs->raycasting->direction_y = old_direction_x * sin(structs->raycasting->rot_speed) + structs->raycasting->direction_y * cos(structs->raycasting->rot_speed);
+		old_camera_plane_x = structs->raycasting->camera_plane_x;
+		structs->raycasting->camera_plane_x = structs->raycasting->camera_plane_x * cos(structs->raycasting->rot_speed) - structs->raycasting->camera_plane_y * sin(structs->raycasting->rot_speed);
+		structs->raycasting->camera_plane_x = old_camera_plane_x * sin(structs->raycasting->rot_speed) + structs->raycasting->camera_plane_y * cos(structs->raycasting->rot_speed);
+	}
+	if (key == 124)//rotate camera to the right
+	{
+		old_direction_x = structs->raycasting->direction_x;
+		structs->raycasting->direction_x = structs->raycasting->direction_x * cos(-structs->raycasting->rot_speed) - structs->raycasting->direction_y * sin(-structs->raycasting->rot_speed);
+		structs->raycasting->direction_y = old_direction_x * sin(-structs->raycasting->rot_speed) + structs->raycasting->direction_y * cos(-structs->raycasting->rot_speed);
+		old_camera_plane_x = structs->raycasting->camera_plane_x;
+		structs->raycasting->camera_plane_x = structs->raycasting->camera_plane_x * cos(-structs->raycasting->rot_speed) - structs->raycasting->camera_plane_y * sin(-structs->raycasting->rot_speed);
+		structs->raycasting->camera_plane_x = old_camera_plane_x * sin(-structs->raycasting->rot_speed) + structs->raycasting->camera_plane_y * cos(-structs->raycasting->rot_speed);
+	}
+}

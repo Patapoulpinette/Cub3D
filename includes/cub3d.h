@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/06 12:05:58 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/06 18:06:54 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,9 @@
 
 # define SCREEN_WIDTH 640
 # define SCREEN_HEIGHT 480
-# define SCREEN_HALF_WIDTH 640 / 2
-# define SCREEN_HALF_HEIGHT 480 / 2
 # define FLOOR_COLOR 0xdda15e
 # define WALL_COLOR 0x606c38
 # define SKY_COLOR 0xbde0fe
-
-# define mapWidth 24
-# define mapHeight 24
 
 typedef struct s_mlx_params
 {
@@ -54,14 +49,7 @@ typedef struct s_image
 
 typedef struct s_maps_coord
 {
-	char	*name;
-	int		**map_tab;
-	int		x_len;
-	int		y_len;
-	int		x0;
-	int		y0;
-	int		x1;
-	int		y1;
+	char	**map_tab;
 }				t_maps_coord;
 
 typedef struct s_line_algo
@@ -86,8 +74,8 @@ typedef struct s_raycasting
 	double	direction_y;
 	double	camera_plane_x;
 	double	camera_plane_y;
-	double	frame_time;
-	double	old_frame_time;
+	double	move_speed;
+	double	rot_speed;
 }				t_raycasting;
 
 typedef struct s_points
@@ -118,16 +106,18 @@ int		exit_program(void);
 void	display_window(void); //t_maps_coord *map
 
 //drawing_part
-void	draw_in_image(t_image *image, t_raycasting *raycasting);
+void	draw_in_image(t_mlx_params *mlx, t_image *image, t_raycasting *raycasting);
 void	my_img_pixel_put(t_image *image, int x, int y, int color);
 
 //draw_line_algorithm
 void	bhm_line(t_image *image, t_points *pt, int color);
 
 //raycasting
-double	degree_to_radian(int degree);
-double	pythagoras(int a, int b);
+//double	degree_to_radian(int degree);
+//double	pythagoras(int a, int b);
 void	raycasting_algo(t_image *image, t_raycasting *raycasting);
+void	move_player(int key, t_structs *structs);
+void	rotate_camera(int key, t_structs *structs);
 
 //utils
 size_t	ft_tablen(char **tab);

@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:03:34 by dbouron           #+#    #+#             */
-/*   Updated: 2022/08/24 11:35:35 by dbouron          ###   ########.fr       */
+/*   Updated: 2022/09/06 18:34:05 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,20 @@ void	create_image(t_mlx_params *mlx, t_image *image)
 
 int	press_key(int key, t_structs *structs)
 {
-	if (key == 8) //C
-		mlx_clear_window(structs->mlx->mlx, structs->mlx->window);
-	else if (key == 53) //ESC
-	{
-		mlx_destroy_window(structs->mlx->mlx, structs->mlx->window);
+/* 	if (key == 8) //C
+		mlx_clear_window(structs->mlx->mlx, structs->mlx->window); */
+	if (key == 53) //ESC
 		exit(EXIT_SUCCESS);
-	}
-/*	else if (key == 123 || key == 124)
-		;//fleche gauche & droite pour tourner camera a gauche
-	else if (key == 69 || key == 78)
-		;//WASD pour fair bouger le personnage*/
+	else if (key == 123 || key == 124)
+		rotate_camera(key, structs);//fleche gauche & droite pour tourner camera a gauche
+	else if (key == 13 || key == 1)
+		move_player(key, structs);//WASD pour fair bouger le personnage
+	// else if (key == 0 || key == 2)
+	// 	translate_player(key, structs);//WASD pour fair bouger le personnage
 	else
 		dprintf(2, "key number : %d\n", key);
+	draw_in_image(structs->mlx, structs->image, structs->raycasting);
+	mlx_put_image_to_window(structs->mlx->mlx, structs->mlx->window, structs->image->img, 0, 0);
 	return (0);
 }
 
@@ -59,12 +60,13 @@ void	display_window(void)
 	mlx.mlx = mlx_init();
 	mlx.window = mlx_new_window(mlx.mlx, mlx.x_win,
 			mlx.y_win, "Cub3D");
-	create_image(&mlx, &image);
 	init_raycasting_values(&raycasting);
-	draw_in_image(&image, &raycasting);
+	draw_in_image(&mlx, &image, &raycasting);
 	mlx_put_image_to_window(mlx.mlx, mlx.window, image.img, 0, 0);
 	mlx_destroy_image(mlx.mlx, image.img);
-	mlx_key_hook(mlx.window, press_key, &structs);
+	mlx_do_key_autorepeaton(mlx.mlx);
+	//mlx_key_hook(mlx.window, press_key, &structs);
+	mlx_hook(mlx.window, 02, 0L, press_key, &structs);
 	mlx_hook(mlx.window, 17, 1L << 5, exit_program, (void *)0);
 	mlx_loop(mlx.mlx);
 }
