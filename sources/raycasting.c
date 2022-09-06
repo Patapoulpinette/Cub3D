@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:02:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/06 12:21:11 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/06 12:23:31 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,3 +175,8 @@ void	raycasting_algo(t_image *image, t_raycasting *raycasting)
 		x++;
 	}
 }
+
+/* void	move_player()
+{
+	
+} */
