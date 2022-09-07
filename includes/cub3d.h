@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/06 18:06:54 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/07 15:14:48 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,11 +113,10 @@ void	my_img_pixel_put(t_image *image, int x, int y, int color);
 void	bhm_line(t_image *image, t_points *pt, int color);
 
 //raycasting
-//double	degree_to_radian(int degree);
-//double	pythagoras(int a, int b);
 void	raycasting_algo(t_image *image, t_raycasting *raycasting);
 void	move_player(int key, t_structs *structs);
-void	rotate_camera(int key, t_structs *structs);
+void	rotate_camera_left(t_structs *structs);
+void	rotate_camera_right(t_structs *structs);
 
 //utils
 size_t	ft_tablen(char **tab);

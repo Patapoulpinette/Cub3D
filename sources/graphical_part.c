@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:03:34 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/06 18:34:05 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/07 14:32:49 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void	create_image(t_mlx_params *mlx, t_image *image)
 
 int	press_key(int key, t_structs *structs)
 {
-/* 	if (key == 8) //C
-		mlx_clear_window(structs->mlx->mlx, structs->mlx->window); */
 	if (key == 53) //ESC
 		exit(EXIT_SUCCESS);
-	else if (key == 123 || key == 124)
-		rotate_camera(key, structs);//fleche gauche & droite pour tourner camera a gauche
+	else if (key == 123)
+		rotate_camera_left(structs);//fleche gauche pour tourner camera a gauche
+	else if (key == 124)
+		rotate_camera_right(structs);//fleche droite pour tourner camera a droite
 	else if (key == 13 || key == 1)
 		move_player(key, structs);//WASD pour fair bouger le personnage
 	// else if (key == 0 || key == 2)
