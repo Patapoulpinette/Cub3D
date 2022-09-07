@@ -6,13 +6,13 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:03:34 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/07 15:42:14 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/07 17:42:49 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	create_image(t_mlx_params *mlx, t_image *image)
+void	create_image(t_mlx *mlx, t_image *image)
 {
 	image->x_img = mlx->x_win;
 	image->y_img = mlx->y_win;
@@ -36,7 +36,6 @@ int	press_key(int key, t_structs *structs)
 	else
 		dprintf(2, "key number : %d\n", key);
 	draw_in_image(structs->mlx, structs->image, structs->raycasting);
-	mlx_put_image_to_window(structs->mlx->mlx, structs->mlx->window, structs->image->img, 0, 0);
 	return (0);
 }
 
@@ -47,7 +46,7 @@ int	exit_program(void)
 
 void	display_window(void)
 {
-	t_mlx_params	mlx;
+	t_mlx			mlx;
 	t_image			image;
 	t_raycasting	raycasting;
 	t_structs		structs;
@@ -62,8 +61,6 @@ void	display_window(void)
 			mlx.y_win, "Cub3D");
 	init_raycasting_values(&raycasting);
 	draw_in_image(&mlx, &image, &raycasting);
-	mlx_put_image_to_window(mlx.mlx, mlx.window, image.img, 0, 0);
-	mlx_destroy_image(mlx.mlx, image.img);
 	mlx_do_key_autorepeaton(mlx.mlx);
 	//mlx_key_hook(mlx.window, press_key, &structs);
 	mlx_hook(mlx.window, 02, 0L, press_key, &structs);

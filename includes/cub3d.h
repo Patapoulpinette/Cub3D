@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/07 15:42:07 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/07 17:42:17 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@
 # define WALL_COLOR 0x606c38
 # define SKY_COLOR 0xbde0fe
 
-typedef struct s_mlx_params
+typedef struct s_mlx
 {
 	void	*mlx;
 	void	*window;
 	int		x_win;
 	int		y_win;
-}				t_mlx_params;
+}				t_mlx;
 
 typedef struct s_image
 {
@@ -76,6 +76,9 @@ typedef struct s_raycasting
 	double	camera_plane_y;
 	double	move_speed;
 	double	rot_speed;
+	int		side;
+	int		draw_start;
+	int		draw_end;
 }				t_raycasting;
 
 typedef struct s_points
@@ -88,7 +91,7 @@ typedef struct s_points
 
 typedef struct s_structs
 {
-	t_mlx_params	*mlx;
+	t_mlx			*mlx;
 	t_image			*image;
 	//t_maps_coord	*map;
 	t_raycasting	*raycasting;
@@ -100,13 +103,13 @@ typedef struct s_structs
 void	init_raycasting_values(t_raycasting *raycasting);
 
 //graphical_part
-void	create_image(t_mlx_params *mlx, t_image *image);
+void	create_image(t_mlx *mlx, t_image *image);
 int		press_key(int key, t_structs *structs);
 int		exit_program(void);
 void	display_window(void); //t_maps_coord *map
 
 //drawing_part
-void	draw_in_image(t_mlx_params *mlx, t_image *image, t_raycasting *raycasting);
+void	draw_in_image(t_mlx *mlx, t_image *image, t_raycasting *raycasting);
 void	my_img_pixel_put(t_image *image, int x, int y, int color);
 
 //draw_line_algorithm
@@ -114,6 +117,9 @@ void	bhm_line(t_image *image, t_points *pt, int color);
 
 //raycasting
 void	raycasting_algo(t_image *image, t_raycasting *raycasting);
+void	draw_vertival_lines(t_image *image, t_raycasting *raycasting, int x);
+
+//movements
 void	move_player(int key, t_structs *structs);
 void	translate_player(int key, t_structs *structs);
 void	rotate_camera_left(t_structs *structs);

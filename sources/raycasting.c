@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:02:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/07 15:44:27 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/07 16:37:55 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,7 @@ void	raycasting_algo(t_image *image, t_raycasting *raycasting)
 	int			step_x;
 	int			step_y;
 	int			hit;
-	int			side;
 	int			line_height;
-	int			draw_start;
-	int			draw_end;
-	t_points	pt;
 	char			*world_map[] =
 				{
 					"111111111111111111111111",
@@ -119,13 +115,13 @@ void	raycasting_algo(t_image *image, t_raycasting *raycasting)
 			{
 				side_distance_x += delta_distance_x;
 				map_x += step_x;
-				side = 0;
+				raycasting->side = 0;
 			}
 			else
 			{
 				side_distance_y += delta_distance_y;
 				map_y += step_y;
-				side = 1;
+				raycasting->side = 1;
 			}
 			//check if ray has hit a wall
 			if (world_map[map_x][map_y] != '0')
@@ -133,7 +129,7 @@ void	raycasting_algo(t_image *image, t_raycasting *raycasting)
 		}
 
 		//calculate distance projected on camera direction
-		if (side == 0)
+		if (raycasting->side == 0)
 			perp_wall_dist = side_distance_x - delta_distance_x;
 		else
 			perp_wall_dist = side_distance_y - delta_distance_y;
@@ -142,205 +138,42 @@ void	raycasting_algo(t_image *image, t_raycasting *raycasting)
 		line_height = (int)(SCREEN_HEIGHT / perp_wall_dist);
 
 		//calculate lowest and highest pixel to fill in current stripe
-		draw_start = -line_height / 2 + SCREEN_HEIGHT / 2;
-		if (draw_start < 0)
-			draw_start = 0;
-		draw_end = line_height / 2 + SCREEN_HEIGHT /2;
-		if (draw_end >= SCREEN_HEIGHT)
-			draw_end = SCREEN_HEIGHT - 1;
+		raycasting->draw_start = -line_height / 2 + SCREEN_HEIGHT / 2;
+		if (raycasting->draw_start < 0)
+			raycasting->draw_start = 0;
+		raycasting->draw_end = line_height / 2 + SCREEN_HEIGHT /2;
+		if (raycasting->draw_end >= SCREEN_HEIGHT)
+			raycasting->draw_end = SCREEN_HEIGHT - 1;
 
-		//draw walls with vertical lines
-		pt.x0 = x;
-		pt.x1 = x;
-		pt.y0 = draw_start;
-		pt.y1 = draw_end;
-		if (side == 1) //give x and y sides different brightness
-			bhm_line(image, &pt, WALL_COLOR / 2);
-		else
-			bhm_line(image, &pt, WALL_COLOR);
-
-		//draw ceilling with vertical lines
-		pt.x0 = x;
-		pt.x1 = x;
-		pt.y0 = 0;
-		pt.y1 = draw_start;
-		bhm_line(image, &pt, SKY_COLOR);
-
-		//draw floor with vertical lines
-		pt.x0 = x;
-		pt.x1 = x;
-		pt.y0 = draw_end;
-		pt.y1 = SCREEN_HEIGHT;
-		bhm_line(image, &pt, FLOOR_COLOR);
+		draw_vertival_lines(image, raycasting, x);
 
 		x++;
 	}
 }
 
-void	move_player(int key, t_structs *structs)
+void	draw_vertival_lines(t_image *image, t_raycasting *raycasting, int x)
 {
-	char	*world_map[] = {
-					"111111111111111111111111",
-					"100000000000000000000001",
-					"100000000000000000000001",
-					"100000000000000000000001",
-					"100000222220000333330001",
-					"100000200020003000003001",
-					"100000200020000300030001",
-					"100000200020003000003001",
-					"100000220220000300030001",
-					"100000000000000000000001",
-					"100000000000000000000001",
-					"100000000000000000000001",
-					"100000000000000000000001",
-					"144444444000000000000001",
-					"140400004000000000000001",
-					"140000504000000000000001",
-					"140400004000000000000001",
-					"140444444000000000000001",
-					"140000000000000000000001",
-					"144444444000000000000001",
-					"111111111111111111111111"
-				};
+	t_points	pt;
 
-	if (key == 13)//move forward
-	{
-		if(world_map[(int)(structs->raycasting->player_x \
-			+ structs->raycasting->direction_x \
-			* structs->raycasting->move_speed)]\
-			[(int)(structs->raycasting->player_y)] == '0')
-			structs->raycasting->player_x += structs->raycasting->direction_x \
-				* structs->raycasting->move_speed;
-		if(world_map[(int)(structs->raycasting->player_x)]\
-			[(int)(structs->raycasting->player_y \
-			+ structs->raycasting->direction_y \
-			* structs->raycasting->move_speed)] == '0')
-			structs->raycasting->player_y += structs->raycasting->direction_y \
-				* structs->raycasting->move_speed;
-	}
-	if (key == 1)//move backwards
-	{
-		if(world_map[(int)(structs->raycasting->player_x \
-			- structs->raycasting->direction_x \
-			* structs->raycasting->move_speed)]\
-			[(int)(structs->raycasting->player_y)] == '0')
-			structs->raycasting->player_x -= structs->raycasting->direction_x \
-				* structs->raycasting->move_speed;
-		if(world_map[(int)(structs->raycasting->player_x)]\
-			[(int)(structs->raycasting->player_y \
-			- structs->raycasting->direction_y \
-			* structs->raycasting->move_speed)] == '0')
-			structs->raycasting->player_y -= structs->raycasting->direction_y \
-				* structs->raycasting->move_speed;
-	}
-}
-
-void	translate_player(int key, t_structs *structs)
-{
-	char	*world_map[] = {
-					"111111111111111111111111",
-					"100000000000000000000001",
-					"100000000000000000000001",
-					"100000000000000000000001",
-					"100000222220000333330001",
-					"100000200020003000003001",
-					"100000200020000300030001",
-					"100000200020003000003001",
-					"100000220220000300030001",
-					"100000000000000000000001",
-					"100000000000000000000001",
-					"100000000000000000000001",
-					"100000000000000000000001",
-					"144444444000000000000001",
-					"140400004000000000000001",
-					"140000504000000000000001",
-					"140400004000000000000001",
-					"140444444000000000000001",
-					"140000000000000000000001",
-					"144444444000000000000001",
-					"111111111111111111111111"
-				};
-
-	if (key == 0)//move to the left
-	{
-		if(world_map[(int)(structs->raycasting->player_x \
-			- structs->raycasting->camera_plane_x \
-			* structs->raycasting->move_speed)]\
-			[(int)(structs->raycasting->player_y)] == '0')
-			structs->raycasting->player_x -= structs->raycasting->camera_plane_x \
-				* structs->raycasting->move_speed;
-		if(world_map[(int)(structs->raycasting->player_x)]\
-			[(int)(structs->raycasting->player_y \
-			- structs->raycasting->camera_plane_y \
-			* structs->raycasting->move_speed)] == '0')
-			structs->raycasting->player_y -= structs->raycasting->camera_plane_y \
-				* structs->raycasting->move_speed;
-	}
-	if (key == 2)//move to the right
-	{
-		if(world_map[(int)(structs->raycasting->player_x \
-			+ structs->raycasting->camera_plane_x \
-			* structs->raycasting->move_speed)]\
-			[(int)(structs->raycasting->player_y)] == '0')
-			structs->raycasting->player_x += structs->raycasting->camera_plane_x \
-				* structs->raycasting->move_speed;
-		if(world_map[(int)(structs->raycasting->player_x)]\
-			[(int)(structs->raycasting->player_y \
-			+ structs->raycasting->camera_plane_y \
-			* structs->raycasting->move_speed)] == '0')
-			structs->raycasting->player_y += structs->raycasting->camera_plane_y \
-				* structs->raycasting->move_speed;
-	}
-}
-
-void	rotate_camera_left(t_structs *structs)
-{
-	double	old_direction_x;
-	//double	old_camera_plane_x;
-
-	old_direction_x = structs->raycasting->direction_x;
-	structs->raycasting->direction_x = structs->raycasting->direction_x \
-		* cos(structs->raycasting->rot_speed) \
-		- structs->raycasting->direction_y \
-		* sin(structs->raycasting->rot_speed);
-	structs->raycasting->direction_y = old_direction_x \
-		* sin(structs->raycasting->rot_speed) \
-		+ structs->raycasting->direction_y \
-		* cos(structs->raycasting->rot_speed);
-	// old_camera_plane_x = structs->raycasting->camera_plane_x;
-	// structs->raycasting->camera_plane_x = \
-	// 	structs->raycasting->camera_plane_x \
-	// 	* cos(structs->raycasting->rot_speed) \
-	// 	- structs->raycasting->camera_plane_y \
-	// 	* sin(structs->raycasting->rot_speed);
-	// structs->raycasting->camera_plane_x = old_camera_plane_x \
-	// 	* sin(structs->raycasting->rot_speed) \
-	// 	+ structs->raycasting->camera_plane_y \
-	// 	* cos(structs->raycasting->rot_speed);
-}
-
-void	rotate_camera_right(t_structs *structs)
-{
-	double	old_direction_x;
-	//double	old_camera_plane_x;
-
-	old_direction_x = structs->raycasting->direction_x;
-	structs->raycasting->direction_x = structs->raycasting->direction_x \
-		* cos(-structs->raycasting->rot_speed) \
-		- structs->raycasting->direction_y \
-		* sin(-structs->raycasting->rot_speed);
-	structs->raycasting->direction_y = old_direction_x \
-		* sin(-structs->raycasting->rot_speed) \
-		+ structs->raycasting->direction_y \
-		* cos(-structs->raycasting->rot_speed);
-	// old_camera_plane_x = structs->raycasting->camera_plane_x;
-	// structs->raycasting->camera_plane_x = \
-	// 	structs->raycasting->camera_plane_x \
-	// 	* cos(-structs->raycasting->rot_speed) \
-	// 	- structs->raycasting->camera_plane_y \
-	// 	* sin(-structs->raycasting->rot_speed);
-	// structs->raycasting->camera_plane_x = old_camera_plane_x \
-	// 	* sin(-structs->raycasting->rot_speed) \
-	// 	+ structs->raycasting->camera_plane_y \
-	// 	* cos(-structs->raycasting->rot_speed);
+	//draw walls with vertical lines
+	pt.x0 = x;
+	pt.x1 = x;
+	pt.y0 = raycasting->draw_start;
+	pt.y1 = raycasting->draw_end;
+	if (raycasting->side == 1) //give x and y sides different brightness
+		bhm_line(image, &pt, WALL_COLOR / 2);
+	else
+		bhm_line(image, &pt, WALL_COLOR);
+	//draw ceilling with vertical lines
+	pt.x0 = x;
+	pt.x1 = x;
+	pt.y0 = 0;
+	pt.y1 = raycasting->draw_start;
+	bhm_line(image, &pt, SKY_COLOR);
+	//draw floor with vertical lines
+	pt.x0 = x;
+	pt.x1 = x;
+	pt.y0 = raycasting->draw_end;
+	pt.y1 = SCREEN_HEIGHT;
+	bhm_line(image, &pt, FLOOR_COLOR);
 }
