@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/07 15:14:48 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/07 15:42:07 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void	bhm_line(t_image *image, t_points *pt, int color);
 //raycasting
 void	raycasting_algo(t_image *image, t_raycasting *raycasting);
 void	move_player(int key, t_structs *structs);
+void	translate_player(int key, t_structs *structs);
 void	rotate_camera_left(t_structs *structs);
 void	rotate_camera_right(t_structs *structs);
 

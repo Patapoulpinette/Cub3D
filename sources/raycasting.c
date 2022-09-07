@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:02:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/07 15:14:43 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/07 15:44:27 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,6 @@ void	raycasting_algo(t_image *image, t_raycasting *raycasting)
 					"100000200020000300030001",
 					"100000200020003000003001",
 					"100000220220000300030001",
-					"100000000000000000000001",
-					"100000000000000000000001",
-					"100000000000000000000001",
 					"100000000000000000000001",
 					"100000000000000000000001",
 					"100000000000000000000001",
@@ -196,9 +193,6 @@ void	move_player(int key, t_structs *structs)
 					"100000000000000000000001",
 					"100000000000000000000001",
 					"100000000000000000000001",
-					"100000000000000000000001",
-					"100000000000000000000001",
-					"100000000000000000000001",
 					"144444444000000000000001",
 					"140400004000000000000001",
 					"140000504000000000000001",
@@ -237,6 +231,64 @@ void	move_player(int key, t_structs *structs)
 			- structs->raycasting->direction_y \
 			* structs->raycasting->move_speed)] == '0')
 			structs->raycasting->player_y -= structs->raycasting->direction_y \
+				* structs->raycasting->move_speed;
+	}
+}
+
+void	translate_player(int key, t_structs *structs)
+{
+	char	*world_map[] = {
+					"111111111111111111111111",
+					"100000000000000000000001",
+					"100000000000000000000001",
+					"100000000000000000000001",
+					"100000222220000333330001",
+					"100000200020003000003001",
+					"100000200020000300030001",
+					"100000200020003000003001",
+					"100000220220000300030001",
+					"100000000000000000000001",
+					"100000000000000000000001",
+					"100000000000000000000001",
+					"100000000000000000000001",
+					"144444444000000000000001",
+					"140400004000000000000001",
+					"140000504000000000000001",
+					"140400004000000000000001",
+					"140444444000000000000001",
+					"140000000000000000000001",
+					"144444444000000000000001",
+					"111111111111111111111111"
+				};
+
+	if (key == 0)//move to the left
+	{
+		if(world_map[(int)(structs->raycasting->player_x \
+			- structs->raycasting->camera_plane_x \
+			* structs->raycasting->move_speed)]\
+			[(int)(structs->raycasting->player_y)] == '0')
+			structs->raycasting->player_x -= structs->raycasting->camera_plane_x \
+				* structs->raycasting->move_speed;
+		if(world_map[(int)(structs->raycasting->player_x)]\
+			[(int)(structs->raycasting->player_y \
+			- structs->raycasting->camera_plane_y \
+			* structs->raycasting->move_speed)] == '0')
+			structs->raycasting->player_y -= structs->raycasting->camera_plane_y \
+				* structs->raycasting->move_speed;
+	}
+	if (key == 2)//move to the right
+	{
+		if(world_map[(int)(structs->raycasting->player_x \
+			+ structs->raycasting->camera_plane_x \
+			* structs->raycasting->move_speed)]\
+			[(int)(structs->raycasting->player_y)] == '0')
+			structs->raycasting->player_x += structs->raycasting->camera_plane_x \
+				* structs->raycasting->move_speed;
+		if(world_map[(int)(structs->raycasting->player_x)]\
+			[(int)(structs->raycasting->player_y \
+			+ structs->raycasting->camera_plane_y \
+			* structs->raycasting->move_speed)] == '0')
+			structs->raycasting->player_y += structs->raycasting->camera_plane_y \
 				* structs->raycasting->move_speed;
 	}
 }
