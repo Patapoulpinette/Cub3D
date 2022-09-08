@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:03:34 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/07 17:42:49 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/08 12:02:08 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,19 @@ void	display_window(void)
 {
 	t_mlx			mlx;
 	t_image			image;
+	t_player		player;
 	t_raycasting	raycasting;
 	t_structs		structs;
 
 	structs.mlx = &mlx;
 	structs.image = &image;
+	structs.player = &player;
 	structs.raycasting = &raycasting;
 	mlx.x_win = SCREEN_WIDTH;
 	mlx.y_win = SCREEN_HEIGHT;
 	mlx.mlx = mlx_init();
-	mlx.window = mlx_new_window(mlx.mlx, mlx.x_win,
-			mlx.y_win, "Cub3D");
-	init_raycasting_values(&raycasting);
-	draw_in_image(&mlx, &image, &raycasting);
+	mlx.window = mlx_new_window(mlx.mlx, mlx.x_win, mlx.y_win, "Cub3D");
+	draw_in_image(&mlx, &image, &player, &raycasting);
 	mlx_do_key_autorepeaton(mlx.mlx);
 	//mlx_key_hook(mlx.window, press_key, &structs);
 	mlx_hook(mlx.window, 02, 0L, press_key, &structs);

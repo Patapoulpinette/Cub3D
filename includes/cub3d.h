@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/07 17:42:17 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/08 12:04:05 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,26 +81,28 @@ typedef struct s_raycasting
 	int		draw_end;
 }				t_raycasting;
 
-typedef struct s_points
+typedef struct s_player
 {
-	int	x0;
-	int	y0;
-	int	x1;
-	int	y1;
-}				t_points;
+	int	px;
+	int	py;
+	int	pdx;
+	int	pdy;
+	int	pa;
+}				t_player;
 
 typedef struct s_structs
 {
 	t_mlx			*mlx;
 	t_image			*image;
 	//t_maps_coord	*map;
+	t_player		*player;
 	t_raycasting	*raycasting;
 }				t_structs;
 
 //parsing
 
 //initializing
-void	init_raycasting_values(t_raycasting *raycasting);
+void	init_values(t_player *player, t_raycasting *raycasting);
 
 //graphical_part
 void	create_image(t_mlx *mlx, t_image *image);
@@ -109,13 +111,14 @@ int		exit_program(void);
 void	display_window(void); //t_maps_coord *map
 
 //drawing_part
-void	draw_in_image(t_mlx *mlx, t_image *image, t_raycasting *raycasting);
+void	draw_in_image(t_mlx *mlx, t_image *image, t_player *player, t_raycasting *raycasting);
 void	my_img_pixel_put(t_image *image, int x, int y, int color);
 
 //draw_line_algorithm
 void	bhm_line(t_image *image, t_points *pt, int color);
 
 //raycasting
+void	draw_player(t_image *image, t_player *player, t_raycasting *raycasting);
 void	raycasting_algo(t_image *image, t_raycasting *raycasting);
 void	draw_vertival_lines(t_image *image, t_raycasting *raycasting, int x);
 

@@ -6,16 +6,18 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 18:43:02 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/07 17:41:16 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/08 12:03:36 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_in_image(t_mlx *mlx, t_image *image, t_raycasting *raycasting)
+void	draw_in_image(t_mlx *mlx, t_image *image, t_player *player, t_raycasting *raycasting)
 {
 	mlx_clear_window(mlx->mlx, mlx->window);
 	create_image(mlx, image);
+	init_values(player, raycasting);
+	draw_player(image, player, raycasting);
 	raycasting_algo(image, raycasting);
 	mlx_put_image_to_window(mlx->mlx, mlx->window, image->img, 0, 0);
 	mlx_destroy_image(mlx->mlx, image->img);
