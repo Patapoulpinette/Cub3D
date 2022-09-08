@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:01:41 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/08 12:13:15 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/08 15:55:03 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	translate_player(int key, t_structs *structs)
 	}
 }
 
-void	rotate_camera_left(t_structs *structs)
+/* void	rotate_camera_left(t_structs *structs)
 {
 	
 }
@@ -45,3 +45,4 @@ void	rotate_camera_right(t_structs *structs)
 {
 	
 }
+ */

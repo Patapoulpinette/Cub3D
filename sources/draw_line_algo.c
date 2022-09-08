@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algorithm.c                                        :+:      :+:    :+:   */
+/*   draw_line_algo.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:02:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/06/02 11:22:57 by dbouron          ###   ########.fr       */
+/*   Updated: 2022/09/08 14:53:25 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
+/* 
 static void	drawline_1(t_image *image, t_points *pt, t_line_algo *algo, \
 					int color)
 {
@@ -109,3 +109,4 @@ void	bhm_line(t_image *image, t_points *pt, int color)
 		drawline_4(image, &algo, color);
 	}
 }
+ */

@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:03:34 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/08 12:02:08 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/08 15:54:28 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,27 @@ void	create_image(t_mlx *mlx, t_image *image)
 int	press_key(int key, t_structs *structs)
 {
 	if (key == 53) //ESC
+	{
+		mlx_destroy_image(structs->mlx->mlx, structs->image->img);
 		exit(EXIT_SUCCESS);
-	else if (key == 123)
+	}
+/* 	else if (key == 123)
 		rotate_camera_left(structs);//fleche gauche pour tourner camera a gauche
 	else if (key == 124)
-		rotate_camera_right(structs);//fleche droite pour tourner camera a droite
+		rotate_camera_right(structs);//fleche droite pour tourner camera a droite */
 	else if (key == 13 || key == 1)
 		move_player(key, structs);//WS pour faire avancer/reculer le personnage
 	else if (key == 0 || key == 2)
 		translate_player(key, structs);//AD pour faire translater le personnage
 	else
 		dprintf(2, "key number : %d\n", key);
-	draw_in_image(structs->mlx, structs->image, structs->raycasting);
+	draw_in_image(structs->mlx, structs->image, structs->player, structs->raycasting);
 	return (0);
 }
 
-int	exit_program(void)
+int	exit_program(t_structs *structs)
 {
+	mlx_destroy_image(structs->mlx->mlx, structs->image->img);
 	exit(EXIT_SUCCESS);
 }
 
@@ -60,10 +64,12 @@ void	display_window(void)
 	mlx.y_win = SCREEN_HEIGHT;
 	mlx.mlx = mlx_init();
 	mlx.window = mlx_new_window(mlx.mlx, mlx.x_win, mlx.y_win, "Cub3D");
+	init_values(&player, &raycasting);
+	create_image(&mlx, &image);
 	draw_in_image(&mlx, &image, &player, &raycasting);
-	mlx_do_key_autorepeaton(mlx.mlx);
+	//mlx_do_key_autorepeaton(mlx.mlx);
 	//mlx_key_hook(mlx.window, press_key, &structs);
 	mlx_hook(mlx.window, 02, 0L, press_key, &structs);
-	mlx_hook(mlx.window, 17, 1L << 5, exit_program, (void *)0);
+	mlx_hook(mlx.window, 17, 1L << 5, exit_program, &structs);
 	mlx_loop(mlx.mlx);
 }

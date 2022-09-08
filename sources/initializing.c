@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/08 12:05:37 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/08 15:08:00 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 
 void	init_values(t_player *player, t_raycasting *raycasting)
 {
-	player->px = 2;
-	player->py = 2;
+	(void) raycasting;
+	player->px = 12;
+	player->py = 12;
+	player->pdx = 0;
+	player->pdy = 0;
 }
 
 /* 
