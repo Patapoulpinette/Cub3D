@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:03:34 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/07 17:42:49 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/09 20:17:45 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,12 @@ void	create_image(t_mlx *mlx, t_image *image)
 int	press_key(int key, t_structs *structs)
 {
 	if (key == 53) //ESC
+	{
+		//mlx_destroy_image(structs->mlx->mlx, structs->image->img);
+		mlx_destroy_window(structs->mlx->mlx, structs->mlx->window);
+		free(structs->mlx->mlx);
 		exit(EXIT_SUCCESS);
+	}
 	else if (key == 123)
 		rotate_camera_left(structs);//fleche gauche pour tourner camera a gauche
 	else if (key == 124)
@@ -39,8 +44,11 @@ int	press_key(int key, t_structs *structs)
 	return (0);
 }
 
-int	exit_program(void)
+int	exit_program(t_structs *structs)
 {
+	//mlx_destroy_image(structs->mlx->mlx, structs->image->img);
+	mlx_destroy_window(structs->mlx->mlx, structs->mlx->window);
+	free(structs->mlx->mlx);
 	exit(EXIT_SUCCESS);
 }
 
@@ -64,6 +72,6 @@ void	display_window(void)
 	mlx_do_key_autorepeaton(mlx.mlx);
 	//mlx_key_hook(mlx.window, press_key, &structs);
 	mlx_hook(mlx.window, 02, 0L, press_key, &structs);
-	mlx_hook(mlx.window, 17, 1L << 5, exit_program, (void *)0);
+	mlx_hook(mlx.window, 17, 1L << 5, exit_program, &structs);
 	mlx_loop(mlx.mlx);
 }

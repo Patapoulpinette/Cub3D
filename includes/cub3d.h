@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/07 17:42:17 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/09 20:16:48 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	init_raycasting_values(t_raycasting *raycasting);
 //graphical_part
 void	create_image(t_mlx *mlx, t_image *image);
 int		press_key(int key, t_structs *structs);
-int		exit_program(void);
+int		exit_program(t_structs *structs);
 void	display_window(void); //t_maps_coord *map
 
 //drawing_part
