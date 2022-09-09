@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/09 20:13:15 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/09 20:41:28 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ void	my_img_pixel_put(t_image *image, int x, int y, int color);
 //void	bhm_line(t_image *image, t_points *pt, int color);
 
 //raycasting
+void	clear_image(t_image *image);
 void	draw_player(t_image *image, t_player *player, t_raycasting *raycasting);
 void	raycasting_algo(t_image *image, t_raycasting *raycasting);
 void	draw_vertival_lines(t_image *image, t_raycasting *raycasting, int x);
