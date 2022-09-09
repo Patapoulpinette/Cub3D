@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:03:34 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/08 15:54:28 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/09 20:11:44 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	press_key(int key, t_structs *structs)
 	if (key == 53) //ESC
 	{
 		mlx_destroy_image(structs->mlx->mlx, structs->image->img);
+		mlx_destroy_window(structs->mlx->mlx, structs->mlx->window);
+		free(structs->mlx->mlx);
 		exit(EXIT_SUCCESS);
 	}
 /* 	else if (key == 123)
@@ -45,6 +47,8 @@ int	press_key(int key, t_structs *structs)
 int	exit_program(t_structs *structs)
 {
 	mlx_destroy_image(structs->mlx->mlx, structs->image->img);
+	mlx_destroy_window(structs->mlx->mlx, structs->mlx->window);
+	free(structs->mlx->mlx);
 	exit(EXIT_SUCCESS);
 }
 
