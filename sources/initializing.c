@@ -6,19 +6,33 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/08 15:08:00 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/10 13:30:19 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init_values(t_player *player, t_raycasting *raycasting)
+void	init_values(t_structs *structs)
 {
-	(void) raycasting;
-	player->px = 12;
-	player->py = 12;
-	player->pdx = 0;
-	player->pdy = 0;
+	char	**map = calloc(10, sizeof(char *));
+
+	map[0] = ft_strdup("11111111");
+	map[1] = ft_strdup("10100001");
+	map[2] = ft_strdup("10100001");
+	map[3] = ft_strdup("10100001");
+	map[4] = ft_strdup("10000001");
+	map[5] = ft_strdup("10001001");
+	map[6] = ft_strdup("10000001");
+	map[7] = ft_strdup("11111111");
+
+	structs->player->px = 12;
+	structs->player->py = 12;
+	structs->player->pdx = 0;
+	structs->player->pdy = 0;
+
+	structs->minimap->map = map;
+	structs->minimap->map_x = ft_strlen(*map);
+	structs->minimap->map_y = ft_tablen(map);
 }
 
 /* 

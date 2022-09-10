@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:01:41 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/08 15:55:03 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/10 10:40:36 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ void	move_player(int key, t_structs *structs)
 {
 	if (key == 13)
 	{
-		structs->player->pdy--;
+		structs->player->pdy -= 5;
 	}
 	else if (key == 1)
 	{
-		structs->player->pdy++;
+		structs->player->pdy += 5;
 	}
 }
 
@@ -28,11 +28,11 @@ void	translate_player(int key, t_structs *structs)
 {
 	if (key == 0)
 	{
-		structs->player->pdx--;
+		structs->player->pdx -= 5;
 	}
 	else if (key == 2)
 	{
-		structs->player->pdx++;
+		structs->player->pdx += 5;
 	}
 }
 

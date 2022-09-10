@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:03:34 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/09 20:11:44 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/10 11:08:28 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	press_key(int key, t_structs *structs)
 		translate_player(key, structs);//AD pour faire translater le personnage
 	else
 		dprintf(2, "key number : %d\n", key);
-	draw_in_image(structs->mlx, structs->image, structs->player, structs->raycasting);
+	draw_in_image(structs);
 	return (0);
 }
 
@@ -57,20 +57,22 @@ void	display_window(void)
 	t_mlx			mlx;
 	t_image			image;
 	t_player		player;
+	t_minimap		minimap;
 	t_raycasting	raycasting;
 	t_structs		structs;
 
 	structs.mlx = &mlx;
 	structs.image = &image;
 	structs.player = &player;
+	structs.minimap = &minimap;
 	structs.raycasting = &raycasting;
 	mlx.x_win = SCREEN_WIDTH;
 	mlx.y_win = SCREEN_HEIGHT;
 	mlx.mlx = mlx_init();
 	mlx.window = mlx_new_window(mlx.mlx, mlx.x_win, mlx.y_win, "Cub3D");
-	init_values(&player, &raycasting);
+	init_values(&structs);
 	create_image(&mlx, &image);
-	draw_in_image(&mlx, &image, &player, &raycasting);
+	draw_in_image(&structs);
 	//mlx_do_key_autorepeaton(mlx.mlx);
 	//mlx_key_hook(mlx.window, press_key, &structs);
 	mlx_hook(mlx.window, 02, 0L, press_key, &structs);
