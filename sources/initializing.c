@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/10 13:30:19 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/12 15:34:09 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ void	init_values(t_structs *structs)
 
 	structs->player->px = 12;
 	structs->player->py = 12;
-	structs->player->pdx = 0;
-	structs->player->pdy = 0;
+	structs->player->pa = 90;
+	structs->player->pdx = cos(structs->player->pa);
+	structs->player->pdy = sin(structs->player->pa);
 
 	structs->minimap->map = map;
 	structs->minimap->map_x = ft_strlen(*map);

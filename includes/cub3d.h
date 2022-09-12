@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/10 13:02:29 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/12 15:53:23 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,16 @@ typedef struct s_minimap
 	int		map_x;
 	int		map_y;
 	char	**map;
+	int		ray;
+	int		mx;
+	int		my;
+	int		mp;
+	int		dof;
+	float	rx;
+	float	ry;
+	float	ra;
+	float	xo;
+	float	yo;
 }				t_minimap;
 
 typedef struct s_structs
@@ -136,8 +146,7 @@ void	draw_vertival_lines(t_image *image, t_raycasting *raycasting, int x);
 //movements
 void	move_player(int key, t_structs *structs);
 void	translate_player(int key, t_structs *structs);
-void	rotate_camera_left(t_structs *structs);
-void	rotate_camera_right(t_structs *structs);
+void	rotate_camera(int key, t_structs *structs);
 
 //utils
 size_t	ft_tablen(char **tab);
