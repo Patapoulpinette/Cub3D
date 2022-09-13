@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/12 15:34:09 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/13 15:57:20 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,19 @@
 
 void	init_values(t_structs *structs)
 {
-	char	**map = calloc(10, sizeof(char *));
+	int		i = 0;
+	char	**map = calloc(20, sizeof(char *));
 
-	map[0] = ft_strdup("11111111");
-	map[1] = ft_strdup("10100001");
-	map[2] = ft_strdup("10100001");
-	map[3] = ft_strdup("10100001");
-	map[4] = ft_strdup("10000001");
-	map[5] = ft_strdup("10001001");
-	map[6] = ft_strdup("10000001");
-	map[7] = ft_strdup("11111111");
+	map[i++] = ft_strdup("11111111");
+	map[i++] = ft_strdup("10100001");
+	map[i++] = ft_strdup("10100001");
+	map[i++] = ft_strdup("10100001");
+	map[i++] = ft_strdup("10000001");
+	map[i++] = ft_strdup("10000101");
+	map[i++] = ft_strdup("10000001");
+	map[i++] = ft_strdup("10001001");
+	map[i++] = ft_strdup("10000001");
+	map[i++] = ft_strdup("11111111");
 
 	structs->player->px = 12;
 	structs->player->py = 12;

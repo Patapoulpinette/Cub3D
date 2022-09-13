@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/12 15:53:23 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/13 15:05:56 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,14 @@ typedef struct s_minimap
 	float	yo;
 }				t_minimap;
 
+typedef struct s_points
+{
+	int	x0;
+	int	y0;
+	int	x1;
+	int	y1;
+}				t_points;
+
 typedef struct s_structs
 {
 	t_mlx			*mlx;
@@ -133,13 +141,14 @@ void	draw_in_image(t_structs *structs);
 void	my_img_pixel_put(t_image *image, int x, int y, int color);
 
 //draw_line_algorithm
-//void	bhm_line(t_image *image, t_points *pt, int color);
+void	bhm_line(t_image *image, t_points *pt, int color);
 
 //raycasting
 void	clear_image(t_image *image);
 void	draw_player(t_image *image, t_player *player, t_raycasting *raycasting);
 void	draw_map2d(t_image *image, t_minimap *minimap);
 void	draw_walls2d(t_image *image, t_minimap *minimap, int x, int y);
+void	draw_rays2d(t_image *image, t_minimap *minimap, t_player *player);
 void	raycasting_algo(t_image *image, t_raycasting *raycasting);
 void	draw_vertival_lines(t_image *image, t_raycasting *raycasting, int x);
 

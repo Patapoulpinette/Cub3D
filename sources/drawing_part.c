@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 18:43:02 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/12 16:17:15 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/13 15:46:38 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	draw_in_image(t_structs *structs)
 	clear_image(structs->image);
 	draw_map2d(structs->image, structs->minimap);
 	draw_player(structs->image, structs->player, structs->raycasting);
+	draw_rays2d(structs->image, structs->minimap, structs->player);
 	//raycasting_algo(structs->image, structs->raycasting);
 	mlx_put_image_to_window(structs->mlx->mlx, structs->mlx->window, structs->image->img, 0, 0);
 }
@@ -64,7 +65,8 @@ void	draw_player(t_image *image, t_player *player, t_raycasting *raycasting)
 
 void	draw_rays2d(t_image *image, t_minimap *minimap, t_player *player)
 {
-	float	a_tan;
+	float		a_tan;
+	t_points	pt;
 
 	minimap->ra = player->pa;
 	minimap->ray = 0;
@@ -98,13 +100,18 @@ void	draw_rays2d(t_image *image, t_minimap *minimap, t_player *player)
 			minimap->mx = (int) (minimap->rx) >> 6;
 			minimap->my = (int) (minimap->ry) >> 6;
 			minimap->mp = minimap->my * minimap->map_x + minimap->mx;
-			if (minimap->mp < minimap->map_x * minimap->map_y && minimap->map[minimap->mp] == 1) //revoir map[]
+			if (minimap->mp < minimap->map_x * minimap->map_y /* && minimap->map[minimap->my][minimap->map_x + minimap->mx] == '1' */) //revoir map[]
 				minimap->dof = 8;
 			else
 				minimap->rx += minimap->xo;
 				minimap->ry += minimap->yo;
 				minimap->dof += 1;
 		}
+		pt.x0 = player->px;
+		pt.y0 = player->py;
+		pt.x1 = minimap->rx;
+		pt.y1 = minimap->ry;
+		bhm_line(image, &pt, 0xbde9fe);
 		minimap->ray++;
 	}
 }
