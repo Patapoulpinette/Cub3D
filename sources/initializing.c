@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/13 15:57:20 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/21 10:23:42 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ void	init_values(t_structs *structs)
 	map[i++] = ft_strdup("10000001");
 	map[i++] = ft_strdup("11111111");
 
-	structs->player->px = 12;
+	structs->player->px = 22;
 	structs->player->py = 12;
-	structs->player->pa = 90;
-	structs->player->pdx = cos(structs->player->pa);
-	structs->player->pdy = sin(structs->player->pa);
+	structs->player->pangle = 90;
+	structs->player->pdx = cos(structs->player->pangle);
+	structs->player->pdy = sin(structs->player->pangle);
 
 	structs->minimap->map = map;
 	structs->minimap->map_x = ft_strlen(*map);

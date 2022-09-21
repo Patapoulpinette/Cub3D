@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:01:41 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/12 15:41:48 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/21 18:11:40 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,17 @@ void	move_player(int key, t_structs *structs)
 	}
 }
 
-void	translate_player(int key, t_structs *structs)
+void	translate_player(int key, t_structs *structs) //à revoir
 {
 	if (key == 0)
 	{
-		structs->player->px += structs->player->pdx;
+		structs->player->px += structs->player->pdy;
+		structs->player->py += structs->player->pdx;
 	}
 	else if (key == 2)
 	{
-		structs->player->px -= structs->player->pdx;
+		structs->player->px -= structs->player->pdy;
+		structs->player->py -= structs->player->pdx;
 	}
 }
 
@@ -42,18 +44,22 @@ void	rotate_camera(int key, t_structs *structs)
 {
 	if (key == 123)
 	{
-		structs->player->pa -= 0.1;
-		if (structs->player->pa < 0)
-			structs->player->pa += 2 * M_PI;
-		structs->player->pdx = cos(structs->player->pa) * 5;
-		structs->player->pdy = sin(structs->player->pa) * 5;
+		dprintf(2, "123.1 %f\n", structs->player->pangle);
+		structs->player->pangle -= 0.25;
+		dprintf(2, "123.2 %f\n", structs->player->pangle);
+		if (structs->player->pangle < 0)
+			structs->player->pangle += 2 * M_PI;
+		structs->player->pdx = cos(structs->player->pangle) * 5;
+		structs->player->pdy = sin(structs->player->pangle) * 5;
 	}
 	else if (key == 124)
 	{
-		structs->player->pa += 0.1;
-		if (structs->player->pa > 2 * M_PI)
-			structs->player->pa -= 2 * M_PI;
-		structs->player->pdx = cos(structs->player->pa) * 5;
-		structs->player->pdy = sin(structs->player->pa) * 5;
+		dprintf(2, "124.1 %f\n", structs->player->pangle);
+		structs->player->pangle += 0.25;
+		dprintf(2, "124.2 %f\n", structs->player->pangle);
+		if (structs->player->pangle > 2 * M_PI)
+			structs->player->pangle -= 2 * M_PI;
+		structs->player->pdx = cos(structs->player->pangle) * 5;
+		structs->player->pdy = sin(structs->player->pangle) * 5;
 	}
 }

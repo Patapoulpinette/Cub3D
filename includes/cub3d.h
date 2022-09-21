@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/13 15:05:56 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/21 18:09:54 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,11 @@ typedef struct s_raycasting
 
 typedef struct s_player
 {
-	int	px;
-	int	py;
-	int	pdx;
-	int	pdy;
-	int	pa;
+	int		px;
+	int		py;
+	int		pdx;
+	int		pdy;
+	float	pangle;
 }				t_player;
 
 typedef struct s_minimap
@@ -102,7 +102,7 @@ typedef struct s_minimap
 	int		dof;
 	float	rx;
 	float	ry;
-	float	ra;
+	float	rangle;
 	float	xo;
 	float	yo;
 }				t_minimap;
@@ -145,7 +145,7 @@ void	bhm_line(t_image *image, t_points *pt, int color);
 
 //raycasting
 void	clear_image(t_image *image);
-void	draw_player(t_image *image, t_player *player, t_raycasting *raycasting);
+void	draw_player(t_image *image, t_player *player);
 void	draw_map2d(t_image *image, t_minimap *minimap);
 void	draw_walls2d(t_image *image, t_minimap *minimap, int x, int y);
 void	draw_rays2d(t_image *image, t_minimap *minimap, t_player *player);

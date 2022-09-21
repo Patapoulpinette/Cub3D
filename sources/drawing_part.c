@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 18:43:02 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/13 15:46:38 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/21 18:04:22 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	draw_in_image(t_structs *structs)
 {
 	clear_image(structs->image);
 	draw_map2d(structs->image, structs->minimap);
-	draw_player(structs->image, structs->player, structs->raycasting);
-	draw_rays2d(structs->image, structs->minimap, structs->player);
+	draw_player(structs->image, structs->player);
+//	draw_rays2d(structs->image, structs->minimap, structs->player);
 	//raycasting_algo(structs->image, structs->raycasting);
 	mlx_put_image_to_window(structs->mlx->mlx, structs->mlx->window, structs->image->img, 0, 0);
 }
@@ -40,27 +40,24 @@ void	clear_image(t_image *image)
 	}
 }
 
-void	draw_player(t_image *image, t_player *player, t_raycasting *raycasting)
+void	draw_player(t_image *image, t_player *player)
 {
-	(void) raycasting;
-	my_img_pixel_put(image, player->px + player->pdx, \
-		player->py + player->pdy, 0xbde0fe);
-	my_img_pixel_put(image, player->px + player->pdx - 1, \
-		player->py + player->pdy - 1, 0xbde0fe);
-	my_img_pixel_put(image, player->px + player->pdx, \
-		player->py + player->pdy - 1, 0xbde0fe);
-	my_img_pixel_put(image, player->px + player->pdx + 1, \
-		player->py + player->pdy - 1, 0xbde0fe);
-	my_img_pixel_put(image, player->px + player->pdx + 1, \
-		player->py + player->pdy, 0xbde0fe);
-	my_img_pixel_put(image, player->px + player->pdx + 1, \
-		player->py + player->pdy + 1, 0xbde0fe);
-	my_img_pixel_put(image, player->px + player->pdx, \
-		player->py + player->pdy + 1, 0xbde0fe);
-	my_img_pixel_put(image, player->px + player->pdx - 1, \
-		player->py + player->pdy + 1, 0xbde0fe);
-	my_img_pixel_put(image, player->px + player->pdx - 1, \
-		player->py + player->pdy, 0xbde0fe);
+	t_points	points;
+
+	my_img_pixel_put(image, player->px, player->py, 0xbde0fe);
+	my_img_pixel_put(image, player->px - 1, player->py - 1, 0xbde0fe);
+	my_img_pixel_put(image, player->px, player->py - 1, 0xbde0fe);
+	my_img_pixel_put(image, player->px + 1, player->py - 1, 0xbde0fe);
+	my_img_pixel_put(image, player->px + 1, player->py, 0xbde0fe);
+	my_img_pixel_put(image, player->px + 1, player->py + 1, 0xbde0fe);
+	my_img_pixel_put(image, player->px, player->py + 1, 0xbde0fe);
+	my_img_pixel_put(image, player->px - 1, player->py + 1, 0xbde0fe);
+	my_img_pixel_put(image, player->px - 1, player->py, 0xbde0fe);
+	points.x0 = player->px;
+	points.y0 = player->py;
+	points.x1 = player->px + player->pdx * 3;
+	points.y1 = player->py + player->pdy * 3;
+	bhm_line(image, &points, 0xbde0fe);
 }
 
 void	draw_rays2d(t_image *image, t_minimap *minimap, t_player *player)
@@ -68,28 +65,28 @@ void	draw_rays2d(t_image *image, t_minimap *minimap, t_player *player)
 	float		a_tan;
 	t_points	pt;
 
-	minimap->ra = player->pa;
+	minimap->rangle = player->pangle;
 	minimap->ray = 0;
 	while (minimap->ray < 1)
 	{
 		//Check horizontal lines
 		minimap->dof = 0;
-		a_tan = -1 / tan(minimap->ra);
-		if (minimap->ra > M_PI) //looking up
+		a_tan = -1 / tan(minimap->rangle);
+		if (minimap->rangle > M_PI) //looking up
 		{
 			minimap->ry = (((int)player->py >> 6) << 6) - 0.0001;
 			minimap->rx = (player->py - minimap->ry) * a_tan + player->px;
 			minimap->yo = -64;
 			minimap->xo = -minimap->yo * a_tan;
 		}
-		if (minimap->ra < M_PI) //looking down
+		if (minimap->rangle < M_PI) //looking down
 		{
 			minimap->ry = (((int)player->py >> 6) << 6) + 64;
 			minimap->rx = (player->py - minimap->ry) * a_tan + player->px;
 			minimap->yo = 64;
 			minimap->xo = -minimap->yo * a_tan;
 		}
-		if (minimap->ra == 0 || minimap->ra == M_PI) //looking straight left or right
+		if (minimap->rangle == 0 || minimap->rangle == M_PI) //looking straight left or right
 		{
 			minimap->rx = player->px;
 			minimap->ry = player->py;
@@ -100,7 +97,7 @@ void	draw_rays2d(t_image *image, t_minimap *minimap, t_player *player)
 			minimap->mx = (int) (minimap->rx) >> 6;
 			minimap->my = (int) (minimap->ry) >> 6;
 			minimap->mp = minimap->my * minimap->map_x + minimap->mx;
-			if (minimap->mp < minimap->map_x * minimap->map_y /* && minimap->map[minimap->my][minimap->map_x + minimap->mx] == '1' */) //revoir map[]
+			if (minimap->mp < minimap->map_x * minimap->map_y && minimap->map[minimap->my * minimap->map_x][minimap->mx] == '1') //hit wall
 				minimap->dof = 8;
 			else
 				minimap->rx += minimap->xo;
