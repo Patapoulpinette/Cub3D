@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/21 18:09:54 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/22 13:54:22 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define FLOOR_COLOR 0xdda15e
 # define WALL_COLOR 0x606c38
 # define SKY_COLOR 0xbde0fe
+# define PINK 0xfb6f92
 
 typedef struct s_mlx
 {
@@ -92,8 +93,8 @@ typedef struct s_player
 
 typedef struct s_minimap
 {
-	int		map_x;
-	int		map_y;
+	int		map_xlen;
+	int		map_ylen;
 	char	**map;
 	int		ray;
 	int		mx;
@@ -147,6 +148,7 @@ void	bhm_line(t_image *image, t_points *pt, int color);
 void	clear_image(t_image *image);
 void	draw_player(t_image *image, t_player *player);
 void	draw_map2d(t_image *image, t_minimap *minimap);
+int		calculate_map_len_max(t_minimap *minimap);
 void	draw_walls2d(t_image *image, t_minimap *minimap, int x, int y);
 void	draw_rays2d(t_image *image, t_minimap *minimap, t_player *player);
 void	raycasting_algo(t_image *image, t_raycasting *raycasting);

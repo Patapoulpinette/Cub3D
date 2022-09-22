@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/21 10:23:42 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/22 13:59:39 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,51 +17,25 @@ void	init_values(t_structs *structs)
 	int		i = 0;
 	char	**map = calloc(20, sizeof(char *));
 
-	map[i++] = ft_strdup("11111111");
-	map[i++] = ft_strdup("10100001");
-	map[i++] = ft_strdup("10100001");
-	map[i++] = ft_strdup("10100001");
-	map[i++] = ft_strdup("10000001");
-	map[i++] = ft_strdup("10000101");
-	map[i++] = ft_strdup("10000001");
-	map[i++] = ft_strdup("10001001");
-	map[i++] = ft_strdup("10000001");
-	map[i++] = ft_strdup("11111111");
+	map[i++] = ft_strdup("1111111111111111");
+	map[i++] = ft_strdup("1010000000000001");
+	map[i++] = ft_strdup("1010000001111001");
+	map[i++] = ft_strdup("1010000001000001");
+	map[i++] = ft_strdup("1000000001110001");
+	map[i++] = ft_strdup("1000010000011111");
+	map[i++] = ft_strdup("100000000001");
+	map[i++] = ft_strdup("100010000011");
+	map[i++] = ft_strdup("10000000001");
+	map[i++] = ft_strdup("10000000001");
+	map[i++] = ft_strdup("11111111111");
 
-	structs->player->px = 22;
-	structs->player->py = 12;
-	structs->player->pangle = 90;
-	structs->player->pdx = cos(structs->player->pangle);
-	structs->player->pdy = sin(structs->player->pangle);
+	structs->player->px = 42;
+	structs->player->py = 22;
+	structs->player->pangle = 3 * M_PI / 2;
+	structs->player->pdx = cos(structs->player->pangle) * 5;
+	structs->player->pdy = sin(structs->player->pangle) * 5;
 
 	structs->minimap->map = map;
-	structs->minimap->map_x = ft_strlen(*map);
-	structs->minimap->map_y = ft_tablen(map);
+	structs->minimap->map_xlen = calculate_map_len_max(structs->minimap);
+	structs->minimap->map_ylen = ft_tablen(map);
 }
-
-/* 
-	char	*world_map[] = {
-		"111111111111111111111111",
-		"100000000000000000000001",
-		"100000000000000000000001",
-		"100000000000000000000001",
-		"100000222220000333330001",
-		"100000200020003000003001",
-		"100000200020000300030001",
-		"100000200020003000003001",
-		"100000220220000300030001",
-		"100000000000000000000001",
-		"100000000000000000000001",
-		"100000000000000000000001",
-		"100000000000000000000001",
-		"144444444000000000000001",
-		"140400004000000000000001",
-		"140000504000000000000001",
-		"140400004000000000000001",
-		"140444444000000000000001",
-		"140000000000000000000001",
-		"144444444000000000000001",
-		"111111111111111111111111"
-	};
- */
-	

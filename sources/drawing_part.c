@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 18:43:02 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/21 18:04:22 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/22 13:56:24 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,20 @@ void	draw_player(t_image *image, t_player *player)
 {
 	t_points	points;
 
-	my_img_pixel_put(image, player->px, player->py, 0xbde0fe);
-	my_img_pixel_put(image, player->px - 1, player->py - 1, 0xbde0fe);
-	my_img_pixel_put(image, player->px, player->py - 1, 0xbde0fe);
-	my_img_pixel_put(image, player->px + 1, player->py - 1, 0xbde0fe);
-	my_img_pixel_put(image, player->px + 1, player->py, 0xbde0fe);
-	my_img_pixel_put(image, player->px + 1, player->py + 1, 0xbde0fe);
-	my_img_pixel_put(image, player->px, player->py + 1, 0xbde0fe);
-	my_img_pixel_put(image, player->px - 1, player->py + 1, 0xbde0fe);
-	my_img_pixel_put(image, player->px - 1, player->py, 0xbde0fe);
+	my_img_pixel_put(image, player->px, player->py, PINK);
+	my_img_pixel_put(image, player->px - 1, player->py - 1, PINK);
+	my_img_pixel_put(image, player->px, player->py - 1, PINK);
+	my_img_pixel_put(image, player->px + 1, player->py - 1, PINK);
+	my_img_pixel_put(image, player->px + 1, player->py, PINK);
+	my_img_pixel_put(image, player->px + 1, player->py + 1, PINK);
+	my_img_pixel_put(image, player->px, player->py + 1, PINK);
+	my_img_pixel_put(image, player->px - 1, player->py + 1, PINK);
+	my_img_pixel_put(image, player->px - 1, player->py, PINK);
 	points.x0 = player->px;
 	points.y0 = player->py;
 	points.x1 = player->px + player->pdx * 3;
 	points.y1 = player->py + player->pdy * 3;
-	bhm_line(image, &points, 0xbde0fe);
+	bhm_line(image, &points, PINK);
 }
 
 void	draw_rays2d(t_image *image, t_minimap *minimap, t_player *player)
@@ -96,8 +96,8 @@ void	draw_rays2d(t_image *image, t_minimap *minimap, t_player *player)
 		{
 			minimap->mx = (int) (minimap->rx) >> 6;
 			minimap->my = (int) (minimap->ry) >> 6;
-			minimap->mp = minimap->my * minimap->map_x + minimap->mx;
-			if (minimap->mp < minimap->map_x * minimap->map_y && minimap->map[minimap->my * minimap->map_x][minimap->mx] == '1') //hit wall
+			minimap->mp = minimap->my * minimap->map_xlen + minimap->mx;
+			if (minimap->mp < minimap->map_xlen * minimap->map_ylen && minimap->map[minimap->my * minimap->map_xlen][minimap->mx] == '1') //hit wall
 				minimap->dof = 8;
 			else
 				minimap->rx += minimap->xo;
@@ -119,10 +119,10 @@ void	draw_map2d(t_image *image, t_minimap *minimap)
 	int	y;
 
 	y = 0;
-	while (y < minimap->map_y)
+	while (y < minimap->map_ylen)
 	{
 		x = 0;
-		while (x < minimap->map_x)
+		while (x < minimap->map_xlen)
 		{
 			if (!ft_strncmp(&minimap->map[y][x], "1", 1))
 				draw_walls2d(image, minimap, x, y);
@@ -138,7 +138,7 @@ void	draw_walls2d(t_image *image, t_minimap *minimap, int x, int y)
 	int	big_y;
 	int	zoom;
 
-	zoom = 100 / ft_strlen(*minimap->map);
+	zoom = 150 / minimap->map_xlen;
 	big_y = y * zoom;
 	while (big_y <= (y * zoom + zoom - 1))
 	{
@@ -150,6 +150,23 @@ void	draw_walls2d(t_image *image, t_minimap *minimap, int x, int y)
 		}
 		big_y++;
 	}
+}
+
+int	calculate_map_len_max(t_minimap *minimap)
+{
+	int	result;
+	int	j;
+
+	result = 0;
+	j = 0;
+	while (minimap->map[j])
+	{
+		if ((int)ft_strlen(minimap->map[j]) > result)
+			result = ft_strlen(minimap->map[j]);
+		j++;
+	}
+	dprintf(2, "len max ligne : %d\n", result);
+	return (result);
 }
 
 void	my_img_pixel_put(t_image *image, int x, int y, int color)
