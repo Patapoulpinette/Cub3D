@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/22 13:54:22 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/22 16:34:57 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define WALL_COLOR 0x606c38
 # define SKY_COLOR 0xbde0fe
 # define PINK 0xfb6f92
+# define YELLOW 0xe9c46a
 
 typedef struct s_mlx
 {
@@ -69,10 +70,6 @@ typedef struct s_line_algo
 
 typedef struct s_raycasting
 {
-	double	player_x;
-	double	player_y;
-	double	direction_x;
-	double	direction_y;
 	double	camera_plane_x;
 	double	camera_plane_y;
 	double	move_speed;
@@ -84,11 +81,11 @@ typedef struct s_raycasting
 
 typedef struct s_player
 {
-	int		px;
-	int		py;
-	int		pdx;
-	int		pdy;
-	float	pangle;
+	double		px;
+	double		py;
+	double		pdx; //direction x
+	double		pdy; //direction y
+	double		pangle;
 }				t_player;
 
 typedef struct s_minimap
@@ -151,7 +148,7 @@ void	draw_map2d(t_image *image, t_minimap *minimap);
 int		calculate_map_len_max(t_minimap *minimap);
 void	draw_walls2d(t_image *image, t_minimap *minimap, int x, int y);
 void	draw_rays2d(t_image *image, t_minimap *minimap, t_player *player);
-void	raycasting_algo(t_image *image, t_raycasting *raycasting);
+void	raycasting_algo(t_image *image, t_raycasting *raycasting, t_player *player, t_minimap *minimap);
 void	draw_vertival_lines(t_image *image, t_raycasting *raycasting, int x);
 
 //movements

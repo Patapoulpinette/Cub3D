@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 18:43:02 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/22 13:56:24 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/22 16:35:44 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	draw_in_image(t_structs *structs)
 {
 	clear_image(structs->image);
 	draw_map2d(structs->image, structs->minimap);
+	raycasting_algo(structs->image, structs->raycasting, structs->player, structs->minimap);
+	draw_rays2d(structs->image, structs->minimap, structs->player);
 	draw_player(structs->image, structs->player);
-//	draw_rays2d(structs->image, structs->minimap, structs->player);
-	//raycasting_algo(structs->image, structs->raycasting);
 	mlx_put_image_to_window(structs->mlx->mlx, structs->mlx->window, structs->image->img, 0, 0);
 }
 
@@ -62,55 +62,14 @@ void	draw_player(t_image *image, t_player *player)
 
 void	draw_rays2d(t_image *image, t_minimap *minimap, t_player *player)
 {
-	float		a_tan;
 	t_points	pt;
 
-	minimap->rangle = player->pangle;
-	minimap->ray = 0;
-	while (minimap->ray < 1)
-	{
-		//Check horizontal lines
-		minimap->dof = 0;
-		a_tan = -1 / tan(minimap->rangle);
-		if (minimap->rangle > M_PI) //looking up
-		{
-			minimap->ry = (((int)player->py >> 6) << 6) - 0.0001;
-			minimap->rx = (player->py - minimap->ry) * a_tan + player->px;
-			minimap->yo = -64;
-			minimap->xo = -minimap->yo * a_tan;
-		}
-		if (minimap->rangle < M_PI) //looking down
-		{
-			minimap->ry = (((int)player->py >> 6) << 6) + 64;
-			minimap->rx = (player->py - minimap->ry) * a_tan + player->px;
-			minimap->yo = 64;
-			minimap->xo = -minimap->yo * a_tan;
-		}
-		if (minimap->rangle == 0 || minimap->rangle == M_PI) //looking straight left or right
-		{
-			minimap->rx = player->px;
-			minimap->ry = player->py;
-			minimap->dof = 8;
-		}
-		while (minimap->dof < 8)
-		{
-			minimap->mx = (int) (minimap->rx) >> 6;
-			minimap->my = (int) (minimap->ry) >> 6;
-			minimap->mp = minimap->my * minimap->map_xlen + minimap->mx;
-			if (minimap->mp < minimap->map_xlen * minimap->map_ylen && minimap->map[minimap->my * minimap->map_xlen][minimap->mx] == '1') //hit wall
-				minimap->dof = 8;
-			else
-				minimap->rx += minimap->xo;
-				minimap->ry += minimap->yo;
-				minimap->dof += 1;
-		}
-		pt.x0 = player->px;
-		pt.y0 = player->py;
-		pt.x1 = minimap->rx;
-		pt.y1 = minimap->ry;
-		bhm_line(image, &pt, 0xbde9fe);
-		minimap->ray++;
-	}
+	(void) minimap;
+	pt.x0 = player->px;
+	pt.y0 = player->py;
+	pt.x1 = player->px + player->pdx * 30;
+	pt.y1 = player->py + player->pdy * 30;
+	bhm_line(image, &pt, YELLOW);
 }
 
 void	draw_map2d(t_image *image, t_minimap *minimap)
@@ -150,23 +109,6 @@ void	draw_walls2d(t_image *image, t_minimap *minimap, int x, int y)
 		}
 		big_y++;
 	}
-}
-
-int	calculate_map_len_max(t_minimap *minimap)
-{
-	int	result;
-	int	j;
-
-	result = 0;
-	j = 0;
-	while (minimap->map[j])
-	{
-		if ((int)ft_strlen(minimap->map[j]) > result)
-			result = ft_strlen(minimap->map[j]);
-		j++;
-	}
-	dprintf(2, "len max ligne : %d\n", result);
-	return (result);
 }
 
 void	my_img_pixel_put(t_image *image, int x, int y, int color)
