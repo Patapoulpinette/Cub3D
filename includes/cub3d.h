@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/22 16:34:57 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/23 11:08:09 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct s_minimap
 	int		map_xlen;
 	int		map_ylen;
 	char	**map;
+	int		zoom;
 	int		ray;
 	int		mx;
 	int		my;
@@ -127,6 +128,7 @@ typedef struct s_structs
 
 //initializing
 void	init_values(t_structs *structs);
+int		calculate_map_len_max(t_minimap *minimap);
 
 //graphical_part
 void	create_image(t_mlx *mlx, t_image *image);
@@ -145,10 +147,9 @@ void	bhm_line(t_image *image, t_points *pt, int color);
 void	clear_image(t_image *image);
 void	draw_player(t_image *image, t_player *player);
 void	draw_map2d(t_image *image, t_minimap *minimap);
-int		calculate_map_len_max(t_minimap *minimap);
 void	draw_walls2d(t_image *image, t_minimap *minimap, int x, int y);
 void	draw_rays2d(t_image *image, t_minimap *minimap, t_player *player);
-void	raycasting_algo(t_image *image, t_raycasting *raycasting, t_player *player, t_minimap *minimap);
+//void	raycasting_algo(t_image *image, t_raycasting *raycasting, t_player *player, t_minimap *minimap);
 void	draw_vertival_lines(t_image *image, t_raycasting *raycasting, int x);
 
 //movements

@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 18:43:02 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/22 16:35:44 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/23 11:13:08 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	draw_in_image(t_structs *structs)
 {
 	clear_image(structs->image);
 	draw_map2d(structs->image, structs->minimap);
-	raycasting_algo(structs->image, structs->raycasting, structs->player, structs->minimap);
+	//raycasting_algo(structs->image, structs->raycasting, structs->player, structs->minimap);
 	draw_rays2d(structs->image, structs->minimap, structs->player);
 	draw_player(structs->image, structs->player);
 	mlx_put_image_to_window(structs->mlx->mlx, structs->mlx->window, structs->image->img, 0, 0);
@@ -95,14 +95,13 @@ void	draw_walls2d(t_image *image, t_minimap *minimap, int x, int y)
 {
 	int	big_x;
 	int	big_y;
-	int	zoom;
 
-	zoom = 150 / minimap->map_xlen;
-	big_y = y * zoom;
-	while (big_y <= (y * zoom + zoom - 1))
+	minimap->zoom = 150 / minimap->map_xlen;
+	big_y = y * minimap->zoom;
+	while (big_y <= (y * minimap->zoom + minimap->zoom - 1))
 	{
-		big_x = x * zoom;
-		while (big_x <= (x * zoom + zoom - 1))
+		big_x = x * minimap->zoom;
+		while (big_x <= (x * minimap->zoom + minimap->zoom - 1))
 		{
 			my_img_pixel_put(image, big_x, big_y, 0xFFFFFF);
 			big_x++;

@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:02:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/22 16:36:51 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/23 10:38:07 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	raycasting_algo(t_image *image, t_raycasting *raycasting, t_player *player,
 		raycasting->draw_end = line_height / 2 + SCREEN_HEIGHT /2;
 		if (raycasting->draw_end >= SCREEN_HEIGHT)
 			raycasting->draw_end = SCREEN_HEIGHT - 1;
-
+		(void) image;
 //		draw_vertival_lines(image, raycasting, x);
 
 		x++;

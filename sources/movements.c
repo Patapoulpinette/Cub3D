@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:01:41 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/22 14:50:12 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/23 11:15:16 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 void	move_player(int key, t_structs *structs)
 {
-	if (key == 13)
+	if (key == 13 && \
+		structs->minimap->map[(int) ((structs->player->py + structs->player->pdy) / structs->minimap->zoom)][(int) ((structs->player->px + structs->player->pdx) / structs->minimap->zoom)] == '0')
 	{
 		structs->player->py += structs->player->pdy;
 		structs->player->px += structs->player->pdx;
 	}
-	else if (key == 1)
+	else if (key == 1 && \
+		structs->minimap->map[(int) ((structs->player->py - structs->player->pdy) / structs->minimap->zoom)][(int) ((structs->player->px - structs->player->pdx) / structs->minimap->zoom)] == '0')
 	{
 		structs->player->py -= structs->player->pdy;
 		structs->player->px -= structs->player->pdx;
