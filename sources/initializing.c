@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/22 16:25:16 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/26 17:47:01 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,14 @@ void	init_values(t_structs *structs)
 	structs->player->px = 42;
 	structs->player->py = 22;
 	structs->player->pangle = 3 * M_PI / 2;
+	dprintf(2, "angle %f\n", structs->player->pangle);
 	structs->player->pdx = cos(structs->player->pangle) * 5;
 	structs->player->pdy = sin(structs->player->pangle) * 5;
 
 	structs->minimap->map = map;
 	structs->minimap->map_xlen = calculate_map_len_max(structs->minimap);
 	structs->minimap->map_ylen = ft_tablen(map);
+	structs->minimap->zoom = 150 / structs->minimap->map_xlen;
 
 	structs->raycasting->camera_plane_x = 0;
 	structs->raycasting->camera_plane_y = 0.66;

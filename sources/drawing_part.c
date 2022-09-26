@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 18:43:02 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/23 11:13:08 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/26 16:38:43 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	draw_in_image(t_structs *structs)
 {
 	clear_image(structs->image);
+	draw_rays2d(structs->image, structs->minimap, structs->player, structs->raycasting);
 	draw_map2d(structs->image, structs->minimap);
 	//raycasting_algo(structs->image, structs->raycasting, structs->player, structs->minimap);
-	draw_rays2d(structs->image, structs->minimap, structs->player);
 	draw_player(structs->image, structs->player);
 	mlx_put_image_to_window(structs->mlx->mlx, structs->mlx->window, structs->image->img, 0, 0);
 }
@@ -60,16 +60,74 @@ void	draw_player(t_image *image, t_player *player)
 	bhm_line(image, &points, PINK);
 }
 
-void	draw_rays2d(t_image *image, t_minimap *minimap, t_player *player)
+void	draw_rays2d(t_image *image, t_minimap *minimap, t_player *player, t_raycasting *ray)
 {
 	t_points	pt;
+	int			x;
 
-	(void) minimap;
+	x = 0;
+	while (x < SCREEN_WIDTH)
+	{
+		//calculate ray position and direction
+		ray->camera_x = 2 * x / (double)SCREEN_WIDTH - 1;//x coords in camera space
+		ray->ray_x = player->pdx + ray->camera_plane_x * ray->camera_x;
+		ray->ray_y = player->pdy + ray->camera_plane_y * ray->camera_x;
+
+		//which box of the map we're in
+		ray->map_x = (int)player->px;
+		ray->map_y = (int)player->py;
+
+		//length of ray from x or y-side to next x or y-side
+		if (ray->ray_x == 0)
+		{
+			ray->delta_distance_x = 1e30;
+			ray->delta_distance_y = 1e30;
+		}
+		else
+		{
+			ray->delta_distance_x = fabs(1 / ray->ray_x);
+			ray->delta_distance_y = fabs(1 / ray->ray_y);
+		}
+
+		//was there a wall hit ?
+		ray->hit = 0;
+
+		//calculate step and initial side_dist
+		if (ray->ray_x < 0)
+		{
+			ray->step_x = -1;
+			ray->side_distance_x = (player->px - ray->map_x) * ray->delta_distance_x;
+		}
+		else
+		{
+			ray->step_x = 1;
+			ray->side_distance_x = (ray->map_x + 1.0 - player->px) * ray->delta_distance_x;
+		}
+		if (ray->ray_y < 0)
+		{
+			ray->step_y = -1;
+			ray->side_distance_y = (player->py - ray->map_y) * ray->delta_distance_y;
+		}
+		else
+		{
+			ray->step_y = 1;
+			ray->side_distance_y = (ray->map_y + 1.0 - player->py) * ray->delta_distance_y;
+		}
+		raycasting_algo(ray, minimap);
+		draw_vertival_lines(image, ray, x);
+		x++;
+	}
+	pt.x0 = player->px;
+	pt.y0 = player->py;
+	pt.x1 = ray->map_x;
+	pt.y1 = ray->map_y;
+	bhm_line(image, &pt, 0x70e000);
 	pt.x0 = player->px;
 	pt.y0 = player->py;
 	pt.x1 = player->px + player->pdx * 30;
 	pt.y1 = player->py + player->pdy * 30;
 	bhm_line(image, &pt, YELLOW);
+	dprintf(2, "ray_point_x = %d | ray_point_y = %d\n", pt.x1, pt.y1);
 }
 
 void	draw_map2d(t_image *image, t_minimap *minimap)
@@ -96,7 +154,6 @@ void	draw_walls2d(t_image *image, t_minimap *minimap, int x, int y)
 	int	big_x;
 	int	big_y;
 
-	minimap->zoom = 150 / minimap->map_xlen;
 	big_y = y * minimap->zoom;
 	while (big_y <= (y * minimap->zoom + minimap->zoom - 1))
 	{

@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/23 11:08:09 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/26 15:49:59 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,18 @@ typedef struct s_line_algo
 
 typedef struct s_raycasting
 {
+	double	camera_x;
+	double	ray_x;
+	double	ray_y;
+	int		map_x;
+	int		map_y;
+	double	side_distance_x;
+	double	side_distance_y;
+	double	delta_distance_x;
+	double	delta_distance_y;
+	int		step_x;
+	int		step_y;
+	int		hit;
 	double	camera_plane_x;
 	double	camera_plane_y;
 	double	move_speed;
@@ -148,8 +160,8 @@ void	clear_image(t_image *image);
 void	draw_player(t_image *image, t_player *player);
 void	draw_map2d(t_image *image, t_minimap *minimap);
 void	draw_walls2d(t_image *image, t_minimap *minimap, int x, int y);
-void	draw_rays2d(t_image *image, t_minimap *minimap, t_player *player);
-//void	raycasting_algo(t_image *image, t_raycasting *raycasting, t_player *player, t_minimap *minimap);
+void	draw_rays2d(t_image *image, t_minimap *minimap, t_player *player, t_raycasting *ray);
+void	raycasting_algo(t_raycasting *raycasting, t_minimap *minimap);
 void	draw_vertival_lines(t_image *image, t_raycasting *raycasting, int x);
 
 //movements
