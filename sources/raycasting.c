@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:02:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/26 17:47:47 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/27 10:47:35 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	raycasting_algo(t_raycasting *raycasting, t_minimap *minimap)
 		}
 		//check if ray has hit a wall
 		//dprintf(2, "map_x = %d | map_y = %d\n", raycasting->map_x / minimap->zoom, raycasting->map_y / minimap->zoom);
-		if (minimap->map[raycasting->map_x / minimap->zoom][raycasting->map_y / minimap->zoom] != '0')
+		if (minimap->map[raycasting->map_y / minimap->zoom][raycasting->map_x / minimap->zoom] != '0')
 			raycasting->hit = 1;
 	}
 	//calculate distance projected on camera direction
