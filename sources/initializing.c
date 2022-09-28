@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/26 17:47:01 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/28 14:52:06 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,28 @@ void	init_values(t_structs *structs)
 	int		i = 0;
 	char	**map = calloc(20, sizeof(char *));
 
-	map[i++] = ft_strdup("1111111111111111111111");
-	map[i++] = ft_strdup("1010000000000000000001");
-	map[i++] = ft_strdup("1010000000000001111001");
-	map[i++] = ft_strdup("1010000000000001001001");
-	map[i++] = ft_strdup("1000000000000001000001");
-	map[i++] = ft_strdup("1000000000000001111111");
+	map[i++] = ft_strdup("11111111111111111111111111111");
+	map[i++] = ft_strdup("10100000000000000000000000001");
+	map[i++] = ft_strdup("10100000000000000000001111001");
+	map[i++] = ft_strdup("10100000000000000000001001001");
+	map[i++] = ft_strdup("10000000000000000000001000001");
+	map[i++] = ft_strdup("10000000000000011111111111111");
 	map[i++] = ft_strdup("1000000101000001");
 	map[i++] = ft_strdup("1000000010000001");
-	map[i++] = ft_strdup("10000001010000011");
-	map[i++] = ft_strdup("10000000000000001");
-	map[i++] = ft_strdup("10000000000000001");
-	map[i++] = ft_strdup("10000000000000001");
-	map[i++] = ft_strdup("11111111111111111");
+	map[i++] = ft_strdup("10000001010000011111");
+	map[i++] = ft_strdup("10000000000000000001");
+	map[i++] = ft_strdup("10000000000000000001");
+	map[i++] = ft_strdup("10000000000000000001");
+	map[i++] = ft_strdup("11111111111111111111");
 
 	structs->player->px = 42;
 	structs->player->py = 22;
-	structs->player->pangle = 3 * M_PI / 2;
-	dprintf(2, "angle %f\n", structs->player->pangle);
-	structs->player->pdx = cos(structs->player->pangle) * 5;
-	structs->player->pdy = sin(structs->player->pangle) * 5;
+	structs->player->height = 32; //because walls are 64 height and vision of player is half of them
+	structs->player->fov = 60;
+	structs->player->speed = 0.16;
+	structs->player->angle = 3 * M_PI / 2;
+	structs->player->dx = cos(structs->player->angle) * 5;
+	structs->player->dy = sin(structs->player->angle) * 5;
 
 	structs->minimap->map = map;
 	structs->minimap->map_xlen = calculate_map_len_max(structs->minimap);

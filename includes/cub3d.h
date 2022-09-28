@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/26 15:49:59 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/28 14:00:38 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,12 @@ typedef struct s_player
 {
 	double		px;
 	double		py;
-	double		pdx; //direction x
-	double		pdy; //direction y
-	double		pangle;
+	double		height;
+	double		fov;
+	double		speed;
+	double		dx; //direction x
+	double		dy; //direction y
+	double		angle;
 }				t_player;
 
 typedef struct s_minimap
@@ -161,7 +164,7 @@ void	draw_player(t_image *image, t_player *player);
 void	draw_map2d(t_image *image, t_minimap *minimap);
 void	draw_walls2d(t_image *image, t_minimap *minimap, int x, int y);
 void	draw_rays2d(t_image *image, t_minimap *minimap, t_player *player, t_raycasting *ray);
-void	raycasting_algo(t_raycasting *raycasting, t_minimap *minimap);
+void	search_collisions(t_raycasting *raycasting, t_minimap *minimap);
 void	draw_vertival_lines(t_image *image, t_raycasting *raycasting, int x);
 
 //movements
