@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:03:34 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/29 10:41:52 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/29 14:55:50 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	press_key(int key, t_structs *structs)
 		mlx_destroy_image(structs->mlx->mlx, structs->image->img);
 		mlx_destroy_window(structs->mlx->mlx, structs->mlx->window);
 		free(structs->mlx->mlx);
+		free_tab_c(structs->minimap->map);
 		exit(EXIT_SUCCESS);
 	}
 	else if (key == 123 || key == 124)
@@ -47,6 +48,7 @@ int	exit_program(t_structs *structs)
 	mlx_destroy_image(structs->mlx->mlx, structs->image->img);
 	mlx_destroy_window(structs->mlx->mlx, structs->mlx->window);
 	free(structs->mlx->mlx);
+	free_tab_c(structs->minimap->map);
 	exit(EXIT_SUCCESS);
 }
 

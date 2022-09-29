@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 18:43:02 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/29 13:19:56 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/29 17:14:51 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ void	draw_in_image(t_structs *structs)
 {
 	clear_image(structs->image);
 	draw_rays2d(structs->image, structs->minimap, structs->player, structs->ray);
-	draw_map2d(structs->image, structs->minimap);
-	draw_player(structs->image, structs->player);
+	draw_map2d(structs->image, structs->minimap, structs->player, structs->ray);
 	mlx_put_image_to_window(structs->mlx->mlx, structs->mlx->window, structs->image->img, 0, 0);
 }
 
@@ -39,66 +38,89 @@ void	clear_image(t_image *image)
 	}
 }
 
-void	draw_player(t_image *image, t_player *player)
-{
-	t_points	points;
-
-	my_img_pixel_put(image, player->px, player->py, PINK);
-	my_img_pixel_put(image, player->px - 1, player->py - 1, PINK);
-	my_img_pixel_put(image, player->px, player->py - 1, PINK);
-	my_img_pixel_put(image, player->px + 1, player->py - 1, PINK);
-	my_img_pixel_put(image, player->px + 1, player->py, PINK);
-	my_img_pixel_put(image, player->px + 1, player->py + 1, PINK);
-	my_img_pixel_put(image, player->px, player->py + 1, PINK);
-	my_img_pixel_put(image, player->px - 1, player->py + 1, PINK);
-	my_img_pixel_put(image, player->px - 1, player->py, PINK);
-	points.x0 = player->px;
-	points.y0 = player->py;
-	points.x1 = player->px + player->dx * 3;
-	points.y1 = player->py + player->dy * 3;
-	bhm_line(image, &points, PINK);
-}
-
 void	draw_rays2d(t_image *image, t_minimap *minimap, t_player *player, t_raycasting *ray)
 {
-	
-}
+	int		i;
+	double	radian;
 
-void	draw_map2d(t_image *image, t_minimap *minimap)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	while (y < minimap->map_ylen)
+	(void) image;
+	(void) minimap;
+	(void) player;
+	i = 0;
+	while (i <= ray->angle360)
 	{
-		x = 0;
-		while (x < minimap->map_xlen)
+		//facing left
+		if (i >= ray->angle90 && i < ray->angle270)
 		{
-			if (!ft_strncmp(&minimap->map[y][x], "1", 1))
-				draw_walls2d(image, minimap, x, y);
-			x++;
+			ray->step_x_table[i] = ray->tile_size / ray->tan_table[i];
+			if (ray->step_x_table[i] > 0)
+				ray->step_x_table[i] = -ray->step_x_table[i];
 		}
-		y++;
+		//facing right
+		else
+		{
+			ray->step_x_table[i] = ray->tile_size / ray->tan_table[i];
+			if (ray->step_x_table[i] < 0)
+				ray->step_x_table[i] = -ray->step_x_table[i];
+		}
+
+		//facing down
+		if (i >= ray->angle0 && i < ray->angle180)
+		{
+			ray->step_y_table[i] = ray->tile_size * ray->tan_table[i];
+			if (ray->step_y_table[i] < 0)
+				ray->step_y_table[i] = -ray->step_y_table[i];
+		}
+		//facing up
+		else
+		{
+			ray->step_y_table[i] = ray->tile_size * ray->tan_table[i];
+			if (ray->step_y_table[i] > 0)
+				ray->step_y_table[i] = -ray->step_y_table[i];
+		}
+		i++;
+	}
+
+	//create table for fixing fishbowl distortion view
+	i = -ray->angle30;
+	while (i <= ray->angle30)
+	{
+		radian = degtorad((double) i, ray);
+		ray->fish_table[i + (int) ray->angle30] = 1 / cos(radian);
+		i++;
 	}
 }
 
-void	draw_walls2d(t_image *image, t_minimap *minimap, int x, int y)
+void	draw_map2d(t_image *image, t_minimap *minimap, t_player *player, t_raycasting *ray)
 {
-	int	big_x;
-	int	big_y;
+	int	r;
+	int	c;
 
-	big_y = y * minimap->zoom;
-	while (big_y <= (y * minimap->zoom + minimap->zoom - 1))
+	ray->minimap_width = 10;
+	r = 0;
+	c = 0;
+	while (minimap->map[r])
 	{
-		big_x = x * minimap->zoom;
-		while (big_x <= (x * minimap->zoom + minimap->zoom - 1))
+		while (minimap->map[r][c])
 		{
-			my_img_pixel_put(image, big_x, big_y, 0xFFFFFF);
-			big_x++;
+			if (minimap->map[r][c] == '1')
+				draw_fill_rect(image, c * ray->minimap_width, r * ray->minimap_width, ray->minimap_width, ray->minimap_width, 0xFFFFFF);
+			else
+				draw_fill_rect(image, c * ray->minimap_width, r * ray->minimap_width, ray->minimap_width, ray->minimap_width, 0x000000);
+			c++;
 		}
-		big_y++;
+		r++;
 	}
+	ray->map_x = player->x / ray->tile_size * ray->minimap_width;
+	ray->map_y = player->y / ray->tile_size * ray->minimap_width;
+	draw_player(image, player);
+}
+
+void	draw_player(t_image *image, t_player *player)
+{
+	(void) image;
+	(void) player;
+	return ;
 }
 
 void	my_img_pixel_put(t_image *image, int x, int y, int color)
@@ -110,4 +132,24 @@ void	my_img_pixel_put(t_image *image, int x, int y, int color)
 	dst = image->addr + (y * image->size_line + x
 			* (image->bits_per_pixel / 8));
 	*(unsigned int *) dst = color;
+}
+
+double	degtorad(double angle, t_raycasting *ray)
+{
+	return ((angle * M_PI) / ray->angle180);
+}
+
+void	draw_fill_rect(t_image *image, int x, int y, int height, int width, int color)
+{
+	t_points	pt;
+	
+	while (x < height)
+	{
+		pt.x0 = x;
+		pt.y0 = y;
+		pt.x1 = x;
+		pt.y1 = y + width;
+		bhm_line(image, &pt, color);
+		x++;
+	}
 }

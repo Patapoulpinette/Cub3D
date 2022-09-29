@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/29 10:41:52 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/29 17:15:24 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,33 +70,42 @@ typedef struct s_line_algo
 
 typedef struct s_raycasting
 {
-	double	camera_x;
-	double	ray_x;
-	double	ray_y;
+	int		tile_size;
+	int		wall_height;
+	double	angle60;
+	double	angle30;
+	double	angle15;
+	double	angle90;
+	double	angle180;
+	double	angle270;
+	double	angle360;
+	double	angle0;
+	double	angle5;
+	double	angle10;
+	double	angle45;
+	double	*sin_table;
+	double	*sin_table_inv;
+	double	*cos_table;
+	double	*cos_table_inv;
+	double	*tan_table;
+	double	*tan_table_inv;
+	double	*fish_table;
+	double	*step_x_table;
+	double	*step_y_table;
+	int		proj_plane_y_center;
 	int		map_x;
 	int		map_y;
-	double	side_x;
-	double	side_y;
-	double	delta_x;
-	double	delta_y;
-	int		step_x;
-	int		step_y;
-	int		hit;
-	double	plane_x;
-	double	plane_y;
-	int		side;
-	int		draw_start;
-	int		draw_end;
+	int		minimap_width;
 }				t_raycasting;
 
 typedef struct s_player
 {
-	double		px;
-	double		py;
-	double		speed;
-	double		dx; //direction x
-	double		dy; //direction y
-	double		angle;
+	int		x;
+	int		y;
+	double	angle;
+	int		dist_from_proj_plane;
+	int		height;
+	int		speed;
 }				t_player;
 
 typedef struct s_minimap
@@ -129,6 +138,7 @@ typedef struct s_structs
 
 //initializing
 void	init_values(t_structs *structs);
+void	fill_tables(t_structs *structs);
 int		calculate_map_len_max(t_minimap *minimap);
 
 //graphical_part
@@ -140,6 +150,8 @@ void	display_window(void); //t_maps_coord *map
 //drawing_part
 void	draw_in_image(t_structs *structs);
 void	my_img_pixel_put(t_image *image, int x, int y, int color);
+double	degtorad(double angle, t_raycasting *ray);
+void	draw_fill_rect(t_image *image, int x, int y, int height, int width, int color);
 
 //draw_line_algorithm
 void	bhm_line(t_image *image, t_points *pt, int color);
@@ -147,8 +159,7 @@ void	bhm_line(t_image *image, t_points *pt, int color);
 //raycasting
 void	clear_image(t_image *image);
 void	draw_player(t_image *image, t_player *player);
-void	draw_map2d(t_image *image, t_minimap *minimap);
-void	draw_walls2d(t_image *image, t_minimap *minimap, int x, int y);
+void	draw_map2d(t_image *image, t_minimap *minimap, t_player *player, t_raycasting *ray);
 void	draw_rays2d(t_image *image, t_minimap *minimap, t_player *player, t_raycasting *ray);
 void	search_collisions(t_raycasting *raycasting, t_minimap *minimap);
 void	draw_vertival_lines(t_image *image, t_raycasting *raycasting, int x);

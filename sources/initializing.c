@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/29 10:41:52 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/29 15:21:43 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,61 @@ void	init_values(t_structs *structs)
 	map[i++] = ft_strdup("10000000000000000001");
 	map[i++] = ft_strdup("11111111111111111111");
 
-	structs->player->px = 42;
-	structs->player->py = 22;
-	structs->player->speed = 0.16;
-	structs->player->angle = 3 * M_PI / 2;
-	structs->player->dx = cos(structs->player->angle) * 5;
-	structs->player->dy = sin(structs->player->angle) * 5;
+	structs->ray->tile_size = 64;
+	structs->ray->wall_height = 64;
+	structs->ray->angle60 = SCREEN_WIDTH;
+	structs->ray->angle30 = structs->ray->angle60 / 2;
+	structs->ray->angle15 = structs->ray->angle30 / 2;
+	structs->ray->angle90 = structs->ray->angle30 * 3;
+	structs->ray->angle180 = structs->ray->angle90 * 2;
+	structs->ray->angle270 = structs->ray->angle90 * 3;
+	structs->ray->angle360 = structs->ray->angle60 * 6;
+	structs->ray->angle0 = 0;
+	structs->ray->angle5 = structs->ray->angle30 / 6;
+	structs->ray->angle10 = structs->ray->angle5 * 2;
+	structs->ray->angle45 = structs->ray->angle15 * 3;
+	structs->ray->sin_table = ft_calloc(structs->ray->angle360 + 1, sizeof(double));
+	structs->ray->sin_table_inv = ft_calloc(structs->ray->angle360 + 1, sizeof(double));
+	structs->ray->cos_table = ft_calloc(structs->ray->angle360 + 1, sizeof(double));
+	structs->ray->cos_table_inv = ft_calloc(structs->ray->angle360 + 1, sizeof(double));
+	structs->ray->tan_table = ft_calloc(structs->ray->angle360 + 1, sizeof(double));
+	structs->ray->tan_table_inv = ft_calloc(structs->ray->angle360 + 1, sizeof(double));
+	structs->ray->fish_table = ft_calloc(structs->ray->angle360 + 1, sizeof(double));
+	structs->ray->step_x_table = ft_calloc(structs->ray->angle360 + 1, sizeof(double));
+	structs->ray->step_y_table = ft_calloc(structs->ray->angle360 + 1, sizeof(double));
+	structs->ray->proj_plane_y_center = SCREEN_HEIGHT / 2;
+	fill_tables(structs);
+
+	structs->player->x = 42;
+	structs->player->y = 22;
+	structs->player->angle = structs->ray->angle5 + structs->ray->angle5;
+	structs->player->dist_from_proj_plane = 277;
+	structs->player->height = 32; // because size of wall is 64
+	structs->player->speed = 16;
 
 	structs->minimap->map = map;
 	structs->minimap->map_xlen = calculate_map_len_max(structs->minimap);
 	structs->minimap->map_ylen = ft_tablen(map);
 	structs->minimap->zoom = 150 / structs->minimap->map_xlen;
+}
 
-	structs->ray->plane_x = 0;
-	structs->ray->plane_y = 0.66;
+void	fill_tables(t_structs *structs)
+{
+	int		i;
+	double	radian;
+
+	i = 0;
+	while (i <= structs->ray->angle360)
+	{
+		radian = degtorad((double) i, structs->ray) + 0.0001;
+		structs->ray->sin_table[i] = sin(radian);
+		structs->ray->sin_table_inv[i] = 1 / structs->ray->sin_table[i];
+		structs->ray->cos_table[i] = cos(radian);
+		structs->ray->cos_table_inv[i] = 1 / structs->ray->cos_table[i];
+		structs->ray->tan_table[i] = tan(radian);
+		structs->ray->tan_table_inv[i] = 1 / structs->ray->tan_table[i];
+		i++;
+	}
 }
 
 int	calculate_map_len_max(t_minimap *minimap)
