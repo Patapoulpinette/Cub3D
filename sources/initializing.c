@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/28 14:52:06 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/29 10:41:52 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ void	init_values(t_structs *structs)
 
 	structs->player->px = 42;
 	structs->player->py = 22;
-	structs->player->height = 32; //because walls are 64 height and vision of player is half of them
-	structs->player->fov = 60;
 	structs->player->speed = 0.16;
 	structs->player->angle = 3 * M_PI / 2;
 	structs->player->dx = cos(structs->player->angle) * 5;
@@ -45,10 +43,8 @@ void	init_values(t_structs *structs)
 	structs->minimap->map_ylen = ft_tablen(map);
 	structs->minimap->zoom = 150 / structs->minimap->map_xlen;
 
-	structs->raycasting->camera_plane_x = 0;
-	structs->raycasting->camera_plane_y = 0.66;
-	structs->raycasting->move_speed = 0.2;
-	structs->raycasting->rot_speed = 0.1;
+	structs->ray->plane_x = 0;
+	structs->ray->plane_y = 0.66;
 }
 
 int	calculate_map_len_max(t_minimap *minimap)

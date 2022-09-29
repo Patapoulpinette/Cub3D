@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:02:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/27 17:56:27 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/28 16:48:14 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	search_collisions(t_raycasting *ray, t_minimap *minimap)
 {
-	double		perp_wall_dist;
-	int			line_height;
+	double	perp_wall_dist;
+	int		line_height;
 
 	//was there a wall hit ?
 	ray->hit = 0;
@@ -24,15 +24,15 @@ void	search_collisions(t_raycasting *ray, t_minimap *minimap)
 	while (ray->hit == 0)
 	{
 		//jump to next map square, either in x-direction, or in y-direction
-		if (ray->side_distance_x < ray->side_distance_y)
+		if (ray->side_x < ray->side_y)
 		{
-			ray->side_distance_x += ray->delta_distance_x;
+			ray->side_x += ray->delta_x;
 			ray->map_x += ray->step_x;
 			ray->side = 0;
 		}
 		else
 		{
-			ray->side_distance_y += ray->delta_distance_y;
+			ray->side_y += ray->delta_y;
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
@@ -42,9 +42,9 @@ void	search_collisions(t_raycasting *ray, t_minimap *minimap)
 	}
 	//calculate distance projected on camera direction
 	if (ray->side == 0)
-		perp_wall_dist = ray->side_distance_x - ray->delta_distance_x;
+		perp_wall_dist = ray->side_x - ray->delta_x;
 	else
-		perp_wall_dist = ray->side_distance_y - ray->delta_distance_y;
+		perp_wall_dist = ray->side_y - ray->delta_y;
 	//calculate height of line to draw on screen
 	line_height = (int)(SCREEN_HEIGHT / perp_wall_dist);
 	//calculate lowest and highest pixel to fill in current stripe

@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/28 14:00:38 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/29 10:41:52 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,17 +75,15 @@ typedef struct s_raycasting
 	double	ray_y;
 	int		map_x;
 	int		map_y;
-	double	side_distance_x;
-	double	side_distance_y;
-	double	delta_distance_x;
-	double	delta_distance_y;
+	double	side_x;
+	double	side_y;
+	double	delta_x;
+	double	delta_y;
 	int		step_x;
 	int		step_y;
 	int		hit;
-	double	camera_plane_x;
-	double	camera_plane_y;
-	double	move_speed;
-	double	rot_speed;
+	double	plane_x;
+	double	plane_y;
 	int		side;
 	int		draw_start;
 	int		draw_end;
@@ -95,8 +93,6 @@ typedef struct s_player
 {
 	double		px;
 	double		py;
-	double		height;
-	double		fov;
 	double		speed;
 	double		dx; //direction x
 	double		dy; //direction y
@@ -109,16 +105,6 @@ typedef struct s_minimap
 	int		map_ylen;
 	char	**map;
 	int		zoom;
-	int		ray;
-	int		mx;
-	int		my;
-	int		mp;
-	int		dof;
-	float	rx;
-	float	ry;
-	float	rangle;
-	float	xo;
-	float	yo;
 }				t_minimap;
 
 typedef struct s_points
@@ -136,7 +122,7 @@ typedef struct s_structs
 	//t_maps_coord	*map;
 	t_player		*player;
 	t_minimap		*minimap;
-	t_raycasting	*raycasting;
+	t_raycasting	*ray;
 }				t_structs;
 
 //parsing

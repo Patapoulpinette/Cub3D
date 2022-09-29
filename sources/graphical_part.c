@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:03:34 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/12 10:33:36 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/29 10:41:52 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	display_window(void)
 	structs.image = &image;
 	structs.player = &player;
 	structs.minimap = &minimap;
-	structs.raycasting = &raycasting;
+	structs.ray = &raycasting;
 	mlx.x_win = SCREEN_WIDTH;
 	mlx.y_win = SCREEN_HEIGHT;
 	mlx.mlx = mlx_init();

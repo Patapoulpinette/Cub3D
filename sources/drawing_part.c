@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 18:43:02 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/28 12:03:08 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/09/29 10:41:52 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	draw_in_image(t_structs *structs)
 {
 	clear_image(structs->image);
-	draw_rays2d(structs->image, structs->minimap, structs->player, structs->raycasting);
+	draw_rays2d(structs->image, structs->minimap, structs->player, structs->ray);
 	draw_map2d(structs->image, structs->minimap);
 	draw_player(structs->image, structs->player);
 	mlx_put_image_to_window(structs->mlx->mlx, structs->mlx->window, structs->image->img, 0, 0);
@@ -69,8 +69,8 @@ void	draw_rays2d(t_image *image, t_minimap *minimap, t_player *player, t_raycast
 	{
 		//calculate ray position and direction
 		ray->camera_x = 2 * x / (double)SCREEN_WIDTH - 1;//x coords in camera space
-		ray->ray_x = player->dx + ray->camera_plane_x * ray->camera_x;
-		ray->ray_y = player->dy + ray->camera_plane_y * ray->camera_x;
+		ray->ray_x = player->dx + ray->plane_x * ray->camera_x;
+		ray->ray_y = player->dy + ray->plane_y * ray->camera_x;
 
 		//which box of the map we're in
 		ray->map_x = (int)player->px;
@@ -79,35 +79,35 @@ void	draw_rays2d(t_image *image, t_minimap *minimap, t_player *player, t_raycast
 		//length of ray from x or y-side to next x or y-side
 		if (ray->ray_x == 0)
 		{
-			ray->delta_distance_x = 1e30;
-			ray->delta_distance_y = 1e30;
+			ray->delta_x = 1e30;
+			ray->delta_y = 1e30;
 		}
 		else
 		{
-			ray->delta_distance_x = fabs(1 / ray->ray_x);
-			ray->delta_distance_y = fabs(1 / ray->ray_y);
+			ray->delta_x = fabs(1 / ray->ray_x);
+			ray->delta_y = fabs(1 / ray->ray_y);
 		}
 
 		//calculate step and initial side_dist
 		if (ray->ray_x < 0)
 		{
 			ray->step_x = -1;
-			ray->side_distance_x = (player->px - ray->map_x) * ray->delta_distance_x;
+			ray->side_x = (player->px - ray->map_x) * ray->delta_x;
 		}
 		else
 		{
 			ray->step_x = 1;
-			ray->side_distance_x = (ray->map_x + 1.0 - player->px) * ray->delta_distance_x;
+			ray->side_x = (ray->map_x + 1.0 - player->px) * ray->delta_x;
 		}
 		if (ray->ray_y < 0)
 		{
 			ray->step_y = -1;
-			ray->side_distance_y = (player->py - ray->map_y) * ray->delta_distance_y;
+			ray->side_y = (player->py - ray->map_y) * ray->delta_y;
 		}
 		else
 		{
 			ray->step_y = 1;
-			ray->side_distance_y = (ray->map_y + 1.0 - player->py) * ray->delta_distance_y;
+			ray->side_y = (ray->map_y + 1.0 - player->py) * ray->delta_y;
 		}
 		search_collisions(ray, minimap);
 		draw_vertival_lines(image, ray, x);
