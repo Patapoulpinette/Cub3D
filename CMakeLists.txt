@@ -69,10 +69,11 @@ add_executable(Cub3D
         minilibx_macos/mlx_rgb.c
         minilibx_macos/mlx_shaders.c
         minilibx_macos/mlx_xpm.c
-        sources/algorithm.c
+        sources/draw_line_algo.c
         sources/drawing_part.c
         sources/free.c
         sources/graphical_part.c
         sources/main.c
-        sources/parsing.c
-        sources/utils.c)
+        sources/utils.c
+        sources/initializing.c
+        sources/raycasting.c)

@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:33:54 by dbouron           #+#    #+#             */
-/*   Updated: 2022/08/23 15:17:22 by dbouron          ###   ########.fr       */
+/*   Updated: 2022/09/07 17:43:30 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,10 @@
 
 int	main(int argc, char **argv)
 {
-	t_maps_coord	map;
-
-	if (argc == 2)
+	(void) argv; //à enlever
+	if (argc == 1) //changer a 2 quand on aura le parsing
 	{
-		parsing(&map, argv[1]);
-		//initialize_values();
-		display_window(&map);
-		//free tableau de char;
+		display_window();
 	}
 	return (0);
 }

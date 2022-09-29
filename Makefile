@@ -6,7 +6,7 @@
 #    By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/03 14:53:19 by dbouron           #+#    #+#              #
-#    Updated: 2022/08/23 21:58:29 by dbouron          ###   ########.fr        #
+#    Updated: 2022/09/07 17:48:01 by dbouron          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ HEADFILE += $(shell find GNL -name "*.h")
 HEADFILE += $(shell find libft -name "*.h")
 HEADFILE += $(shell find minilibx_macos -name "*.h")
 
-CFLAGS = -Wall -Wextra -Werror -I includes/ -I libft/ -I minilibx_macos/ -I GNL/
+CFLAGS = -Wall -Wextra -Werror
+CFLAGS += -I includes/ -I libft/ -I minilibx_macos/ -I GNL/ -O3
 
 # **************************************************************************** #
 #                                    COLORS                                    #
@@ -79,6 +80,11 @@ compile_minilibx :
 compile_libft :
 	@make -C $(LIBFT)
 
+git :
+	@git add .
+	@printf "Message of the commit: " && read msg && git commit -m "$$msg"
+	@git push
+
 clean :
 	rm -rf $(OBJS)
 	@make clean -C $(MINILIBX)
@@ -92,4 +98,4 @@ fclean : clean
 
 re : fclean all
 
-.PHONY: all compile_minilibx compile_libft clean fclean re
+.PHONY: all compile_minilibx compile_libft git clean fclean re
