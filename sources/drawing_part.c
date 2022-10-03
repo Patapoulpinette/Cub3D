@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 18:43:02 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/29 10:41:52 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/03 17:45:28 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,19 +111,21 @@ void	draw_rays2d(t_image *image, t_minimap *minimap, t_player *player, t_raycast
 		}
 		search_collisions(ray, minimap);
 		draw_vertival_lines(image, ray, x);
+
+		pt.x0 = player->px;
+		pt.y0 = player->py;
+		pt.x1 = ray->map_x;
+		pt.y1 = ray->map_y;
+		bhm_line(image, &pt, 0x70e000);
+
 		x++;
 	}
 	pt.x0 = player->px;
 	pt.y0 = player->py;
 	pt.x1 = player->px + player->dx * 30;
 	pt.y1 = player->py + player->dy * 30;
+	//dprintf(2, "dx = %f | dy = %f\n", player->dx, player->dy);
 	bhm_line(image, &pt, YELLOW);
-	
-	pt.x0 = player->px;
-	pt.y0 = player->py;
-	pt.x1 = ray->map_x;
-	pt.y1 = ray->map_y;
-	bhm_line(image, &pt, 0x70e000);
 }
 
 void	draw_map2d(t_image *image, t_minimap *minimap)
