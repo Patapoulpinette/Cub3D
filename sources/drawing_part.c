@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 18:43:02 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/29 17:14:51 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/03 14:44:25 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,11 @@ void	draw_map2d(t_image *image, t_minimap *minimap, t_player *player, t_raycasti
 	int	r;
 	int	c;
 
-	ray->minimap_width = 10;
+	ray->minimap_width = 5;
 	r = 0;
-	c = 0;
 	while (minimap->map[r])
 	{
+		c = 0;
 		while (minimap->map[r][c])
 		{
 			if (minimap->map[r][c] == '1')
@@ -142,13 +142,15 @@ double	degtorad(double angle, t_raycasting *ray)
 void	draw_fill_rect(t_image *image, int x, int y, int height, int width, int color)
 {
 	t_points	pt;
-	
-	while (x < height)
+	int			wdth;
+
+	wdth = x + width;
+	while (x < wdth)
 	{
 		pt.x0 = x;
 		pt.y0 = y;
 		pt.x1 = x;
-		pt.y1 = y + width;
+		pt.y1 = y + height;
 		bhm_line(image, &pt, color);
 		x++;
 	}
