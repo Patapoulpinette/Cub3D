@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 18:43:02 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/03 14:44:25 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/03 15:00:46 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void	draw_map2d(t_image *image, t_minimap *minimap, t_player *player, t_raycasti
 	int	r;
 	int	c;
 
-	ray->minimap_width = 5;
 	r = 0;
 	while (minimap->map[r])
 	{
@@ -104,15 +103,15 @@ void	draw_map2d(t_image *image, t_minimap *minimap, t_player *player, t_raycasti
 		while (minimap->map[r][c])
 		{
 			if (minimap->map[r][c] == '1')
-				draw_fill_rect(image, c * ray->minimap_width, r * ray->minimap_width, ray->minimap_width, ray->minimap_width, 0xFFFFFF);
+				draw_fill_rect(image, c * minimap->wall_size, r * minimap->wall_size, minimap->wall_size, minimap->wall_size, 0xFFFFFF);
 			else
-				draw_fill_rect(image, c * ray->minimap_width, r * ray->minimap_width, ray->minimap_width, ray->minimap_width, 0x000000);
+				draw_fill_rect(image, c * minimap->wall_size, r * minimap->wall_size, minimap->wall_size, minimap->wall_size, 0x000000);
 			c++;
 		}
 		r++;
 	}
-	ray->map_x = player->x / ray->tile_size * ray->minimap_width;
-	ray->map_y = player->y / ray->tile_size * ray->minimap_width;
+	ray->map_x = player->x / ray->tile_size * minimap->wall_size;
+	ray->map_y = player->y / ray->tile_size * minimap->wall_size;
 	draw_player(image, player);
 }
 

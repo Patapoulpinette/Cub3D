@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/29 17:15:24 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/03 15:00:46 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ typedef struct s_raycasting
 	int		proj_plane_y_center;
 	int		map_x;
 	int		map_y;
-	int		minimap_width;
 }				t_raycasting;
 
 typedef struct s_player
@@ -113,7 +112,7 @@ typedef struct s_minimap
 	int		map_xlen;
 	int		map_ylen;
 	char	**map;
-	int		zoom;
+	int		wall_size;
 }				t_minimap;
 
 typedef struct s_points
