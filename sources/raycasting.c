@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:02:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/04 15:04:48 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/04 18:28:19 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	raycast(t_raycasting *ray, t_minimap *minimap, t_player *player)
 	double	cast_arc;
 	double	cast_column;
 	double	x_tmp;
+	double	map_index;
 
 	cast_arc = player->angle;
 	// field of view is 60 degree with the point of view (player's direction in the middle)
@@ -69,7 +70,30 @@ void	raycast(t_raycasting *ray, t_minimap *minimap, t_player *player)
 		// LOOK FOR HORIZONTAL WALL
 			
 		// If ray is directly facing right or left, then ignore it
-		
+		if (cast_arc == ray->angle0 || cast_arc == ray->angle180)
+			dist_to_horizontal_grid_being_hit = INT32_MAX; //not sure about this value
+		// Else, move the ray until it hits a horizontal wall
+		else
+		{
+			dist_to_next_x_intersection = ray->step_x_table[cast_arc];
+			while (1)
+			{
+				x_grid_index = floor(x_intersection / ray->tile_size);
+				y_grid_index = floor(horizontal_grid / ray->tile_size);
+				map_index = floor(y_grid_index * minimap->map_xlen + x_grid_index);//NOT SURE AT ALL ABOUT MAP_XLEN !!!
+				// If we've looked as far as outside the map range, then bail out
+				if ((x_grid_index >= minimap->map_xlen) || (y_grid_index >= minimap->map_ylen) || x_grid_index < 0 || y_grid_index < 0)
+				{
+					dist_to_horizontal_grid_being_hit = INT32_MAX;
+					break;
+				}
+				else if (/* condition */)
+				{
+					/* code */
+				}
+				
+			}
+		}
 
 		cast_column++;
 	}

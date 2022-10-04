@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/04 14:45:36 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/04 18:25:45 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	init_values(t_structs *structs)
 
 	structs->minimap->map = map;
 	structs->minimap->map_xlen = calculate_map_len_max(structs->minimap);
-	//structs->minimap->map_ylen = ft_tablen(map);
+	structs->minimap->map_ylen = ft_tablen(map);
 	structs->minimap->wall_size = 150 / structs->minimap->map_xlen;
 }
 
