@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 18:43:02 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/03 15:00:46 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/04 14:25:29 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,14 +112,28 @@ void	draw_map2d(t_image *image, t_minimap *minimap, t_player *player, t_raycasti
 	}
 	ray->map_x = player->x / ray->tile_size * minimap->wall_size;
 	ray->map_y = player->y / ray->tile_size * minimap->wall_size;
-	draw_player(image, player);
 }
 
-void	draw_player(t_image *image, t_player *player)
+void	draw_ray_on_map2d(t_image *image, t_minimap *minimap, t_raycasting *ray, int x, int y)
 {
-	(void) image;
-	(void) player;
-	return ;
+	t_points	pt;
+
+	pt.x0 = ray->map_x;
+	pt.y0 = ray->map_y;
+	pt.x1 = (x * minimap->wall_size) / ray->tile_size;
+	pt.y1 = (y * minimap->wall_size) / ray->tile_size;
+	bhm_line(image, &pt, YELLOW);
+}
+
+void	draw_player_on_map2d(t_image *image, t_player *player, t_raycasting *ray)
+{
+	t_points	pt;
+
+	pt.x0 = ray->map_x;
+	pt.y0 = ray->map_y;
+	pt.x1 = ray->map_x + ray->cos_table[(int) player->angle] * 10;//imprécision (cast en int)
+	pt.y1 = ray->map_y + ray->sin_table[(int) player->angle] * 10;//imprécision (cast en int)
+	bhm_line(image, &pt, PINK);
 }
 
 void	my_img_pixel_put(t_image *image, int x, int y, int color)
@@ -141,10 +155,10 @@ double	degtorad(double angle, t_raycasting *ray)
 void	draw_fill_rect(t_image *image, int x, int y, int height, int width, int color)
 {
 	t_points	pt;
-	int			wdth;
+	int			wdth_coord;
 
-	wdth = x + width;
-	while (x < wdth)
+	wdth_coord = x + width;
+	while (x < wdth_coord)
 	{
 		pt.x0 = x;
 		pt.y0 = y;

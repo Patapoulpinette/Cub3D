@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/03 15:00:46 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/04 14:31:49 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,11 +157,10 @@ void	bhm_line(t_image *image, t_points *pt, int color);
 
 //raycasting
 void	clear_image(t_image *image);
-void	draw_player(t_image *image, t_player *player);
-void	draw_map2d(t_image *image, t_minimap *minimap, t_player *player, t_raycasting *ray);
 void	draw_rays2d(t_image *image, t_minimap *minimap, t_player *player, t_raycasting *ray);
-void	search_collisions(t_raycasting *raycasting, t_minimap *minimap);
-void	draw_vertival_lines(t_image *image, t_raycasting *raycasting, int x);
+void	draw_map2d(t_image *image, t_minimap *minimap, t_player *player, t_raycasting *ray);
+void	draw_ray_on_map2d(t_image *image, t_minimap *minimap, t_raycasting *ray, int x, int y);
+void	draw_player_on_map2d(t_image *image, t_player *player, t_raycasting *ray);
 
 //movements
 void	move_player(int key, t_structs *structs);

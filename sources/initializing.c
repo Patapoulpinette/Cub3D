@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/03 15:00:46 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/04 14:45:36 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ void	init_values(t_structs *structs)
 	char	**map = calloc(20, sizeof(char *));
 
 	map[i++] = ft_strdup("11111111111111111111111111111");
-	map[i++] = ft_strdup("10100000000000000000000000001");
-	map[i++] = ft_strdup("10100000000000000000001111001");
-	map[i++] = ft_strdup("10100000000000000000001001001");
+	map[i++] = ft_strdup("10010000000000000000000000001");
+	map[i++] = ft_strdup("10010000000000000000000000001");
+	map[i++] = ft_strdup("10010000000000000000001111001");
+	map[i++] = ft_strdup("10010000000000000000001001001");
 	map[i++] = ft_strdup("10000000000000000000001000001");
 	map[i++] = ft_strdup("10000000000000011111111111111");
 	map[i++] = ft_strdup("1000000101000001");
@@ -34,16 +35,16 @@ void	init_values(t_structs *structs)
 	structs->ray->tile_size = 64;
 	structs->ray->wall_height = 64;
 	structs->ray->angle60 = SCREEN_WIDTH;
-	structs->ray->angle30 = structs->ray->angle60 / 2;
-	structs->ray->angle15 = structs->ray->angle30 / 2;
-	structs->ray->angle90 = structs->ray->angle30 * 3;
-	structs->ray->angle180 = structs->ray->angle90 * 2;
-	structs->ray->angle270 = structs->ray->angle90 * 3;
-	structs->ray->angle360 = structs->ray->angle60 * 6;
+	structs->ray->angle30 = floor(structs->ray->angle60 / 2);
+	structs->ray->angle15 = floor(structs->ray->angle30 / 2);
+	structs->ray->angle90 = floor(structs->ray->angle30 * 3);
+	structs->ray->angle180 = floor(structs->ray->angle90 * 2);
+	structs->ray->angle270 = floor(structs->ray->angle90 * 3);
+	structs->ray->angle360 = floor(structs->ray->angle60 * 6);
 	structs->ray->angle0 = 0;
-	structs->ray->angle5 = structs->ray->angle30 / 6;
-	structs->ray->angle10 = structs->ray->angle5 * 2;
-	structs->ray->angle45 = structs->ray->angle15 * 3;
+	structs->ray->angle5 = floor(structs->ray->angle30 / 6);
+	structs->ray->angle10 = floor(structs->ray->angle5 * 2);
+	structs->ray->angle45 = floor(structs->ray->angle15 * 3);
 	structs->ray->sin_table = ft_calloc(structs->ray->angle360 + 1, sizeof(double));
 	structs->ray->sin_table_inv = ft_calloc(structs->ray->angle360 + 1, sizeof(double));
 	structs->ray->cos_table = ft_calloc(structs->ray->angle360 + 1, sizeof(double));
