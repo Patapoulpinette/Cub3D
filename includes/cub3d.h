@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/06 12:16:46 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/06 16:31:31 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,17 +72,17 @@ typedef struct s_raycasting
 {
 	int		tile_size;
 	int		wall_height;
-	double	angle60;
-	double	angle30;
-	double	angle15;
-	double	angle90;
-	double	angle180;
-	double	angle270;
-	double	angle360;
-	double	angle0;
-	double	angle5;
-	double	angle10;
-	double	angle45;
+	int		angle60;
+	int		angle30;
+	int		angle15;
+	int		angle90;
+	int		angle180;
+	int		angle270;
+	int		angle360;
+	int		angle0;
+	int		angle5;
+	int		angle10;
+	int		angle45;
 	double	*sin_table;
 	double	*sin_table_inv;
 	double	*cos_table;
@@ -141,6 +141,8 @@ typedef struct s_structs
 void	init_values(t_structs *structs);
 void	fill_tables(t_structs *structs);
 int		calculate_map_len_max(t_minimap *minimap);
+void	print_array(double *array, int len);
+void	init_tables(t_raycasting *ray);
 
 //graphical_part
 void	create_image(t_mlx *mlx, t_image *image);
@@ -159,11 +161,10 @@ void	bhm_line(t_image *image, t_points *pt, int color);
 
 //raycasting
 void	clear_image(t_image *image);
-void	draw_rays2d(t_image *image, t_minimap *minimap, t_player *player, t_raycasting *ray);
 void	draw_map2d(t_image *image, t_minimap *minimap, t_player *player, t_raycasting *ray);
 void	draw_ray_on_map2d(t_image *image, t_minimap *minimap, t_raycasting *ray, int x, int y);
 void	draw_player_on_map2d(t_image *image, t_player *player, t_raycasting *ray);
-void	raycast(t_minimap *minimap, t_player *player, t_raycasting *ray);
+void	raycast(t_image *image, t_minimap *minimap, t_player *player, t_raycasting *ray);
 
 //movements
 void	move_player(int key, t_structs *structs);

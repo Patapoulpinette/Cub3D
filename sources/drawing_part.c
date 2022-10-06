@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 18:43:02 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/06 12:22:17 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/06 16:33:15 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 void	draw_in_image(t_structs *structs)
 {
 	clear_image(structs->image);
-	draw_rays2d(structs->image, structs->minimap, structs->player, structs->ray);
+	raycast(structs->image, structs->minimap, structs->player, structs->ray);
 	draw_map2d(structs->image, structs->minimap, structs->player, structs->ray);
-	raycast(structs->minimap, structs->player, structs->ray);
 	draw_player_on_map2d(structs->image, structs->player, structs->ray);
 	mlx_put_image_to_window(structs->mlx->mlx, structs->mlx->window, structs->image->img, 0, 0);
 }
@@ -36,59 +35,6 @@ void	clear_image(t_image *image)
 			my_img_pixel_put(image, i, j, 0x000000);
 			j++;
 		}
-		i++;
-	}
-}
-
-void	draw_rays2d(t_image *image, t_minimap *minimap, t_player *player, t_raycasting *ray)
-{
-	int		i;
-	double	radian;
-
-	(void) image;
-	(void) minimap;
-	(void) player;
-	i = 0;
-	while (i <= ray->angle360)
-	{
-		//facing left
-		if (i >= ray->angle90 && i < ray->angle270)
-		{
-			ray->step_x_table[i] = ray->tile_size / ray->tan_table[i];
-			if (ray->step_x_table[i] > 0)
-				ray->step_x_table[i] = -ray->step_x_table[i];
-		}
-		//facing right
-		else
-		{
-			ray->step_x_table[i] = ray->tile_size / ray->tan_table[i];
-			if (ray->step_x_table[i] < 0)
-				ray->step_x_table[i] = -ray->step_x_table[i];
-		}
-
-		//facing down
-		if (i >= ray->angle0 && i < ray->angle180)
-		{
-			ray->step_y_table[i] = ray->tile_size * ray->tan_table[i];
-			if (ray->step_y_table[i] < 0)
-				ray->step_y_table[i] = -ray->step_y_table[i];
-		}
-		//facing up
-		else
-		{
-			ray->step_y_table[i] = ray->tile_size * ray->tan_table[i];
-			if (ray->step_y_table[i] > 0)
-				ray->step_y_table[i] = -ray->step_y_table[i];
-		}
-		i++;
-	}
-
-	//create table for fixing fishbowl distortion view
-	i = -ray->angle30;
-	while (i <= ray->angle30)
-	{
-		radian = degtorad((double) i, ray);
-		ray->fish_table[i + (int) ray->angle30] = 1 / cos(radian);
 		i++;
 	}
 }
@@ -131,6 +77,7 @@ void	draw_player_on_map2d(t_image *image, t_player *player, t_raycasting *ray)
 {
 	t_points	pt;
 
+	dprintf(2, "PLAYER\nmap_x : %d | map_y : %d\nx_dir : %d | y_dir : %d\n", ray->map_x, ray->map_y, player->x_dir, player->y_dir);
 	pt.x0 = ray->map_x;
 	pt.y0 = ray->map_y;
 	pt.x1 = ray->map_x + ray->cos_table[(int) player->angle] * 10;//imprécision (cast en int)

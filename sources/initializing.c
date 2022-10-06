@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/06 12:18:25 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/06 16:32:52 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ void	init_values(t_structs *structs)
 	map[i++] = ft_strdup("10010000000000000000001001001");
 	map[i++] = ft_strdup("10000000000000000000001000001");
 	map[i++] = ft_strdup("10000000000000011111111111111");
-	map[i++] = ft_strdup("1000000101000001");
-	map[i++] = ft_strdup("1000000010000001");
-	map[i++] = ft_strdup("10000001010000011111");
-	map[i++] = ft_strdup("10000000000000000001");
-	map[i++] = ft_strdup("10000000000000000001");
-	map[i++] = ft_strdup("10000000000000000001");
-	map[i++] = ft_strdup("11111111111111111111");
+	map[i++] = ft_strdup("10000001010000011111111111111");
+	map[i++] = ft_strdup("10000000100000011111111111111");
+	map[i++] = ft_strdup("10000001010000011111111111111");
+	map[i++] = ft_strdup("10000000000000000001111111111");
+	map[i++] = ft_strdup("10000000000000000001111111111");
+	map[i++] = ft_strdup("10000000000000000001111111111");
+	map[i++] = ft_strdup("11111111111111111111111111111");
 
 	structs->ray->tile_size = 64;
 	structs->ray->wall_height = 64;
@@ -56,9 +56,16 @@ void	init_values(t_structs *structs)
 	structs->ray->step_y_table = ft_calloc(structs->ray->angle360 + 1, sizeof(double));
 	structs->ray->proj_plane_y_center = SCREEN_HEIGHT / 2;
 	fill_tables(structs);
+	puts("sin_table");
+	print_array(structs->ray->sin_table, structs->ray->angle360 + 1);
+	puts("\ncos_table");
+	print_array(structs->ray->cos_table, structs->ray->angle360 + 1);
+	puts("\ntan_table");
+	print_array(structs->ray->tan_table, structs->ray->angle360 + 1);
+	init_tables(structs->ray);
 
-	structs->player->x = 42;
-	structs->player->y = 22;
+	structs->player->x = 142;
+	structs->player->y = 142;
 	structs->player->x_dir = structs->ray->cos_table[(int) structs->player->angle];
 	structs->player->y_dir = structs->ray->sin_table[(int) structs->player->angle];
 	structs->player->angle = structs->ray->angle5 + structs->ray->angle5;
@@ -91,6 +98,63 @@ void	fill_tables(t_structs *structs)
 	}
 }
 
+void	init_tables(t_raycasting *ray)
+{
+	int		i;
+	double	radian;
+
+	i = 0;
+	while (i <= ray->angle360)
+	{
+		//facing left
+		if (i >= ray->angle90 && i < ray->angle270)
+		{
+			ray->step_x_table[i] = ray->tile_size / ray->tan_table[i];
+			if (ray->step_x_table[i] > 0)
+				ray->step_x_table[i] = -ray->step_x_table[i];
+		}
+		//facing right
+		else
+		{
+			ray->step_x_table[i] = ray->tile_size / ray->tan_table[i];
+			if (ray->step_x_table[i] < 0)
+				ray->step_x_table[i] = -ray->step_x_table[i];
+		}
+
+		//facing down
+		if (i >= ray->angle0 && i < ray->angle180)
+		{
+			ray->step_y_table[i] = ray->tile_size * ray->tan_table[i];
+			if (ray->step_y_table[i] < 0)
+				ray->step_y_table[i] = -ray->step_y_table[i];
+		}
+		//facing up
+		else
+		{
+			ray->step_y_table[i] = ray->tile_size * ray->tan_table[i];
+			if (ray->step_y_table[i] > 0)
+				ray->step_y_table[i] = -ray->step_y_table[i];
+		}
+		i++;
+	}
+	
+	//create table for fixing fishbowl distortion view
+	i = -ray->angle30;
+	while (i <= ray->angle30)
+	{
+		radian = degtorad((double) i, ray);
+		ray->fish_table[i + (int) ray->angle30] = 1 / cos(radian);
+		i++;
+	}
+
+	puts("\nfish_table");
+	print_array(ray->fish_table, ray->angle360 + 1);
+	puts("\nstep_x_table");
+	print_array(ray->step_x_table, ray->angle360 + 1);
+	puts("\nstep_y_table");
+	print_array(ray->step_y_table, ray->angle360 + 1);
+}
+
 int	calculate_map_len_max(t_minimap *minimap)
 {
 	int	result;
@@ -106,4 +170,13 @@ int	calculate_map_len_max(t_minimap *minimap)
 	}
 	dprintf(2, "len max ligne : %d\n", result);
 	return (result);
+}
+
+void	print_array(double *array, int len)
+{
+	int	i;
+
+	i = 0;
+	while (i < len - 1)
+		dprintf(2, "%f | ", array[i++]);
 }
