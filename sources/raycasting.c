@@ -6,13 +6,13 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:02:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/05 11:51:46 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/06 12:00:21 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	raycast(t_raycasting *ray, t_minimap *minimap, t_player *player)
+void	raycast(t_minimap *minimap, t_player *player, t_raycasting *ray)
 {
 	double	vertical_grid;
 	double	horizontal_grid;

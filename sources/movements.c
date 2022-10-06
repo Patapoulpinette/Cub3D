@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:01:41 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/29 17:17:43 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/06 12:21:02 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,16 @@
 
 void	move_player(int key, t_structs *structs)
 {
-	(void) key;
-	(void) structs;
-	return ;
-	//if (key == 13 && \
-	//	structs->minimap->map[(int) ((structs->player->y + structs->player->dy * structs->player->speed) / structs->minimap->zoom)][(int) ((structs->player->x + structs->player->dx * structs->player->speed) / structs->minimap->zoom)] == '0')
-	//{
-	//	structs->player->x += structs->player->dx * structs->player->speed;
-	//	structs->player->y += structs->player->dy * structs->player->speed;
-	//}
-	//else if (key == 1 && \
-	//	structs->minimap->map[(int) ((structs->player->y - structs->player->dy * structs->player->speed) / structs->minimap->zoom)][(int) ((structs->player->x - structs->player->dx * structs->player->speed) / structs->minimap->zoom)] == '0')
-	//{
-	//	structs->player->x -= structs->player->dx * structs->player->speed;
-	//	structs->player->y -= structs->player->dy * structs->player->speed;
-	//}
+	if (key == 13)//move forward
+	{
+		structs->player->x += round(structs->player->x_dir * structs->player->speed);
+		structs->player->y += round(structs->player->y_dir * structs->player->speed);
+	}
+	else if (key == 1)//move backward
+	{
+		structs->player->x -= round(structs->player->x_dir * structs->player->speed);
+		structs->player->y -= round(structs->player->y_dir * structs->player->speed);
+	}
 }
 
 void	translate_player(int key, t_structs *structs) //à revoir
@@ -40,23 +35,18 @@ void	translate_player(int key, t_structs *structs) //à revoir
 
 void	rotate_camera(int key, t_structs *structs)
 {
-	(void) key;
-	(void) structs;
-	return ;
-	//if (key == 123)
-	//{
-	//	structs->player->angle -= 0.05;
-	//	if (structs->player->angle < 0)
-	//		structs->player->angle += 2 * M_PI;
-	//	structs->player->dx = cos(structs->player->angle) * 5;
-	//	structs->player->dy = sin(structs->player->angle) * 5;
-	//}
-	//else if (key == 124)
-	//{
-	//	structs->player->angle += 0.05;
-	//	if (structs->player->angle > 2 * M_PI)
-	//		structs->player->angle -= 2 * M_PI;
-	//	structs->player->dx = cos(structs->player->angle) * 5;
-	//	structs->player->dy = sin(structs->player->angle) * 5;
-	//}
+	if (key == 123)//rotate to the left
+	{
+		structs->player->angle -= structs->ray->angle10;
+		if (structs->player->angle < structs->ray->angle0)
+			structs->player->angle += structs->ray->angle360;
+	}
+	else if (key == 124)//rotate to the right
+	{
+		structs->player->angle += structs->ray->angle10;
+		if (structs->player->angle >= structs->ray->angle360)
+			structs->player->angle -= structs->ray->angle360;
+	}
+	structs->player->x_dir = structs->ray->cos_table[(int) structs->player->angle];
+	structs->player->y_dir = structs->ray->sin_table[(int) structs->player->angle];
 }

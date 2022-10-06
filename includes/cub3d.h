@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/04 14:31:49 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/06 12:16:46 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ typedef struct s_player
 {
 	int		x;
 	int		y;
+	int		x_dir;
+	int		y_dir;
 	double	angle;
 	int		dist_from_proj_plane;
 	int		height;
@@ -161,6 +163,7 @@ void	draw_rays2d(t_image *image, t_minimap *minimap, t_player *player, t_raycast
 void	draw_map2d(t_image *image, t_minimap *minimap, t_player *player, t_raycasting *ray);
 void	draw_ray_on_map2d(t_image *image, t_minimap *minimap, t_raycasting *ray, int x, int y);
 void	draw_player_on_map2d(t_image *image, t_player *player, t_raycasting *ray);
+void	raycast(t_minimap *minimap, t_player *player, t_raycasting *ray);
 
 //movements
 void	move_player(int key, t_structs *structs);

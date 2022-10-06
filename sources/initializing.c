@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/04 18:25:45 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/06 12:18:25 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void	init_values(t_structs *structs)
 
 	structs->player->x = 42;
 	structs->player->y = 22;
+	structs->player->x_dir = structs->ray->cos_table[(int) structs->player->angle];
+	structs->player->y_dir = structs->ray->sin_table[(int) structs->player->angle];
 	structs->player->angle = structs->ray->angle5 + structs->ray->angle5;
 	structs->player->dist_from_proj_plane = 277;
 	structs->player->height = 32; // because size of wall is 64
