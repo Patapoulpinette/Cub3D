@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:02:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/06 16:39:35 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/07 12:08:55 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	raycast(t_image *image, t_minimap *minimap, t_player *player, t_raycasting 
 	double	dist_to_vertical_grid_being_hit;
 	double	dist_to_horizontal_grid_being_hit;
 	double	cast_arc;
-	double	cast_column;
+	int		cast_column;
 	double	x_tmp;
 	double	y_tmp;
 	//double	map_index;
@@ -182,7 +182,8 @@ void	raycast(t_image *image, t_minimap *minimap, t_player *player, t_raycasting 
 		if (bottom_of_wall >= SCREEN_HEIGHT)
 			bottom_of_wall = SCREEN_HEIGHT - 1;
 
-		draw_fill_rect(image, cast_column, top_of_wall, 1, bottom_of_wall - top_of_wall + 1, WALL_COLOR);
+		dprintf(2, "top_wall : %f | bottom_wall : %f\n", top_of_wall, bottom_of_wall);
+		draw_walls(image, cast_column, (int) top_of_wall, (int) bottom_of_wall);
 
 		// TRACE THE NEXT RAY
 
@@ -194,4 +195,24 @@ void	raycast(t_image *image, t_minimap *minimap, t_player *player, t_raycasting 
 	}
 }
 
-//écrire fonction draw_walls avec bhm_line
+void	draw_walls(t_image *image, int cast_column, int top_wall, int bottom_wall)
+{
+	t_points	pt;
+
+	//draw walls
+	pt.x0 = cast_column;
+	pt.y0 = top_wall;
+	pt.x1 = cast_column;
+	pt.y1 = bottom_wall;
+	bhm_line(image, &pt, WALL_COLOR);
+
+	//draw ceilling
+	pt.y0 = 0;
+	pt.y1 = top_wall;
+	bhm_line(image, &pt, SKY_COLOR);
+
+	//draw floor
+	pt.y0 = bottom_wall;
+	pt.y1 = SCREEN_HEIGHT;
+	bhm_line(image, &pt, FLOOR_COLOR);
+}
