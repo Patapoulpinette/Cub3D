@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/07 13:36:25 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/07 14:01:43 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ typedef struct s_player
 	int		y;
 	double	x_dir;
 	double	y_dir;
-	double	angle;
+	int		angle;
 	int		dist_from_proj_plane;
 	int		height;
 	int		speed;

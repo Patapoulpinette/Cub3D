@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:02:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/07 12:24:22 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/07 14:04:31 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	raycast(t_image *image, t_minimap *minimap, t_player *player, t_raycasting 
 	int		y_grid_index;
 	double	dist_to_vertical_grid_being_hit;
 	double	dist_to_horizontal_grid_being_hit;
-	double	cast_arc;
+	int		cast_arc;
 	int		cast_column;
 	double	x_tmp;
 	double	y_tmp;
@@ -59,7 +59,7 @@ void	raycast(t_image *image, t_minimap *minimap, t_player *player, t_raycasting 
 		{
 			horizontal_grid = floor(player->y / ray->tile_size) * ray->tile_size +ray->tile_size;
 			dist_to_next_horizontal_grid = ray->tile_size;
-			x_tmp = ray->tan_table_inv[(int) cast_arc] * (horizontal_grid - player->y);
+			x_tmp = ray->tan_table_inv[cast_arc] * (horizontal_grid - player->y);
 			x_intersection = x_tmp + player->x;
 		}
 		// Else, the ray is facing up
@@ -67,7 +67,7 @@ void	raycast(t_image *image, t_minimap *minimap, t_player *player, t_raycasting 
 		{
 			horizontal_grid = floor(player->y / ray->tile_size) * ray->tile_size;
 			dist_to_next_horizontal_grid = -ray->tile_size;
-			x_tmp = ray->tan_table_inv[(int) cast_arc] * (horizontal_grid - player->y);
+			x_tmp = ray->tan_table_inv[cast_arc] * (horizontal_grid - player->y);
 			x_intersection = x_tmp + player->x;
 			horizontal_grid--;
 		}
@@ -80,7 +80,7 @@ void	raycast(t_image *image, t_minimap *minimap, t_player *player, t_raycasting 
 		// Else, move the ray until it hits a horizontal wall
 		else
 		{
-			dist_to_next_x_intersection = ray->step_x_table[(int) cast_arc];
+			dist_to_next_x_intersection = ray->step_x_table[cast_arc];
 			while (1)
 			{
 				x_grid_index = floor(x_intersection / ray->tile_size);
@@ -94,7 +94,7 @@ void	raycast(t_image *image, t_minimap *minimap, t_player *player, t_raycasting 
 				// If the grid is not an Opening, then stop
 				else if (minimap->map[y_grid_index][x_grid_index] != '0')
 				{
-					dist_to_horizontal_grid_being_hit = (x_intersection - player->x) * ray->cos_table_inv[(int) cast_arc];
+					dist_to_horizontal_grid_being_hit = (x_intersection - player->x) * ray->cos_table_inv[cast_arc];
 					break;
 				}
 				// Else, keep looking. At this point, the ray is not blocked, extend the ray to the next grid
@@ -110,7 +110,7 @@ void	raycast(t_image *image, t_minimap *minimap, t_player *player, t_raycasting 
 		{
 			vertical_grid = ray->tile_size + floor(player->x / ray->tile_size) * ray->tile_size;
 			dist_to_next_vertical_grid = ray->tile_size;
-			y_tmp = ray->tan_table[(int) cast_arc] * (vertical_grid - player->x);
+			y_tmp = ray->tan_table[cast_arc] * (vertical_grid - player->x);
 			y_intersection = y_tmp + player->y;
 		}
 		// Ray facing left
@@ -118,7 +118,7 @@ void	raycast(t_image *image, t_minimap *minimap, t_player *player, t_raycasting 
 		{
 			vertical_grid = floor(player->x / ray->tile_size) * ray->tile_size;
 			dist_to_next_vertical_grid = -ray->tile_size;
-			y_tmp = ray->tan_table[(int) cast_arc] * (vertical_grid - player->x);
+			y_tmp = ray->tan_table[cast_arc] * (vertical_grid - player->x);
 			y_intersection = y_tmp + player->y;
 			vertical_grid--;
 		}
@@ -129,7 +129,7 @@ void	raycast(t_image *image, t_minimap *minimap, t_player *player, t_raycasting 
 			dist_to_vertical_grid_being_hit = INT32_MAX;
 		else
 		{
-			dist_to_next_y_intersection = ray->step_y_table[(int) cast_arc];
+			dist_to_next_y_intersection = ray->step_y_table[cast_arc];
 			while (1)
 			{
 				x_grid_index = floor(vertical_grid / ray->tile_size);
@@ -141,7 +141,7 @@ void	raycast(t_image *image, t_minimap *minimap, t_player *player, t_raycasting 
 				}
 				else if (minimap->map[y_grid_index][x_grid_index] != '0')
 				{
-					dist_to_vertical_grid_being_hit = (y_intersection - player->y) * ray->sin_table_inv[(int) cast_arc];
+					dist_to_vertical_grid_being_hit = (y_intersection - player->y) * ray->sin_table_inv[cast_arc];
 					break;
 				}
 				else
@@ -158,17 +158,17 @@ void	raycast(t_image *image, t_minimap *minimap, t_player *player, t_raycasting 
 		// If yray distance to the wall is closer, the yDistance will be shorter than the xDistance
 		if (dist_to_horizontal_grid_being_hit < dist_to_vertical_grid_being_hit)
 		{
-			draw_ray_on_map2d(image, minimap, ray, x_intersection, y_intersection);
+			//draw_ray_on_map2d(image, minimap, ray, x_intersection, y_intersection);
 			dist = dist_to_horizontal_grid_being_hit;
 		}
 		// Else, we use xray instead (meaning the vertical wall is closer than the horizontal wall)
 		else
 		{
-			draw_ray_on_map2d(image, minimap, ray, vertical_grid, y_intersection);
+			//draw_ray_on_map2d(image, minimap, ray, vertical_grid, y_intersection);
 			dist = dist_to_vertical_grid_being_hit;
 		}
 		// Correct distance (compensate for the fishbown effect)
-		dist /= ray->fish_table[(int) cast_column];
+		dist /= ray->fish_table[cast_column];
 		// projected_wall_height/wall_height = fPlayerDistToProjectionPlane/dist;
 		projected_wall_height = ray->wall_height * player->dist_from_proj_plane / dist;
 		top_of_wall = ray->proj_plane_y_center - projected_wall_height * 0.5;

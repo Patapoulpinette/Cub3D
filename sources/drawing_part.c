@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 18:43:02 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/07 13:37:46 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/07 14:49:38 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,11 @@ void	draw_player_on_map2d(t_image *image, t_player *player, t_raycasting *ray)
 {
 	t_points	pt;
 
-	dprintf(2, "PLAYER\nmap_x : %d | map_y : %d\nx_dir : %f | y_dir : %f\n", ray->map_x, ray->map_y, player->x_dir, player->y_dir);
+	//dprintf(2, "PLAYER | map_x : %d | map_y : %d | x_dir : %f | y_dir : %f\n", ray->map_x, ray->map_y, player->x_dir, player->y_dir);
 	pt.x0 = ray->map_x;
 	pt.y0 = ray->map_y;
-	pt.x1 = ray->map_x + ray->cos_table[(int) player->angle] * 10;//imprécision (cast en int)
-	pt.y1 = ray->map_y + ray->sin_table[(int) player->angle] * 10;//imprécision (cast en int)
+	pt.x1 = ray->map_x + ray->cos_table[player->angle] * 10;//imprécision (cast en int)
+	pt.y1 = ray->map_y + ray->sin_table[player->angle] * 10;//imprécision (cast en int)
 	bhm_line(image, &pt, PINK);
 }
 
