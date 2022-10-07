@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/06 16:32:52 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/07 13:37:15 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,16 @@ void	init_values(t_structs *structs)
 	structs->ray->step_y_table = ft_calloc(structs->ray->angle360 + 1, sizeof(double));
 	structs->ray->proj_plane_y_center = SCREEN_HEIGHT / 2;
 	fill_tables(structs);
-	puts("sin_table");
-	print_array(structs->ray->sin_table, structs->ray->angle360 + 1);
-	puts("\ncos_table");
-	print_array(structs->ray->cos_table, structs->ray->angle360 + 1);
-	puts("\ntan_table");
-	print_array(structs->ray->tan_table, structs->ray->angle360 + 1);
 	init_tables(structs->ray);
 
 	structs->player->x = 142;
 	structs->player->y = 142;
-	structs->player->x_dir = structs->ray->cos_table[(int) structs->player->angle];
-	structs->player->y_dir = structs->ray->sin_table[(int) structs->player->angle];
 	structs->player->angle = structs->ray->angle5 + structs->ray->angle5;
+	structs->player->x_dir = cos(structs->player->angle);
+	structs->player->y_dir = sin(structs->player->angle);
+	dprintf(2, "INIT: player_angle = %f\n", structs->player->angle);
+	dprintf(2, "INIT : x_dir = %f\n", structs->player->x_dir);
+	dprintf(2, "INIT : y_dir = %f\n", structs->player->y_dir);
 	structs->player->dist_from_proj_plane = 277;
 	structs->player->height = 32; // because size of wall is 64
 	structs->player->speed = 16;
@@ -146,13 +143,6 @@ void	init_tables(t_raycasting *ray)
 		ray->fish_table[i + (int) ray->angle30] = 1 / cos(radian);
 		i++;
 	}
-
-	puts("\nfish_table");
-	print_array(ray->fish_table, ray->angle360 + 1);
-	puts("\nstep_x_table");
-	print_array(ray->step_x_table, ray->angle360 + 1);
-	puts("\nstep_y_table");
-	print_array(ray->step_y_table, ray->angle360 + 1);
 }
 
 int	calculate_map_len_max(t_minimap *minimap)
@@ -170,13 +160,4 @@ int	calculate_map_len_max(t_minimap *minimap)
 	}
 	dprintf(2, "len max ligne : %d\n", result);
 	return (result);
-}
-
-void	print_array(double *array, int len)
-{
-	int	i;
-
-	i = 0;
-	while (i < len - 1)
-		dprintf(2, "%f | ", array[i++]);
 }

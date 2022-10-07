@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:02:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/07 12:08:55 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/07 12:24:22 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ void	raycast(t_image *image, t_minimap *minimap, t_player *player, t_raycasting 
 	int		cast_column;
 	double	x_tmp;
 	double	y_tmp;
-	//double	map_index;
 
-	//double	scale_factor;
 	double	dist;
 	double	top_of_wall;
 	double	bottom_of_wall;
@@ -87,7 +85,6 @@ void	raycast(t_image *image, t_minimap *minimap, t_player *player, t_raycasting 
 			{
 				x_grid_index = floor(x_intersection / ray->tile_size);
 				y_grid_index = floor(horizontal_grid / ray->tile_size);
-				//map_index = floor(y_grid_index * minimap->map_xlen + x_grid_index);//NOT NECESSARY I THINK
 				// If we've looked as far as outside the map range, then bail out
 				if ((x_grid_index >= minimap->map_xlen) || (y_grid_index >= minimap->map_ylen) || x_grid_index < 0 || y_grid_index < 0)
 				{
@@ -137,7 +134,6 @@ void	raycast(t_image *image, t_minimap *minimap, t_player *player, t_raycasting 
 			{
 				x_grid_index = floor(vertical_grid / ray->tile_size);
 				y_grid_index = floor(y_intersection / ray->tile_size);
-				//map_index = floor(y_grid_index * minimap->map_xlen + x_grid_index);//NOT NECESSARY I THINK
 				if ((x_grid_index >= minimap->map_xlen) || (y_grid_index >= minimap->map_ylen) || x_grid_index < 0 || y_grid_index < 0)
 				{
 					dist_to_vertical_grid_being_hit = INT32_MAX;
@@ -182,7 +178,7 @@ void	raycast(t_image *image, t_minimap *minimap, t_player *player, t_raycasting 
 		if (bottom_of_wall >= SCREEN_HEIGHT)
 			bottom_of_wall = SCREEN_HEIGHT - 1;
 
-		dprintf(2, "top_wall : %f | bottom_wall : %f\n", top_of_wall, bottom_of_wall);
+		//dprintf(2, "top_wall : %f | bottom_wall : %f\n", top_of_wall, bottom_of_wall);
 		draw_walls(image, cast_column, (int) top_of_wall, (int) bottom_of_wall);
 
 		// TRACE THE NEXT RAY

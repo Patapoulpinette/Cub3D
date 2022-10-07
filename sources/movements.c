@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:01:41 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/06 16:34:52 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/07 12:23:39 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,18 @@ void	move_player(int key, t_structs *structs)
 	if (key == 13)//move forward
 	{
 		puts("move forward");
+		dprintf(2, "avant : x = %d | y = %d\n", structs->player->x, structs->player->y);
 		structs->player->x += round(structs->player->x_dir * structs->player->speed);
 		structs->player->y += round(structs->player->y_dir * structs->player->speed);
+		dprintf(2, "après : x = %d | y = %d\n", structs->player->x, structs->player->y);
 	}
 	else if (key == 1)//move backward
 	{
 		puts("move backward");
+		dprintf(2, "avant : x = %d | y = %d\n", structs->player->x, structs->player->y);
 		structs->player->x -= round(structs->player->x_dir * structs->player->speed);
 		structs->player->y -= round(structs->player->y_dir * structs->player->speed);
+		dprintf(2, "après : x = %d | y = %d\n", structs->player->x, structs->player->y);
 	}
 }
 
