@@ -6,7 +6,7 @@
 /*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:33:54 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/10 13:26:06 by apercebo         ###   ########.fr       */
+/*   Updated: 2022/10/11 17:50:41 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,39 +25,43 @@ void	name_error(char *maplink)
 	}			
 }
 
-void	le_parsing(t_data *data, char **argv)
+void	parsing(t_data *data, char **argv)
 {
 	name_error(argv[1]);
-	parsing(data, argv[1]);
+	count_line(data, argv[1]);
 	backtracking(data);
 	debug(data);
+	free_tab_c(data->game_map);
+	free_tab_c(data->f_game_map);
+	free(data->no_path);
+	free(data->so_path);
+	free(data->we_path);
+	free(data->ea_path);
 }
 
 int	main(int argc, char **argv)
 {
 	t_data			data;
-	//t_maps_coord	map;
 
 	if (argc != 2)
 		return (0);
-	le_parsing(&data, argv);
-	//display_window(&map);
+	parsing(&data, argv);
 	return (0);
-	//get_data_info(&data)
 }
 
 void	debug(t_data *data)
 {
 	int	i;
+	int	val;
 
 	i = -1;
+	val = -1;
 	printf("  THE MAP :\n");
 	while (data->game_map[++i])
 	{
 		printf("%s\n", data->game_map[i]);
 	}
 	printf("\n\nReal Map :\n\n");
-	int val = -1;
 	while (data->f_game_map[++val])
 	{
 		printf("%s\n", data->f_game_map[val]);
@@ -67,7 +71,6 @@ void	debug(t_data *data)
 	printf("%s\n", data->so_path);
 	printf("%s\n", data->we_path);
 	printf("%s\n", data->ea_path);
-	// TABL DE INT
 	printf("\n  The colors :\n\n");
 	printf("%d,%d,%d\n", data->ftabl[0], data->ftabl[1], data->ftabl[2]);
 	printf("%d,%d,%d\n", data->ctabl[0], data->ctabl[1], data->ctabl[2]);

@@ -6,7 +6,7 @@
 /*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/10 11:44:58 by apercebo         ###   ########.fr       */
+/*   Updated: 2022/10/11 17:32:42 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,28 +44,10 @@ typedef struct s_image
 	int		y_img;
 }				t_image;
 
-typedef struct s_maps_coord
-{
-	char	*name;
-	int		**map_tab;
-	int		x_len;
-	int		y_len;
-	int		x0;
-	int		y0;
-	int		x1;
-	int		y1;
-}				t_maps_coord;
-
-typedef struct s_algo_params
-{
-
-}				t_algo_params;
-
 typedef struct s_structs
 {
 	t_mlx_params	*mlx;
 	t_image			*image;
-	t_maps_coord	*map;
 }				t_structs;
 
 typedef struct s_data
@@ -91,7 +73,14 @@ typedef struct s_data
 	int		save;
 	int		map_end;
 	char	pl_orientation;
+	t_incr	*inc;
 }		t_data; //todo variable orientation joueur
+
+typedef struct s_incr
+{
+	int		i;
+	int		j;
+}		t_incr;
 
 //---- GNL -------------------------------------
 /* char	*ft_strmjoin(char *s1, char *s2);
@@ -103,9 +92,10 @@ char	*get_next_line(int fd); */
 void	debug(t_data *data);
 void	name_error(char *maplink);
 void	get_data_info(t_data *data);
-void	parsing(t_data *data, char *maplink);
-void	parsing_2(t_data *data, int fd, int i, char *maplink);
-void	le_parsing(t_data *data, char **argv);
+void	count_line(t_data *data, char *maplink);
+void	recup_map(t_data *data, int fd, int i, char *maplink);
+void	parsing(t_data *data, char **argv);
+void	free_tab_c(char **tab);
 //----------------------------------------------
 
 //---- PARSING ---------------------------------
@@ -128,13 +118,6 @@ void	delete_walls(t_data *data);
 int		ch_is_in_map(t_data *data, int i, int j);
 int		ch_is_a_corner(t_data *data, int i, int j);
 void	display(t_data *data);
-//----------------------------------------------
-
-//---- GRAPHICAL PART --------------------------
-void	create_image(t_mlx_params *mlx, t_image *image);
-int		press_key(int key, t_structs *structs);
-int		exit_program(void);
-void	display_window(t_maps_coord *map);
 //----------------------------------------------
 
 //---- UTILS -----------------------------------
