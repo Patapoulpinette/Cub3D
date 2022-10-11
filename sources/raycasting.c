@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:02:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/07 14:04:31 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/11 12:06:23 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,16 @@ void	raycast(t_image *image, t_minimap *minimap, t_player *player, t_raycasting 
 	double	top_of_wall;
 	double	bottom_of_wall;
 	double	projected_wall_height;
+	int		side;
 
 	cast_arc = player->angle;
 	// field of view is 60 degree with the point of view (player's direction in the middle)
-		// 30  30
-		//    ^
-		//  \ | /
-		//   \|/
-		//    v
-		// we will trace the rays starting from the leftmost ray
+	// 30  30
+	//    ^
+	//  \ | /
+	//   \|/
+	//    v
+	// we will trace the rays starting from the leftmost ray
 	cast_arc -= ray->angle30;
 
 	if (cast_arc < 0)
@@ -57,7 +58,7 @@ void	raycast(t_image *image, t_minimap *minimap, t_player *player, t_raycasting 
 		// Ray is facing down
 		if (cast_arc > ray->angle0 && cast_arc < ray->angle180)
 		{
-			horizontal_grid = floor(player->y / ray->tile_size) * ray->tile_size +ray->tile_size;
+			horizontal_grid = floor(player->y / ray->tile_size) * ray->tile_size + ray->tile_size;
 			dist_to_next_horizontal_grid = ray->tile_size;
 			x_tmp = ray->tan_table_inv[cast_arc] * (horizontal_grid - player->y);
 			x_intersection = x_tmp + player->x;
@@ -156,10 +157,13 @@ void	raycast(t_image *image, t_minimap *minimap, t_player *player, t_raycasting 
 
 		// Determine which ray strikes a closer wall.
 		// If yray distance to the wall is closer, the yDistance will be shorter than the xDistance
+		dprintf(1, "dist_to_horizontal_grid_being_hit = %f | dist_to_vertical_grid_being_hit = %f\n", dist_to_horizontal_grid_being_hit, dist_to_vertical_grid_being_hit);
+		side = 0;
 		if (dist_to_horizontal_grid_being_hit < dist_to_vertical_grid_being_hit)
 		{
 			//draw_ray_on_map2d(image, minimap, ray, x_intersection, y_intersection);
 			dist = dist_to_horizontal_grid_being_hit;
+			side = 1;
 		}
 		// Else, we use xray instead (meaning the vertical wall is closer than the horizontal wall)
 		else
@@ -177,9 +181,11 @@ void	raycast(t_image *image, t_minimap *minimap, t_player *player, t_raycasting 
 		bottom_of_wall = ray->proj_plane_y_center + projected_wall_height * 0.5;
 		if (bottom_of_wall >= SCREEN_HEIGHT)
 			bottom_of_wall = SCREEN_HEIGHT - 1;
+		dprintf(1, "projected_wall_height = %f | dist = %f\n", projected_wall_height, dist);
 
 		//dprintf(2, "top_wall : %f | bottom_wall : %f\n", top_of_wall, bottom_of_wall);
-		draw_walls(image, cast_column, (int) top_of_wall, (int) bottom_of_wall);
+		draw_walls(image, cast_column, (int) top_of_wall, (int) bottom_of_wall, side);
+		draw_ray_on_map2d(image, minimap, ray, x_grid_index, y_grid_index);
 
 		// TRACE THE NEXT RAY
 
@@ -191,7 +197,7 @@ void	raycast(t_image *image, t_minimap *minimap, t_player *player, t_raycasting 
 	}
 }
 
-void	draw_walls(t_image *image, int cast_column, int top_wall, int bottom_wall)
+void	draw_walls(t_image *image, int cast_column, int top_wall, int bottom_wall, int side)
 {
 	t_points	pt;
 
@@ -200,7 +206,10 @@ void	draw_walls(t_image *image, int cast_column, int top_wall, int bottom_wall)
 	pt.y0 = top_wall;
 	pt.x1 = cast_column;
 	pt.y1 = bottom_wall;
-	bhm_line(image, &pt, WALL_COLOR);
+	if (side == 1)
+		bhm_line(image, &pt, WALL_COLOR / 2);
+	else
+		bhm_line(image, &pt, WALL_COLOR);
 
 	//draw ceilling
 	pt.y0 = 0;

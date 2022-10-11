@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/07 14:01:43 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/10 13:07:45 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ void	draw_map2d(t_image *image, t_minimap *minimap, t_player *player, t_raycasti
 void	draw_ray_on_map2d(t_image *image, t_minimap *minimap, t_raycasting *ray, int x, int y);
 void	draw_player_on_map2d(t_image *image, t_player *player, t_raycasting *ray);
 void	raycast(t_image *image, t_minimap *minimap, t_player *player, t_raycasting *ray);
-void	draw_walls(t_image *image, int cast_column, int top_wall, int bottom_wall);
+void	draw_walls(t_image *image, int cast_column, int top_wall, int bottom_wall, int side);
 
 //movements
 void	move_player(int key, t_structs *structs);

@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/07 15:43:06 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/11 11:51:46 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	init_values(t_structs *structs)
 	structs->ray->angle5 = floor(structs->ray->angle30 / 6);
 	structs->ray->angle10 = floor(structs->ray->angle5 * 2);
 	structs->ray->angle45 = floor(structs->ray->angle15 * 3);
-	dprintf(2, "angle5 = %d\nangle10 = %d\nangle15 = %d\nangle30 = %d\nangle45 = %d\nangle60 = %d\nangle90 = %d\nangle180 = %d\nangle270 = %d\nangle180 = %d\n", structs->ray->angle5, \
+	dprintf(1, "angle5 = %d\nangle10 = %d\nangle15 = %d\nangle30 = %d\nangle45 = %d\nangle60 = %d\nangle90 = %d\nangle180 = %d\nangle270 = %d\nangle180 = %d\n", structs->ray->angle5, \
 		structs->ray->angle10, structs->ray->angle15, structs->ray->angle30, structs->ray->angle45, \
 		structs->ray->angle60, structs->ray->angle90, structs->ray->angle180, structs->ray->angle270, structs->ray->angle180);
 	structs->ray->sin_table = ft_calloc(structs->ray->angle360 + 1, sizeof(double));
@@ -61,9 +61,9 @@ void	init_values(t_structs *structs)
 	fill_tables(structs);
 	init_tables(structs->ray);
 
-	structs->player->x = 142;
-	structs->player->y = 142;
-	structs->player->angle = structs->ray->angle5 + structs->ray->angle5;
+	structs->player->x = 330;
+	structs->player->y = 310;
+	structs->player->angle = structs->ray->angle90;
 	structs->player->x_dir = structs->ray->cos_table[structs->player->angle];
 	structs->player->y_dir = structs->ray->sin_table[structs->player->angle];
 	structs->player->dist_from_proj_plane = 277;
@@ -158,6 +158,6 @@ int	calculate_map_len_max(t_minimap *minimap)
 			result = ft_strlen(minimap->map[j]);
 		j++;
 	}
-	dprintf(2, "len max ligne : %d\n", result);
+	dprintf(1, "len max ligne : %d\n", result);
 	return (result);
 }

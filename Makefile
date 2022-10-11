@@ -6,7 +6,7 @@
 #    By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/03 14:53:19 by dbouron           #+#    #+#              #
-#    Updated: 2022/10/06 13:38:08 by dbouron          ###   ########lyon.fr    #
+#    Updated: 2022/10/10 13:22:41 by dbouron          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ HEADFILE += $(shell find minilibx_macos -name "*.h")
 
 CFLAGS = -Wall -Wextra -Werror
 CFLAGS += -I includes/ -I libft/ -I minilibx_macos/ -I GNL/ -O3
-CFLAGS += -fsanitize=address -g3
+#CFLAGS += -fsanitize=address -g3
 
 # **************************************************************************** #
 #                                    COLORS                                    #
