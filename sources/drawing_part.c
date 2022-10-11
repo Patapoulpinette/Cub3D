@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 18:43:02 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/10 18:33:57 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/11 14:15:54 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,15 @@ void	draw_player_on_map2d(t_image *image, t_player *player, t_raycasting *ray)
 	pt.y1 = ray->map_y + player->y_dir * 10;
 	dprintf(2, "\tx0 = %d | y0 = %d | x1 = %d | y1 = %d\n", pt.x0, pt.y0, pt.x1, pt.y1);
 	bhm_line(image, &pt, PINK);
+
+	my_img_pixel_put(image, pt.x0 - 1, pt.y0 - 1, PINK);
+	my_img_pixel_put(image, pt.x0, pt.y0 - 1, PINK);
+	my_img_pixel_put(image, pt.x0 + 1, pt.y0 - 1, PINK);
+	my_img_pixel_put(image, pt.x0 - 1, pt.y0, PINK);
+	my_img_pixel_put(image, pt.x0 + 1, pt.y0, PINK);
+	my_img_pixel_put(image, pt.x0 - 1, pt.y0 + 1, PINK);
+	my_img_pixel_put(image, pt.x0, pt.y0 + 1, PINK);
+	my_img_pixel_put(image, pt.x0 + 1, pt.y0 + 1, PINK);
 }
 
 void	my_img_pixel_put(t_image *image, int x, int y, int color)
