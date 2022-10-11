@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/11 14:37:18 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/11 16:21:47 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,37 +17,34 @@ void	init_values(t_structs *structs)
 	int		i = 0;
 	char	**map = calloc(20, sizeof(char *));
 
-	map[i++] = ft_strdup("111111111111111111111111111111111111111111111");
-	map[i++] = ft_strdup("100100000000000000000000000000000000010000001");
-	map[i++] = ft_strdup("100100000000000000000000000000000000010000001");
-	map[i++] = ft_strdup("100100111111110000000011111111110000010000001");
-	map[i++] = ft_strdup("100100100000000000000010000000000000000000001");
-	map[i++] = ft_strdup("100000100000000000000010000000000000000000001");
-	map[i++] = ft_strdup("111111100000000111111111111111110000011111111");
-	map[i++] = ft_strdup("1000000111000001            1000000001");
-	map[i++] = ft_strdup("1000000111000001            1000000001111");
-	map[i++] = ft_strdup("10000001110000011111        1111100000001");
-	map[i++] = ft_strdup("10100000100000000001            100000001");
-	map[i++] = ft_strdup("10100000000000100001            111111111");
-	map[i++] = ft_strdup("10100000000000100001");
-	map[i++] = ft_strdup("11111111111111111111");
+	map[i++] = ft_strdup("111111111111111111");
+	map[i++] = ft_strdup("100000000000010001");
+	map[i++] = ft_strdup("100000000000010001");
+	map[i++] = ft_strdup("100111111110010001");
+	map[i++] = ft_strdup("100100000000000001");
+	map[i++] = ft_strdup("100100000000000001");
+	map[i++] = ft_strdup("111100000011111111");
+	map[i++] = ft_strdup("10001110001");
+	map[i++] = ft_strdup("10000110001");
+	map[i++] = ft_strdup("10001110001111111");
+	map[i++] = ft_strdup("1000000000000001");
+	map[i++] = ft_strdup("10000000000100001");
+	map[i++] = ft_strdup("10000000000100001");
+	map[i++] = ft_strdup("11111111111111111");
 
 	structs->ray->tile_size = 64;
 	structs->ray->wall_height = 64;
 	structs->ray->angle60 = SCREEN_WIDTH;
-	structs->ray->angle30 = floor(structs->ray->angle60 / 2);
-	structs->ray->angle15 = floor(structs->ray->angle30 / 2);
-	structs->ray->angle90 = floor(structs->ray->angle30 * 3);
-	structs->ray->angle180 = floor(structs->ray->angle90 * 2);
-	structs->ray->angle270 = floor(structs->ray->angle90 * 3);
-	structs->ray->angle360 = floor(structs->ray->angle60 * 6);
+	structs->ray->angle30 = structs->ray->angle60 / 2;
+	structs->ray->angle15 = structs->ray->angle30 / 2;
+	structs->ray->angle90 = structs->ray->angle30 * 3;
+	structs->ray->angle180 = structs->ray->angle90 * 2;
+	structs->ray->angle270 = structs->ray->angle90 * 3;
+	structs->ray->angle360 = structs->ray->angle60 * 6;
 	structs->ray->angle0 = 0;
-	structs->ray->angle5 = floor(structs->ray->angle30 / 6);
-	structs->ray->angle10 = floor(structs->ray->angle5 * 2);
-	structs->ray->angle45 = floor(structs->ray->angle15 * 3);
-	dprintf(1, "angle5 = %d\nangle10 = %d\nangle15 = %d\nangle30 = %d\nangle45 = %d\nangle60 = %d\nangle90 = %d\nangle180 = %d\nangle270 = %d\nangle180 = %d\n", structs->ray->angle5, \
-		structs->ray->angle10, structs->ray->angle15, structs->ray->angle30, structs->ray->angle45, \
-		structs->ray->angle60, structs->ray->angle90, structs->ray->angle180, structs->ray->angle270, structs->ray->angle180);
+	structs->ray->angle5 = structs->ray->angle30 / 6;
+	structs->ray->angle10 = structs->ray->angle5 * 2;
+	structs->ray->angle45 = structs->ray->angle15 * 3;
 	structs->ray->sin_table = ft_calloc(structs->ray->angle360 + 1, sizeof(double));
 	structs->ray->sin_table_inv = ft_calloc(structs->ray->angle360 + 1, sizeof(double));
 	structs->ray->cos_table = ft_calloc(structs->ray->angle360 + 1, sizeof(double));
@@ -61,8 +58,8 @@ void	init_values(t_structs *structs)
 	fill_tables(structs);
 	init_tables(structs->ray);
 
-	structs->player->x = 330;
-	structs->player->y = 310;
+	structs->player->x = 320;
+	structs->player->y = 300;
 	structs->player->angle = structs->ray->angle90;
 	structs->player->x_dir = structs->ray->cos_table[structs->player->angle];
 	structs->player->y_dir = structs->ray->sin_table[structs->player->angle];

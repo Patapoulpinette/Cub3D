@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:02:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/11 12:06:23 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/11 15:43:56 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,18 +157,17 @@ void	raycast(t_image *image, t_minimap *minimap, t_player *player, t_raycasting 
 
 		// Determine which ray strikes a closer wall.
 		// If yray distance to the wall is closer, the yDistance will be shorter than the xDistance
-		dprintf(1, "dist_to_horizontal_grid_being_hit = %f | dist_to_vertical_grid_being_hit = %f\n", dist_to_horizontal_grid_being_hit, dist_to_vertical_grid_being_hit);
 		side = 0;
 		if (dist_to_horizontal_grid_being_hit < dist_to_vertical_grid_being_hit)
 		{
-			//draw_ray_on_map2d(image, minimap, ray, x_intersection, y_intersection);
+			draw_ray_on_map2d(image, minimap, ray, x_intersection, y_intersection);
 			dist = dist_to_horizontal_grid_being_hit;
 			side = 1;
 		}
 		// Else, we use xray instead (meaning the vertical wall is closer than the horizontal wall)
 		else
 		{
-			//draw_ray_on_map2d(image, minimap, ray, vertical_grid, y_intersection);
+			draw_ray_on_map2d(image, minimap, ray, vertical_grid, y_intersection);
 			dist = dist_to_vertical_grid_being_hit;
 		}
 		// Correct distance (compensate for the fishbown effect)
@@ -181,11 +180,9 @@ void	raycast(t_image *image, t_minimap *minimap, t_player *player, t_raycasting 
 		bottom_of_wall = ray->proj_plane_y_center + projected_wall_height * 0.5;
 		if (bottom_of_wall >= SCREEN_HEIGHT)
 			bottom_of_wall = SCREEN_HEIGHT - 1;
-		dprintf(1, "projected_wall_height = %f | dist = %f\n", projected_wall_height, dist);
 
 		//dprintf(2, "top_wall : %f | bottom_wall : %f\n", top_of_wall, bottom_of_wall);
 		draw_walls(image, cast_column, (int) top_of_wall, (int) bottom_of_wall, side);
-		draw_ray_on_map2d(image, minimap, ray, x_grid_index, y_grid_index);
 
 		// TRACE THE NEXT RAY
 
