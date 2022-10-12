@@ -6,7 +6,7 @@
 /*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/11 17:32:42 by apercebo         ###   ########.fr       */
+/*   Updated: 2022/10/12 14:10:52 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,9 @@ typedef struct s_incr
 {
 	int		i;
 	int		j;
+	int		x;
+	int		nbr;
+	int		save;
 }		t_incr;
 
 //---- GNL -------------------------------------
@@ -100,6 +103,7 @@ void	free_tab_c(char **tab);
 
 //---- PARSING ---------------------------------
 int		texturing(t_data *data);
+void	texturing_init(t_data *data);
 void	no_path(t_data *data);
 void	so_path(t_data *data);
 void	we_path(t_data *data);
@@ -108,6 +112,8 @@ void	f_color(t_data *data);
 void	c_color(t_data *data);
 int		map_parsing(t_data *data);
 int		map_error(t_data *data);
+int		skip_space(t_data *data);
+void	malloc_map(t_data *data);
 //----------------------------------------------
 
 //---- BACKTRACKING ----------------------------

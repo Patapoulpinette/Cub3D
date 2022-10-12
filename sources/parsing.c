@@ -6,7 +6,7 @@
 /*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 04:19:59 by apercebo          #+#    #+#             */
-/*   Updated: 2022/10/11 18:02:14 by apercebo         ###   ########.fr       */
+/*   Updated: 2022/10/12 14:10:39 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	recup_map(t_data *data, int fd, int i, char *maplink)
 			break ;
 		i++;
 	}
+	texturing_init(data);
 	if (texturing(data) == 0)
 		printf("SUCCESS\n");
 	if (map_parsing(data) == 1)
@@ -65,7 +66,7 @@ void	recup_map(t_data *data, int fd, int i, char *maplink)
 	}
 }
 
-int	texturing(t_data *data)
+void	texturing_init(t_data *data)
 {
 	data->i = -1;
 	data->no = 0;
@@ -74,6 +75,10 @@ int	texturing(t_data *data)
 	data->ea = 0;
 	data->f = 0;
 	data->c = 0;
+}
+
+int	texturing(t_data *data)
+{
 	while (data->map[++data->i])
 	{
 		data->j = 0;
@@ -103,112 +108,24 @@ int	texturing(t_data *data)
 
 int	map_parsing(t_data *data)
 {
-	int	save;
-	int	j;
-	int	x;
-
-	while (data->map[data->i][data->j++])
-	{
-		if (data->map[data->i][data->j] != ' ' && data->map[data->i][data->j]
-			!= '\n')
-			return (1);
-	}
-	while (data->map[++data->i])
-	{
-		data->j = -1;
-		while (data->map[data->i][++data->j])
-		{
-			if (data->map[data->i][data->j] != ' '
-				&& data->map[data->i][data->j] != '\n')
-				break ;
-		}
-		if (data->map[data->i][data->j] && data->map[data->i][data->j]
-			!= ' ' && data->map[data->i][data->j] != '\n')
-			break ;
-	}
-	save = data->i;
+	if (skip_space(data) == 1)
+		return (1);
 	while (data->map[data->i++])
 	{
-		j = -1;
-		while (data->map[data->i] && data->map[data->i][++j])
-			if (search_ch(data, j) == 1)
+		data->inc->j = -1;
+		while (data->map[data->i] && data->map[data->i][++data->inc->j])
+			if (search_ch(data, data->inc->j) == 1)
 				return (1);
 	}
-	j = -1;
-	data->game_map = malloc(sizeof(char *) * (data->i - save));
-	data->map_end = data->i - save - 2;
-	dprintf(2, "%s\n", data->map[save]);
-	j = -1;
-	while (data->map[save])
-	{
-		j++;
-		data->game_map[j] = malloc(sizeof(char)
-				* ((ft_strlen(data->map[save]) + 1)));
-		x = -1;
-		while (data->map[save][++x])
-		{
-			data->game_map[j][x] = data->map[save][x];
-		}
-		data->game_map[j][x] = data->map[save][x];
-		save++;
-	}
-	data->game_map[j + 1] = NULL;
-	dprintf(2, "%s\n", data->game_map[1]);
-	j = -1;
-	while (data->map[++j])
-		free(data->map[j]);
-	free(data->map);
+	data->inc->j = -1;
+	data->game_map = malloc(sizeof(char *) * (data->i - data->inc->save));
+	data->map_end = data->i - data->inc->save - 2;
+	dprintf(2, "%s\n", data->map[data->inc->save]);
+	malloc_map(data);
 	if (map_error(data) == 1)
 	{
 		printf("ERROR MAP\n");
 		exit(0);
-	}
-	return (0);
-}
-
-int	map_error(t_data *data)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	while (data->game_map[++i])
-	{
-		j = -1;
-		while (data->game_map[i][++j])
-		{
-			if (ch_is_inside(data->game_map[i][j]) == 0)
-			{
-				if (i != 0 && (int)ft_strlen(data->game_map[i - 1])
-					>= j && search_ch_in_map(data->game_map[i - 1][j]) == 1)
-					return (1);
-				if (j != 0 && (search_ch_in_map(data->game_map[i][j - 1]) == 1))
-					return (1);
-				if (j != (int)ft_strlen(data->game_map[i])
-					&& (search_ch_in_map(data->game_map[i][j + 1]) == 1))
-					return (1);
-				if ((i != data->map_end && (int)ft_strlen(data->game_map[i + 1])
-						>= j && search_ch_in_map(data->game_map[i + 1][j])
-					== 1))
-					return (1);
-				if (i == 0 && (ch_is_inside(data->game_map[i][j]) == 0))
-					return (1);
-				if (i == data->map_end
-					&& (ch_is_inside(data->game_map[i][j]) == 0))
-					return (1);
-				if (j == 0 && (ch_is_inside(data->game_map[i][j]) == 0))
-					return (1);
-				if (j == (int)ft_strlen(data->game_map[i])
-					&& (ch_is_inside(data->game_map[i][j]) == 0))
-					return (1);
-				if (i != 0 && (int)ft_strlen(data->game_map[i - 1])
-					<= j && ch_is_inside(data->game_map[i][j]) == 0)
-					return (1);
-				if (i != data->map_end && (int)ft_strlen(data->game_map[i + 1])
-					<= j && ch_is_inside(data->game_map[i][j]) == 0)
-					return (1);
-			}
-		}
 	}
 	return (0);
 }
