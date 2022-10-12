@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 18:43:02 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/11 16:36:12 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/12 10:45:15 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	draw_in_image(t_structs *structs)
 {
 	clear_image(structs->image);
 	raycast(structs->image, structs->minimap, structs->player, structs->ray);
-	draw_map2d(structs->image, structs->minimap, structs->player, structs->ray);
+	draw_map2d(structs->image, structs->minimap);
 	draw_player_on_map2d(structs->image, structs->player, structs->ray);
 	mlx_put_image_to_window(structs->mlx->mlx, structs->mlx->window, structs->image->img, 0, 0);
 }
@@ -39,7 +39,7 @@ void	clear_image(t_image *image)
 	}
 }
 
-void	draw_map2d(t_image *image, t_minimap *minimap, t_player *player, t_raycasting *ray)
+void	draw_map2d(t_image *image, t_minimap *minimap)
 {
 	int	r;
 	int	c;
@@ -58,8 +58,6 @@ void	draw_map2d(t_image *image, t_minimap *minimap, t_player *player, t_raycasti
 		}
 		r++;
 	}
-	ray->map_x = player->x * minimap->wall_size / ray->tile_size;
-	ray->map_y = player->y * minimap->wall_size / ray->tile_size;
 }
 
 void	draw_ray_on_map2d(t_image *image, t_minimap *minimap, t_raycasting *ray, int x, int y)
@@ -71,7 +69,6 @@ void	draw_ray_on_map2d(t_image *image, t_minimap *minimap, t_raycasting *ray, in
 	pt.x1 = (x * minimap->wall_size) / ray->tile_size;
 	pt.y1 = (y * minimap->wall_size) / ray->tile_size;
 	bhm_line(image, &pt, YELLOW);
-	//dprintf(2, "--------\npt_x1 = %d * %d / %d = %d\npt_y1 = %d * %d / %d = %d\n", x, minimap->wall_size, ray->tile_size, pt.x1, y, minimap->wall_size, ray->tile_size, pt.y1);
 }
 
 void	draw_player_on_map2d(t_image *image, t_player *player, t_raycasting *ray)

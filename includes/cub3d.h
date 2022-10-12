@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/10 13:07:45 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/12 11:54:20 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ void	fill_tables(t_structs *structs);
 int		calculate_map_len_max(t_minimap *minimap);
 void	print_array(double *array, int len);
 void	init_tables(t_raycasting *ray);
+double	deg_to_rad(double angle);
 
 //graphical_part
 void	create_image(t_mlx *mlx, t_image *image);
@@ -161,7 +162,7 @@ void	bhm_line(t_image *image, t_points *pt, int color);
 
 //raycasting
 void	clear_image(t_image *image);
-void	draw_map2d(t_image *image, t_minimap *minimap, t_player *player, t_raycasting *ray);
+void	draw_map2d(t_image *image, t_minimap *minimap);
 void	draw_ray_on_map2d(t_image *image, t_minimap *minimap, t_raycasting *ray, int x, int y);
 void	draw_player_on_map2d(t_image *image, t_player *player, t_raycasting *ray);
 void	raycast(t_image *image, t_minimap *minimap, t_player *player, t_raycasting *ray);

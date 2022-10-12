@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:02:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/11 15:43:56 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/12 10:39:47 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ void	raycast(t_image *image, t_minimap *minimap, t_player *player, t_raycasting 
 
 	if (cast_arc < 0)
 		cast_arc += ray->angle30;
+
+	ray->map_x = player->x * minimap->wall_size / ray->tile_size;
+	ray->map_y = player->y * minimap->wall_size / ray->tile_size;
 
 	cast_column = 0;
 	while (cast_column < SCREEN_WIDTH)

@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/11 16:21:47 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/12 11:53:51 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	init_values(t_structs *structs)
 	structs->player->angle = structs->ray->angle90;
 	structs->player->x_dir = structs->ray->cos_table[structs->player->angle];
 	structs->player->y_dir = structs->ray->sin_table[structs->player->angle];
-	structs->player->dist_from_proj_plane = 277;
+	structs->player->dist_from_proj_plane = (SCREEN_WIDTH / 2) / tan(deg_to_rad(30));
 	structs->player->height = 32; // because size of wall is 64
 	structs->player->speed = 16;
 
@@ -157,4 +157,9 @@ int	calculate_map_len_max(t_minimap *minimap)
 	}
 	dprintf(1, "len max ligne : %d\n", result);
 	return (result);
+}
+
+double	deg_to_rad(double angle)
+{
+	return (angle * M_PI / 180);
 }
