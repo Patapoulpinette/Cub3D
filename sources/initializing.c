@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/12 11:53:51 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/12 16:57:54 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,20 @@ void	init_values(t_structs *structs)
 	int		i = 0;
 	char	**map = calloc(20, sizeof(char *));
 
-	map[i++] = ft_strdup("111111111111111111");
-	map[i++] = ft_strdup("100000000000010001");
-	map[i++] = ft_strdup("100000000000010001");
-	map[i++] = ft_strdup("100111111110010001");
-	map[i++] = ft_strdup("100100000000000001");
-	map[i++] = ft_strdup("100100000000000001");
-	map[i++] = ft_strdup("111100000011111111");
-	map[i++] = ft_strdup("10001110001");
-	map[i++] = ft_strdup("10000110001");
-	map[i++] = ft_strdup("10001110001111111");
-	map[i++] = ft_strdup("1000000000000001");
-	map[i++] = ft_strdup("10000000000100001");
-	map[i++] = ft_strdup("10000000000100001");
-	map[i++] = ft_strdup("11111111111111111");
+	map[i++] = ft_strdup("1111111111111111111111111111");
+	map[i++] = ft_strdup("1000000000000100000000000001");
+	map[i++] = ft_strdup("1000000000000100000000000001");
+	map[i++] = ft_strdup("1001111111100100000010000001");
+	map[i++] = ft_strdup("1001000000000000000000000001");
+	map[i++] = ft_strdup("1001000000000000000000000001");
+	map[i++] = ft_strdup("1111000000111111110010011111");
+	map[i++] = ft_strdup("10001110001      1001001");
+	map[i++] = ft_strdup("10000110001      1000001");
+	map[i++] = ft_strdup("100011100011111111000011");
+	map[i++] = ft_strdup("10000000000000001111101");
+	map[i++] = ft_strdup("10000000000100001111101");
+	map[i++] = ft_strdup("10000000000100000000001");
+	map[i++] = ft_strdup("11111111111111111111111");
 
 	structs->ray->tile_size = 64;
 	structs->ray->wall_height = 64;
@@ -155,7 +155,6 @@ int	calculate_map_len_max(t_minimap *minimap)
 			result = ft_strlen(minimap->map[j]);
 		j++;
 	}
-	dprintf(1, "len max ligne : %d\n", result);
 	return (result);
 }
 

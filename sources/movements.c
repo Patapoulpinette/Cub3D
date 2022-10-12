@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:01:41 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/11 16:08:28 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/12 16:56:51 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	rotate_camera(int key, t_structs *structs)
 {
 	if (key == 123)//rotate to the left
 	{
-		structs->player->angle -= structs->ray->angle10;
+		structs->player->angle -= structs->ray->angle5;
 		if (structs->player->angle < structs->ray->angle0)
 		{
 			structs->player->angle += structs->ray->angle360;
@@ -51,13 +51,12 @@ void	rotate_camera(int key, t_structs *structs)
 	}
 	else if (key == 124)//rotate to the right
 	{
-		structs->player->angle += structs->ray->angle10;
+		structs->player->angle += structs->ray->angle5;
 		if (structs->player->angle >= structs->ray->angle360)
 		{
 			structs->player->angle -= structs->ray->angle360;
 		}
 	}
-	dprintf(2, "angle = %d\n", structs->player->angle);
 	structs->player->x_dir = structs->ray->cos_table[structs->player->angle];
 	structs->player->y_dir = structs->ray->sin_table[structs->player->angle];
 }

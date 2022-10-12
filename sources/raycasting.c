@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:02:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/12 10:39:47 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/12 16:56:47 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	raycast(t_image *image, t_minimap *minimap, t_player *player, t_raycasting 
 	cast_arc -= ray->angle30;
 
 	if (cast_arc < 0)
-		cast_arc += ray->angle30;
+		cast_arc += ray->angle360;
 
 	ray->map_x = player->x * minimap->wall_size / ray->tile_size;
 	ray->map_y = player->y * minimap->wall_size / ray->tile_size;
@@ -207,7 +207,7 @@ void	draw_walls(t_image *image, int cast_column, int top_wall, int bottom_wall, 
 	pt.x1 = cast_column;
 	pt.y1 = bottom_wall;
 	if (side == 1)
-		bhm_line(image, &pt, WALL_COLOR / 2);
+		bhm_line(image, &pt, WALL_COLOR * 0.5);
 	else
 		bhm_line(image, &pt, WALL_COLOR);
 
