@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:02:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/12 16:56:47 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/12 17:16:31 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ void	raycast(t_image *image, t_minimap *minimap, t_player *player, t_raycasting 
 		side = 0;
 		if (dist_to_horizontal_grid_being_hit < dist_to_vertical_grid_being_hit)
 		{
-			draw_ray_on_map2d(image, minimap, ray, x_intersection, y_intersection);
+			draw_ray_on_map2d(image, minimap, ray, x_intersection, horizontal_grid);
 			dist = dist_to_horizontal_grid_being_hit;
 			side = 1;
 		}
