@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/12 16:57:54 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/13 16:08:05 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void	init_values(t_structs *structs)
 	map[i++] = ft_strdup("1001111111100100000010000001");
 	map[i++] = ft_strdup("1001000000000000000000000001");
 	map[i++] = ft_strdup("1001000000000000000000000001");
-	map[i++] = ft_strdup("1111000000111111110010011111");
-	map[i++] = ft_strdup("10001110001      1001001");
-	map[i++] = ft_strdup("10000110001      1000001");
-	map[i++] = ft_strdup("100011100011111111000011");
-	map[i++] = ft_strdup("10000000000000001111101");
-	map[i++] = ft_strdup("10000000000100001111101");
+	map[i++] = ft_strdup("1111000000011111111000001111");
+	map[i++] = ft_strdup("100000000001      1000001");
+	map[i++] = ft_strdup("100000000001      1000001");
+	map[i++] = ft_strdup("1000000000011111111000111");
+	map[i++] = ft_strdup("10000000000000000000001");
+	map[i++] = ft_strdup("10000000000000000000001");
 	map[i++] = ft_strdup("10000000000100000000001");
 	map[i++] = ft_strdup("11111111111111111111111");
 
@@ -58,11 +58,11 @@ void	init_values(t_structs *structs)
 	fill_tables(structs);
 	init_tables(structs->ray);
 
-	structs->player->x = 320;
-	structs->player->y = 300;
-	structs->player->angle = structs->ray->angle90;
-	structs->player->x_dir = structs->ray->cos_table[structs->player->angle];
-	structs->player->y_dir = structs->ray->sin_table[structs->player->angle];
+	structs->player->x = 360;
+	structs->player->y = 460;
+	structs->player->angle = structs->ray->angle90; //facing down
+	structs->player->x_dir = structs->ray->cos_table[structs->player->angle]; //facing down ~ 0
+	structs->player->y_dir = structs->ray->sin_table[structs->player->angle]; //facing down ~ 1
 	structs->player->dist_from_proj_plane = (SCREEN_WIDTH / 2) / tan(deg_to_rad(30));
 	structs->player->height = 32; // because size of wall is 64
 	structs->player->speed = 16;
@@ -81,7 +81,7 @@ void	fill_tables(t_structs *structs)
 	i = 0;
 	while (i <= structs->ray->angle360)
 	{
-		radian = degtorad((double) i, structs->ray) + 0.0001;
+		radian = degtorad((double) i, structs->ray)+ 0.000001;
 		structs->ray->sin_table[i] = sin(radian);
 		structs->ray->sin_table_inv[i] = 1 / structs->ray->sin_table[i];
 		structs->ray->cos_table[i] = cos(radian);

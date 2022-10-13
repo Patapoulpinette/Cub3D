@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:01:41 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/12 16:56:51 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/13 16:10:18 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,22 @@ void	move_player(int key, t_structs *structs)
 
 void	translate_player(int key, t_structs *structs) //à revoir
 {
-	(void) key;
-	(void) structs;
-	return ;
+	if (key == 0)//move left
+	{
+		if (structs->minimap->map[(int) (((structs->player->y - structs->ray->sin_table[structs->player->angle + structs->ray->angle90] * structs->player->speed) / structs->ray->tile_size * structs->minimap->wall_size) / structs->minimap->wall_size)][(int) (((structs->player->x - structs->ray->cos_table[structs->player->angle + structs->ray->angle90] * structs->player->speed) / structs->ray->tile_size * structs->minimap->wall_size) / structs->minimap->wall_size)] == '0')
+		{
+			structs->player->x -= structs->ray->cos_table[structs->player->angle + structs->ray->angle90] * structs->player->speed;
+			structs->player->y -= structs->ray->sin_table[structs->player->angle + structs->ray->angle90] * structs->player->speed;
+		}
+	}
+	else if (key == 2)//move right
+	{
+		if (structs->minimap->map[(int) (((structs->player->y + structs->ray->sin_table[structs->player->angle + structs->ray->angle90] * structs->player->speed) / structs->ray->tile_size * structs->minimap->wall_size) / structs->minimap->wall_size)][(int) (((structs->player->x + structs->ray->cos_table[structs->player->angle + structs->ray->angle90] * structs->player->speed) / structs->ray->tile_size * structs->minimap->wall_size) / structs->minimap->wall_size)] == '0')
+		{
+			structs->player->x += structs->ray->cos_table[structs->player->angle + structs->ray->angle90] * structs->player->speed;
+			structs->player->y += structs->ray->sin_table[structs->player->angle + structs->ray->angle90] * structs->player->speed;
+		}
+	}
 }
 
 void	rotate_camera(int key, t_structs *structs)
