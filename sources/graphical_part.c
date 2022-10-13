@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:03:34 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/09 20:17:45 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/13 17:02:55 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ int	press_key(int key, t_structs *structs)
 {
 	if (key == 53) //ESC
 	{
-		//mlx_destroy_image(structs->mlx->mlx, structs->image->img);
+		mlx_destroy_image(structs->mlx->mlx, structs->image->img);
 		mlx_destroy_window(structs->mlx->mlx, structs->mlx->window);
 		free(structs->mlx->mlx);
+		free_tab_c(structs->ray->map);
 		exit(EXIT_SUCCESS);
 	}
 	else if (key == 123)
@@ -40,15 +41,16 @@ int	press_key(int key, t_structs *structs)
 		translate_player(key, structs);//AD pour faire translater le personnage
 	else
 		dprintf(2, "key number : %d\n", key);
-	draw_in_image(structs->mlx, structs->image, structs->raycasting);
+	draw_in_image(structs->mlx, structs->image, structs->ray);
 	return (0);
 }
 
 int	exit_program(t_structs *structs)
 {
-	//mlx_destroy_image(structs->mlx->mlx, structs->image->img);
+	mlx_destroy_image(structs->mlx->mlx, structs->image->img);
 	mlx_destroy_window(structs->mlx->mlx, structs->mlx->window);
 	free(structs->mlx->mlx);
+	free_tab_c(structs->ray->map);
 	exit(EXIT_SUCCESS);
 }
 
@@ -56,20 +58,21 @@ void	display_window(void)
 {
 	t_mlx			mlx;
 	t_image			image;
-	t_raycasting	raycasting;
+	t_raycasting	ray;
 	t_structs		structs;
 
 	structs.mlx = &mlx;
 	structs.image = &image;
-	structs.raycasting = &raycasting;
+	structs.ray = &ray;
 	mlx.x_win = SCREEN_WIDTH;
 	mlx.y_win = SCREEN_HEIGHT;
 	mlx.mlx = mlx_init();
 	mlx.window = mlx_new_window(mlx.mlx, mlx.x_win,
 			mlx.y_win, "Cub3D");
-	init_raycasting_values(&raycasting);
-	draw_in_image(&mlx, &image, &raycasting);
-	mlx_do_key_autorepeaton(mlx.mlx);
+	init_raycasting_values(&ray);
+	create_image(&mlx, &image);
+	draw_in_image(&mlx, &image, &ray);
+	//mlx_do_key_autorepeaton(mlx.mlx);
 	//mlx_key_hook(mlx.window, press_key, &structs);
 	mlx_hook(mlx.window, 02, 0L, press_key, &structs);
 	mlx_hook(mlx.window, 17, 1L << 5, exit_program, &structs);

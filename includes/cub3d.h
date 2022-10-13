@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/09 20:16:48 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/13 16:53:40 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,6 @@ typedef struct s_image
 	int		y_img;
 }				t_image;
 
-typedef struct s_maps_coord
-{
-	char	**map_tab;
-}				t_maps_coord;
-
 typedef struct s_line_algo
 {
 	int	x;
@@ -68,6 +63,7 @@ typedef struct s_line_algo
 
 typedef struct s_raycasting
 {
+	char	**map;
 	double	player_x;
 	double	player_y;
 	double	direction_x;
@@ -93,8 +89,7 @@ typedef struct s_structs
 {
 	t_mlx			*mlx;
 	t_image			*image;
-	//t_maps_coord	*map;
-	t_raycasting	*raycasting;
+	t_raycasting	*ray;
 }				t_structs;
 
 //parsing
@@ -110,6 +105,7 @@ void	display_window(void); //t_maps_coord *map
 
 //drawing_part
 void	draw_in_image(t_mlx *mlx, t_image *image, t_raycasting *raycasting);
+void	clear_image(t_image *image);
 void	my_img_pixel_put(t_image *image, int x, int y, int color);
 
 //draw_line_algorithm

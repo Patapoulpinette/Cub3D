@@ -6,13 +6,13 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:02:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/07 16:37:55 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/13 17:09:26 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	raycasting_algo(t_image *image, t_raycasting *raycasting)
+void	raycasting_algo(t_image *image, t_raycasting *ray)
 {
 	int			x;
 	double		camera_x;
@@ -29,42 +29,18 @@ void	raycasting_algo(t_image *image, t_raycasting *raycasting)
 	int			step_y;
 	int			hit;
 	int			line_height;
-	char			*world_map[] =
-				{
-					"111111111111111111111111",
-					"100000000000000000000001",
-					"100000000000000000000001",
-					"100000000000000000000001",
-					"100000222220000333330001",
-					"100000200020003000003001",
-					"100000200020000300030001",
-					"100000200020003000003001",
-					"100000220220000300030001",
-					"100000000000000000000001",
-					"100000000000000000000001",
-					"100000000000000000000001",
-					"100000000000000000000001",
-					"144444444000000000000001",
-					"140400004000000000000001",
-					"140000504000000000000001",
-					"140400004000000000000001",
-					"140444444000000000000001",
-					"140000000000000000000001",
-					"144444444000000000000001",
-					"111111111111111111111111"
-				};
 
 	x = 0;
 	while (x < SCREEN_WIDTH)
 	{
 		//calculate ray position and direction
 		camera_x = 2 * x / (double)SCREEN_WIDTH - 1;//x coords in camera space
-		ray_x = raycasting->direction_x + raycasting->camera_plane_x * camera_x;
-		ray_y = raycasting->direction_y + raycasting->camera_plane_y * camera_x;
+		ray_x = ray->direction_x + ray->camera_plane_x * camera_x;
+		ray_y = ray->direction_y + ray->camera_plane_y * camera_x;
 
 		//which box of the map we're in
-		map_x = (int)raycasting->player_x;
-		map_y = (int)raycasting->player_y;
+		map_x = (int)ray->player_x;
+		map_y = (int)ray->player_y;
 
 		//length of ray from current position to next x or y-side
 
@@ -89,22 +65,22 @@ void	raycasting_algo(t_image *image, t_raycasting *raycasting)
 		if (ray_x < 0)
 		{
 			step_x = -1;
-			side_distance_x = (raycasting->player_x - map_x) * delta_distance_x;
+			side_distance_x = (ray->player_x - map_x) * delta_distance_x;
 		}
 		else
 		{
 			step_x = 1;
-			side_distance_x = (map_x + 1.0 - raycasting->player_x) * delta_distance_x;
+			side_distance_x = (map_x + 1.0 - ray->player_x) * delta_distance_x;
 		}
 		if (ray_y < 0)
 		{
 			step_y = -1;
-			side_distance_y = (raycasting->player_y - map_y) * delta_distance_y;
+			side_distance_y = (ray->player_y - map_y) * delta_distance_y;
 		}
 		else
 		{
 			step_y = 1;
-			side_distance_y = (map_y + 1.0 - raycasting->player_y) * delta_distance_y;
+			side_distance_y = (map_y + 1.0 - ray->player_y) * delta_distance_y;
 		}
 
 		//perform DDA
@@ -115,21 +91,22 @@ void	raycasting_algo(t_image *image, t_raycasting *raycasting)
 			{
 				side_distance_x += delta_distance_x;
 				map_x += step_x;
-				raycasting->side = 0;
+				ray->side = 0;
 			}
 			else
 			{
 				side_distance_y += delta_distance_y;
 				map_y += step_y;
-				raycasting->side = 1;
+				ray->side = 1;
 			}
 			//check if ray has hit a wall
-			if (world_map[map_x][map_y] != '0')
+			dprintf(2, "x = %d | ray_map[%d][%d] = %c\n", x, map_x, map_y, ray->map[map_x][map_y]);
+			if (ray->map[map_x][map_y] != '0')
 				hit = 1;
 		}
 
 		//calculate distance projected on camera direction
-		if (raycasting->side == 0)
+		if (ray->side == 0)
 			perp_wall_dist = side_distance_x - delta_distance_x;
 		else
 			perp_wall_dist = side_distance_y - delta_distance_y;
@@ -138,14 +115,14 @@ void	raycasting_algo(t_image *image, t_raycasting *raycasting)
 		line_height = (int)(SCREEN_HEIGHT / perp_wall_dist);
 
 		//calculate lowest and highest pixel to fill in current stripe
-		raycasting->draw_start = -line_height / 2 + SCREEN_HEIGHT / 2;
-		if (raycasting->draw_start < 0)
-			raycasting->draw_start = 0;
-		raycasting->draw_end = line_height / 2 + SCREEN_HEIGHT /2;
-		if (raycasting->draw_end >= SCREEN_HEIGHT)
-			raycasting->draw_end = SCREEN_HEIGHT - 1;
+		ray->draw_start = -line_height / 2 + SCREEN_HEIGHT / 2;
+		if (ray->draw_start < 0)
+			ray->draw_start = 0;
+		ray->draw_end = line_height / 2 + SCREEN_HEIGHT /2;
+		if (ray->draw_end >= SCREEN_HEIGHT)
+			ray->draw_end = SCREEN_HEIGHT - 1;
 
-		draw_vertival_lines(image, raycasting, x);
+		draw_vertival_lines(image, ray, x);
 
 		x++;
 	}

@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 18:43:02 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/07 17:41:16 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/13 17:03:30 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,27 @@
 
 void	draw_in_image(t_mlx *mlx, t_image *image, t_raycasting *raycasting)
 {
-	mlx_clear_window(mlx->mlx, mlx->window);
-	create_image(mlx, image);
+	clear_image(image);
 	raycasting_algo(image, raycasting);
 	mlx_put_image_to_window(mlx->mlx, mlx->window, image->img, 0, 0);
-	mlx_destroy_image(mlx->mlx, image->img);
+}
+
+void	clear_image(t_image *image)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i <= SCREEN_WIDTH)
+	{
+		j = 0;
+		while (j <= SCREEN_HEIGHT)
+		{
+			my_img_pixel_put(image, i, j, 0x000000);
+			j++;
+		}
+		i++;
+	}
 }
 
 void	my_img_pixel_put(t_image *image, int x, int y, int color)
