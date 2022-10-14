@@ -6,7 +6,7 @@
 /*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 17:56:19 by apercebo          #+#    #+#             */
-/*   Updated: 2022/10/12 13:50:31 by apercebo         ###   ########.fr       */
+/*   Updated: 2022/10/14 08:27:53 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@ void	put_in_tab(t_data *data)
 	{
 		data->inc->j = 0;
 		data->save = data->j;
-		data->inc->nbr = malloc(sizeof(char) * 4);
+		data->nbr = malloc(sizeof(char) * 4);
 		while (data->map[data->i][data->j] >= '0'
 			&& data->map[data->i][data->j] <= '9')
-			nbr[data->inc->j++] = data->map[data->i][data->j++];
+			data->nbr[data->inc->j++] = data->map[data->i][data->j++];
 		if (data->j - data->save > 3 || (data->map[data->i][data->j]
 			!= ',' && data->inc->i != 2))
 		{
 			printf("error");
 			exit(0);
 		}
-		nbr[data->inc->j] = '\0';
-		data->ftabl[data->inc->i++] = ft_atoi(data->inc->nbr);
-		free(data->inc->nbr);
+		data->nbr[data->inc->j] = '\0';
+		data->ftabl[data->inc->i++] = ft_atoi(data->nbr);
+		free(data->nbr);
 		data->j++;
 	}
 	data->j--;
@@ -60,19 +60,19 @@ void	put_in_tab2(t_data *data)
 	{
 		data->inc->j = 0;
 		data->save = data->j;
-		data->inc->nbr = malloc(sizeof(int) * 4);
+		data->nbr = malloc(sizeof(int) * 4);
 		while (data->map[data->i][data->j] >= '0'
 			&& data->map[data->i][data->j] <= '9')
-			nbr[data->inc->j++] = data->map[data->i][data->j++];
+			data->nbr[data->inc->j++] = data->map[data->i][data->j++];
 		if (data->j - data->save > 3 || (data->map[data->i][data->j]
 			!= ',' && data->inc->i != 2))
 		{
 			printf("error");
 			exit(0);
 		}
-		nbr[data->inc->j] = '\0';
-		data->ctabl[data->inc->i++] = ft_atoi(data->inc->nbr);
-		free(data->inc->nbr);
+		data->nbr[data->inc->j] = '\0';
+		data->ctabl[data->inc->i++] = ft_atoi(data->nbr);
+		free(data->nbr);
 		data->j++;
 	}
 	data->j--;

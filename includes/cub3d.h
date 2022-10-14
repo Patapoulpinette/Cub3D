@@ -6,7 +6,7 @@
 /*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/12 14:10:52 by apercebo         ###   ########.fr       */
+/*   Updated: 2022/10/14 08:26:27 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,14 @@ typedef struct s_structs
 	t_image			*image;
 }				t_structs;
 
+typedef struct s_incr
+{
+	int		i;
+	int		j;
+	int		x;
+	int		save;
+}		t_incr;
+
 typedef struct s_data
 {
 	char	**map;
@@ -73,17 +81,9 @@ typedef struct s_data
 	int		save;
 	int		map_end;
 	char	pl_orientation;
+	char	*nbr;
 	t_incr	*inc;
 }		t_data; //todo variable orientation joueur
-
-typedef struct s_incr
-{
-	int		i;
-	int		j;
-	int		x;
-	int		nbr;
-	int		save;
-}		t_incr;
 
 //---- GNL -------------------------------------
 /* char	*ft_strmjoin(char *s1, char *s2);
