@@ -6,13 +6,13 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:02:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/14 14:05:27 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/14 14:34:55 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	raycasting_algo(t_image *image, t_player *player, t_raycasting *ray)
+void	raycasting_algo(t_image *image, t_player *player, t_raycasting *ray, t_minimap *minimap)
 {
 	int			x;
 	double		camera_x;
@@ -97,7 +97,10 @@ void	raycasting_algo(t_image *image, t_player *player, t_raycasting *ray)
 			}
 			//check if ray has hit a wall
 			if (ray->map[map_x][map_y] != '0')
+			{
 				hit = 1;
+				draw_rays_on_map2d(image, player, minimap, map_x, map_y);
+			}
 		}
 
 		//calculate distance projected on camera direction

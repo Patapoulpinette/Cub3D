@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 18:43:02 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/14 14:21:14 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/14 14:32:46 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	draw_in_image(t_structs *structs)
 {
 	clear_image(structs->image);
-	raycasting_algo(structs->image, structs->player, structs->ray);
+	raycasting_algo(structs->image, structs->player, structs->ray, structs->minimap);
 	draw_map2d(structs->image, structs->ray, structs->minimap);
 	draw_player_on_map2d(structs->image, structs->player, structs->minimap);
 	mlx_put_image_to_window(structs->mlx->mlx, structs->mlx->window, structs->image->img, 0, 0);
@@ -58,6 +58,17 @@ void	draw_map2d(t_image *image, t_raycasting *ray, t_minimap *minimap)
 		}
 		r++;
 	}
+}
+
+void	draw_rays_on_map2d(t_image *image, t_player *player, t_minimap *minimap, int x, int y)
+{
+	t_points	pt;
+
+	pt.x0 = player->y* minimap->wall_zoom;
+	pt.y0 = player->x* minimap->wall_zoom;
+	pt.x1 = y * minimap->wall_zoom;
+	pt.y1 = x * minimap->wall_zoom;
+	bhm_line(image, &pt, YELLOW);
 }
 
 void	draw_player_on_map2d(t_image *image, t_player *player, t_minimap *minimap)
