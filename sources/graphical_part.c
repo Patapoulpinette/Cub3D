@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:03:34 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/14 13:47:23 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/14 17:42:14 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ void	display_window(void)
 	init_raycasting_values(&player, &ray, &minimap);
 	create_image(&mlx, &image);
 	draw_in_image(&structs);
-	//mlx_do_key_autorepeaton(mlx.mlx);
-	//mlx_key_hook(mlx.window, press_key, &structs);
 	mlx_hook(mlx.window, 02, 0L, press_key, &structs);
 	mlx_hook(mlx.window, 17, 1L << 5, exit_program, &structs);
 	mlx_loop(mlx.mlx);

@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/14 14:01:01 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/14 14:42:29 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ void	init_raycasting_values(t_player *player, t_raycasting *ray, t_minimap *mini
 	map[i++] = ft_strdup("11111111111111111111111");
 
 	ray->map = map;
-	
+
 	player->x = 5;
 	player->y = 10;
 	player->dir_x = -1;
 	player->dir_y = 0;
-	
+
 	ray->plane_x = 0;
 	ray->plane_y = 0.66;
 	ray->move_speed = 0.3;
