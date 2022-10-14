@@ -6,13 +6,13 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:02:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/14 12:02:29 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/14 14:05:27 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	raycasting_algo(t_image *image, t_raycasting *ray)
+void	raycasting_algo(t_image *image, t_player *player, t_raycasting *ray)
 {
 	int			x;
 	double		camera_x;
@@ -35,12 +35,12 @@ void	raycasting_algo(t_image *image, t_raycasting *ray)
 	{
 		//calculate ray position and direction
 		camera_x = 2 * x / (double)SCREEN_WIDTH - 1;//x coords in camera space
-		ray_x = ray->dir_x + ray->plane_x * camera_x;
-		ray_y = ray->dir_y + ray->plane_y * camera_x;
+		ray_x = player->dir_x + ray->plane_x * camera_x;
+		ray_y = player->dir_y + ray->plane_y * camera_x;
 
 		//which box of the map we're in
-		map_x = (int)ray->player_x;
-		map_y = (int)ray->player_y;
+		map_x = (int)player->x;
+		map_y = (int)player->y;
 
 		//length of ray from x or y-side to next x or y-side
 		if (ray_x == 0)
@@ -61,22 +61,22 @@ void	raycasting_algo(t_image *image, t_raycasting *ray)
 		if (ray_x < 0)
 		{
 			step_x = -1;
-			side_dist_x = (ray->player_x - map_x) * delta_dist_x;
+			side_dist_x = (player->x - map_x) * delta_dist_x;
 		}
 		else
 		{
 			step_x = 1;
-			side_dist_x = (map_x + 1.0 - ray->player_x) * delta_dist_x;
+			side_dist_x = (map_x + 1.0 - player->x) * delta_dist_x;
 		}
 		if (ray_y < 0)
 		{
 			step_y = -1;
-			side_dist_y = (ray->player_y - map_y) * delta_dist_y;
+			side_dist_y = (player->y - map_y) * delta_dist_y;
 		}
 		else
 		{
 			step_y = 1;
-			side_dist_y = (map_y + 1.0 - ray->player_y) * delta_dist_y;
+			side_dist_y = (map_y + 1.0 - player->y) * delta_dist_y;
 		}
 
 		//perform DDA
@@ -96,8 +96,6 @@ void	raycasting_algo(t_image *image, t_raycasting *ray)
 				ray->side = 1;
 			}
 			//check if ray has hit a wall
-			dprintf(2, "x = %d | ray_map[%d][%d] = %c\n", x, map_x, map_y, ray->map[map_x][map_y]);
-			puts("ici");
 			if (ray->map[map_x][map_y] != '0')
 				hit = 1;
 		}

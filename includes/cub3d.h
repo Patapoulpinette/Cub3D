@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/14 11:55:18 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/14 14:10:56 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define FLOOR_COLOR 0xdda15e
 # define WALL_COLOR 0x606c38
 # define SKY_COLOR 0xbde0fe
+# define PINK 0xfb6f92
 
 typedef struct s_mlx
 {
@@ -61,13 +62,17 @@ typedef struct s_line_algo
 	int	ye;
 }				t_line_algo;
 
+typedef struct s_player
+{
+	double	x;
+	double	y;
+	double	dir_x;
+	double	dir_y;
+}				t_player;
+
 typedef struct s_raycasting
 {
 	char	**map;
-	double	player_x;
-	double	player_y;
-	double	dir_x;
-	double	dir_y;
 	double	plane_x;
 	double	plane_y;
 	double	move_speed;
@@ -76,6 +81,13 @@ typedef struct s_raycasting
 	int		draw_start;
 	int		draw_end;
 }				t_raycasting;
+
+typedef struct s_minimap
+{
+	int	map_xlen;
+	int	map_ylen;
+	int	wall_zoom;
+}				t_minimap;
 
 typedef struct s_points
 {
@@ -90,12 +102,15 @@ typedef struct s_structs
 	t_mlx			*mlx;
 	t_image			*image;
 	t_raycasting	*ray;
+	t_player		*player;
+	t_minimap		*minimap;
 }				t_structs;
 
 //parsing
 
 //initializing
-void	init_raycasting_values(t_raycasting *raycasting);
+void	init_raycasting_values(t_player *player, t_raycasting *ray, t_minimap *minimap);
+int		calculate_map_len_max(t_raycasting *ray);
 
 //graphical_part
 void	create_image(t_mlx *mlx, t_image *image);
@@ -104,15 +119,18 @@ int		exit_program(t_structs *structs);
 void	display_window(void); //t_maps_coord *map
 
 //drawing_part
-void	draw_in_image(t_mlx *mlx, t_image *image, t_raycasting *raycasting);
+void	draw_in_image(t_structs *structs);
 void	clear_image(t_image *image);
+void	draw_map2d(t_image *image, t_raycasting *ray, t_minimap *minimap);
+void	draw_player_on_map2d(t_image *image, t_player *player, t_minimap *minimap);
+void	draw_fill_rect(t_image *image, int x, int y, int height, int width, int color);
 void	my_img_pixel_put(t_image *image, int x, int y, int color);
 
 //draw_line_algorithm
 void	bhm_line(t_image *image, t_points *pt, int color);
 
 //raycasting
-void	raycasting_algo(t_image *image, t_raycasting *raycasting);
+void	raycasting_algo(t_image *image, t_player *player, t_raycasting *ray);
 void	draw_vertival_lines(t_image *image, t_raycasting *raycasting, int x);
 
 //movements
