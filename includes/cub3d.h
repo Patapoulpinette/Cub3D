@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/13 16:53:40 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/14 11:55:18 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,13 @@ typedef struct s_raycasting
 	char	**map;
 	double	player_x;
 	double	player_y;
-	double	direction_x;
-	double	direction_y;
-	double	camera_plane_x;
-	double	camera_plane_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
 	double	move_speed;
 	double	rot_speed;
-	int		side;
+	int		side; //was a NS or a EW wall hit?
 	int		draw_start;
 	int		draw_end;
 }				t_raycasting;
