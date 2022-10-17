@@ -6,7 +6,7 @@
 /*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/14 08:35:22 by apercebo         ###   ########.fr       */
+/*   Updated: 2022/10/17 15:48:53 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <math.h>
+# include <string.h>
 
 typedef struct s_mlx
 {
@@ -38,6 +39,20 @@ typedef struct s_incr
 	int		x;
 	int		save;
 }		t_incr;
+
+typedef struct s_algo
+{
+	double posX; //Position du joueur (X)
+	double posY; //Position du joueur (Y)
+	double dirX; //Vecteur de direction (ex: dir x=1 signifie que le joueur regarde vers la droite de la carte)
+	double dirY; //Vecteur de direction (ex: dir y=1 signifie que le joueur regarde vers le haut de la carte)
+	double planeX; //Position du Camera plane X
+	double planeY; //Position du Camera plane Y
+	double time; //Temps de l'image actuel (Permet de calculer les fps en regardant le temps entre 2 images)
+	double oldTime; //Temps de l'image précedente
+	double	w; //w = largeur de l'écran
+	double	h; //h = hauteur de l'écran
+}		t_algo;
 
 typedef struct s_data
 {
@@ -66,12 +81,6 @@ typedef struct s_data
 	t_incr	*inc;
 }		t_data; //todo variable orientation joueur
 
-//---- GNL -------------------------------------
-/* char	*ft_strmjoin(char *s1, char *s2);
-char	*ft_strchrg(char *str, int c);
-char	*get_next_line(int fd); */
-//----------------------------------------------
-
 //---- MAIN ------------------------------------
 void	debug(t_data *data);
 void	name_error(char *maplink);
@@ -80,6 +89,13 @@ void	count_line(t_data *data, char *maplink);
 void	recup_map(t_data *data, int fd, int i, char *maplink);
 void	parsing(t_data *data, char **argv);
 void	free_tab_c(char **tab);
+//----------------------------------------------
+
+//---- ALGO ------------------------------------
+void	first_init(t_algo *algo);
+int		algoo(t_mlx *mlx, t_algo *algo);
+void	screen(int sWidth, int sHeight, t_mlx *mlx, char *str);
+int		algoo(t_mlx *mlx, t_algo *algo);
 //----------------------------------------------
 
 //---- PARSING ---------------------------------
