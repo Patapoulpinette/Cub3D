@@ -6,7 +6,7 @@
 /*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/12 14:10:52 by apercebo         ###   ########.fr       */
+/*   Updated: 2022/10/14 08:35:22 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,30 +25,19 @@
 # include <fcntl.h>
 # include <math.h>
 
-typedef struct s_mlx_params
+typedef struct s_mlx
 {
-	void	*mlx;
-	void	*window;
-	int		x_win;
-	int		y_win;
-}				t_mlx_params;
+	void	*mlx_ptr;
+	void	*win_ptr;
+}				t_mlx;
 
-typedef struct s_image
+typedef struct s_incr
 {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		size_line;
-	int		endian;
-	int		x_img;
-	int		y_img;
-}				t_image;
-
-typedef struct s_structs
-{
-	t_mlx_params	*mlx;
-	t_image			*image;
-}				t_structs;
+	int		i;
+	int		j;
+	int		x;
+	int		save;
+}		t_incr;
 
 typedef struct s_data
 {
@@ -73,17 +62,9 @@ typedef struct s_data
 	int		save;
 	int		map_end;
 	char	pl_orientation;
+	char	*nbr;
 	t_incr	*inc;
 }		t_data; //todo variable orientation joueur
-
-typedef struct s_incr
-{
-	int		i;
-	int		j;
-	int		x;
-	int		nbr;
-	int		save;
-}		t_incr;
 
 //---- GNL -------------------------------------
 /* char	*ft_strmjoin(char *s1, char *s2);
