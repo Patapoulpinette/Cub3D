@@ -6,7 +6,7 @@
 /*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/17 15:48:53 by apercebo         ###   ########.fr       */
+/*   Updated: 2022/10/17 16:08:57 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,21 @@ typedef struct s_algo
 	double oldTime; //Temps de l'image précedente
 	double	w; //w = largeur de l'écran
 	double	h; //h = hauteur de l'écran
+	double cameraX; //Position de X sur le camera plane
+	double rayDirX; //Direction X du rayon
+	double rayDirY; //Direction Y du rayon
+	int	mapX; //X coordonné du carré de la map dans lequel on est situé
+	int mapY; //Y coordonné du carré de la map dans lequel on est situé
+	double sideDistX; //Distance initial que le rayon a à parcourir avant d'atteindre le prochain carré en X
+	double sideDistY; //Distance initial que le rayon a à parcourir avant d'atteindre le prochain carré en Y
+	double deltaDistX; //Distance parcouru pour joindre les 2 cotés X d'un bloc
+	double deltaDistY; //Distance parcouru pour joindre les 2 cotés Y d'un bloc
+	double perpWallDist; //Utile pour calculer la longueur du rayon (et donc la distance entre le joueur et le mur)
+	//what direction to step in x or y-direction (either +1 or -1)
+	int stepX; //La direction dans lequel est le prochain mur (1 = on va à droite, -1 = on va à gauche)
+	int stepY; //La direction dans lequel est le prochain mur (1 = on monte, -1 = on descend)
+	int hit; //Detecte si on a rencontré un mur
+	int side; //Determine de quel coté un mur a été toucher (0 = gauche/droite | 1 = haut/bas)
 }		t_algo;
 
 typedef struct s_data
@@ -96,6 +111,7 @@ void	first_init(t_algo *algo);
 int		algoo(t_mlx *mlx, t_algo *algo);
 void	screen(int sWidth, int sHeight, t_mlx *mlx, char *str);
 int		algoo(t_mlx *mlx, t_algo *algo);
+void	second_init(t_algo *algo, int x);
 //----------------------------------------------
 
 //---- PARSING ---------------------------------
