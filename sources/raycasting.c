@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:02:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/14 17:44:19 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/17 15:29:03 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,113 +14,100 @@
 
 void	raycasting_algo(t_image *image, t_player *player, t_raycasting *ray, t_minimap *minimap)
 {
-	int			x;
-	double		camera_x;
-	double		ray_x;
-	double		ray_y;
-	int			map_x;
-	int			map_y;
-	double		side_dist_x; //length of ray from current position to next x-side
-	double		side_dist_y; //length of ray from current position to next y-side
-	double		delta_dist_x;
-	double		delta_dist_y;
-	double		perp_wall_dist;
-	int			step_x; //what direction to step in x-direction (either +1 or -1)
-	int			step_y; //what direction to step in y-direction (either +1 or -1)
-	int			hit;
-	int			line_height;
+	int	x;
 
 	x = 0;
 	while (x < SCREEN_WIDTH)
 	{
 		//calculate ray position and direction
-		camera_x = 2 * x / (double)SCREEN_WIDTH - 1;//x coords in camera space
-		ray_x = player->dir_x + ray->plane_x * camera_x;
-		ray_y = player->dir_y + ray->plane_y * camera_x;
+		ray->camera_x = 2 * x / (double)SCREEN_WIDTH - 1;//x coords in camera space
+		ray->ray_x = player->dir_x + ray->plane_x * ray->camera_x;
+		ray->ray_y = player->dir_y + ray->plane_y * ray->camera_x;
 
 		//which box of the map we're in
-		map_x = (int)player->x;
-		map_y = (int)player->y;
+		ray->map_x = (int)player->x;
+		ray->map_y = (int)player->y;
 
 		//length of ray from x or y-side to next x or y-side
-		if (ray_x == 0)
+		if (ray->ray_x == 0)
 		{
-			delta_dist_x = 1e30;
-			delta_dist_y = 1e30;
+			ray->delta_dist_x = 1e30;
+			ray->delta_dist_y = 1e30;
 		}
 		else
 		{
-			delta_dist_x = fabs(1 / ray_x);
-			delta_dist_y = fabs(1 / ray_y);
+			ray->delta_dist_x = fabs(1 / ray->ray_x);
+			ray->delta_dist_y = fabs(1 / ray->ray_y);
 		}
 
 		//was there a wall hit ?
-		hit = 0;
+		ray->hit = 0;
 
 		//calculate step and initial side_dist
-		if (ray_x < 0)
+		if (ray->ray_x < 0)
 		{
-			step_x = -1;
-			side_dist_x = (player->x - map_x) * delta_dist_x;
+			ray->step_x = -1;
+			ray->side_dist_x = (player->x - ray->map_x) * ray->delta_dist_x;
 		}
 		else
 		{
-			step_x = 1;
-			side_dist_x = (map_x + 1.0 - player->x) * delta_dist_x;
+			ray->step_x = 1;
+			ray->side_dist_x = (ray->map_x + 1.0 - player->x) * ray->delta_dist_x;
 		}
-		if (ray_y < 0)
+		if (ray->ray_y < 0)
 		{
-			step_y = -1;
-			side_dist_y = (player->y - map_y) * delta_dist_y;
+			ray->step_y = -1;
+			ray->side_dist_y = (player->y - ray->map_y) * ray->delta_dist_y;
 		}
 		else
 		{
-			step_y = 1;
-			side_dist_y = (map_y + 1.0 - player->y) * delta_dist_y;
+			ray->step_y = 1;
+			ray->side_dist_y = (ray->map_y + 1.0 - player->y) * ray->delta_dist_y;
 		}
 
 		//perform DDA
-		while (hit == 0)
+		while (ray->hit == 0)
 		{
 			//jump to next map square, either in x-direction, or in y-direction
-			if (side_dist_x < side_dist_y)
+			if (ray->side_dist_x < ray->side_dist_y)
 			{
-				side_dist_x += delta_dist_x;
-				map_x += step_x;
+				ray->side_dist_x += ray->delta_dist_x;
+				ray->map_x += ray->step_x;
 				ray->side = 0;
 			}
 			else
 			{
-				side_dist_y += delta_dist_y;
-				map_y += step_y;
+				ray->side_dist_y += ray->delta_dist_y;
+				ray->map_y += ray->step_y;
 				ray->side = 1;
 			}
 			//check if ray has hit a wall
-			if (ray->map[map_x][map_y] != '0')
+			if (ray->map[ray->map_x][ray->map_y] != '0')
 			{
-				hit = 1;
-				draw_rays_on_map2d(image, player, minimap, map_x, map_y);
+				ray->hit = 1;
+				draw_rays_on_map2d(image, player, minimap, ray->map_x, ray->map_y);
 			}
 		}
 
 		//calculate distance projected on camera direction
 		if (ray->side == 0)
-			perp_wall_dist = side_dist_x - delta_dist_x;
+			ray->perp_wall_dist = ray->side_dist_x - ray->delta_dist_x;
 		else
-			perp_wall_dist = side_dist_y - delta_dist_y;
+			ray->perp_wall_dist = ray->side_dist_y - ray->delta_dist_y;
 
 		//calculate height of line to draw on screen
-		line_height = (int)(SCREEN_HEIGHT / perp_wall_dist);
+		ray->line_height = (int)(SCREEN_HEIGHT / ray->perp_wall_dist);
 
 		//calculate lowest and highest pixel to fill in current stripe
-		ray->draw_start = -line_height * 0.5 + SCREEN_HEIGHT * 0.5;
+		ray->draw_start = -ray->line_height * 0.5 + SCREEN_HEIGHT * 0.5;
 		if (ray->draw_start < 0)
 			ray->draw_start = 0;
-		ray->draw_end = line_height * 0.5 + SCREEN_HEIGHT * 0.5;
+		ray->draw_end = ray->line_height * 0.5 + SCREEN_HEIGHT * 0.5;
 		if (ray->draw_end >= SCREEN_HEIGHT)
 			ray->draw_end = SCREEN_HEIGHT - 1;
 
 		draw_vertival_lines(image, ray, x);
+		//draw_textures();
 
 		x++;
 	}
@@ -152,3 +139,50 @@ void	draw_vertival_lines(t_image *image, t_raycasting *raycasting, int x)
 	pt.y1 = SCREEN_HEIGHT;
 	bhm_line(image, &pt, FLOOR_COLOR);
 }
+
+/* void	draw_textures(t_player *player, t_raycasting *ray, t_texture *texture)
+{
+	double	wallX; //where exactly the wall was hit
+	int		texX;
+	int		texY;
+	double	step;
+	double	texPos;
+	int		y;
+	Uint32	color;
+
+	//calculate value of wallX
+	if (ray->side == 0)
+		wallX = player->y + ray->perp_wall_dist * ray->ray_y;
+	else
+		wallX = player->x + ray->perp_wall_dist * ray->ray_x;
+	wallX -= floor((wallX));
+	
+	//x coordinate on the texture
+	texX = int(wallX * double(texture->x_texture));
+	if (ray->side == 0 && ray->ray_x > 0)
+		texX = texture->x_texture - texX - 1;
+	if (ray->side == 1 && ray->ray_y < 0)
+		texX = texture->x_texture - texX - 1;
+	
+	// TODO: an integer-only bresenham or DDA like algorithm could make the texture coordinate stepping faster
+	// How much to increase the texture coordinate per screen pixel
+	step = 1.0 * texture->y_texture / ray->line_height;
+	// Starting texture coordinate
+	texPos = (drawStart - 100 - h * 0.5 + ray->line_height * 0.5) * step;// 100 = pitch (je ne sais pas à quoi ça sert)
+	y = drawStart;
+	while (y < drawEnd)
+	{
+		// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
+		texY = (int)texPos & (texHeight - 1);
+		texPos += step;
+		color = texture[texNum][texHeight * texY + texX];
+		//make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
+		if(ray->side == 1)
+			color = (color >> 1) & 8355711;
+		buffer[y][x] = color;
+		y++;
+	}
+
+	drawBuffer(buffer[0]);
+	for(int y = 0; y < h; y++) for(int x = 0; x < w; x++) buffer[y][x] = 0; //clear the buffer instead of cls()
+} */

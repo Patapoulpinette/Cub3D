@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:01:41 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/14 14:41:31 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/14 18:20:08 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	move_player(int key, t_structs *strc)
 {
-	if (key == 13) //move forward
+	if (key == W) //move forward
 	{
 		if (strc->ray->map[(int)(strc->player->x + strc->player->dir_x \
 			* strc->ray->move_speed)][(int)(strc->player->y)] == '0')
@@ -23,7 +23,7 @@ void	move_player(int key, t_structs *strc)
 			+ strc->player->dir_y * strc->ray->move_speed)] == '0')
 			strc->player->y += strc->player->dir_y * strc->ray->move_speed;
 	}
-	if (key == 1) //move backwards
+	if (key == S) //move backwards
 	{
 		if (strc->ray->map[(int)(strc->player->x - strc->player->dir_x \
 			* strc->ray->move_speed)][(int)(strc->player->y)] == '0')
@@ -36,7 +36,7 @@ void	move_player(int key, t_structs *strc)
 
 void	translate_player(int key, t_structs *strc)
 {
-	if (key == 0) //move to the left
+	if (key == A) //move to the left
 	{
 		if (strc->ray->map[(int)(strc->player->x - strc->ray->plane_x \
 			* strc->ray->move_speed)][(int)(strc->player->y)] == '0')
@@ -45,7 +45,7 @@ void	translate_player(int key, t_structs *strc)
 			- strc->ray->plane_y * strc->ray->move_speed)] == '0')
 			strc->player->y -= strc->ray->plane_y * strc->ray->move_speed;
 	}
-	if (key == 2) //move to the right
+	if (key == D) //move to the right
 	{
 		if (strc->ray->map[(int)(strc->player->x + strc->ray->plane_x \
 			* strc->ray->move_speed)][(int)(strc->player->y)] == '0')

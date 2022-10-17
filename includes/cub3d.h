@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/14 14:31:58 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/17 14:48:20 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,14 @@
 # define PINK 0xfb6f92
 # define YELLOW 0xe9c46a
 
+# define W 13
+# define A 0
+# define S 1
+# define D 2
+# define LEFT_ARROW 123
+# define RIGHT_ARROW 124
+# define ESC 53
+
 typedef struct s_mlx
 {
 	void	*mlx;
@@ -48,6 +56,18 @@ typedef struct s_image
 	int		x_img;
 	int		y_img;
 }				t_image;
+
+typedef struct s_texture
+{
+	void	*img;
+	char	*addr;
+	char	*path;
+	int		bits_per_pixel;
+	int		size_line;
+	int		endian;
+	int		x_texture;
+	int		y_texture;
+}				t_texture;
 
 typedef struct s_line_algo
 {
@@ -81,6 +101,20 @@ typedef struct s_raycasting
 	int		side; //was a NS or a EW wall hit?
 	int		draw_start;
 	int		draw_end;
+	double	camera_x;
+	double	ray_x;
+	double	ray_y;
+	int		map_x;
+	int		map_y;
+	double	side_dist_x; //length of ray from current position to next x-side
+	double	side_dist_y; //length of ray from current position to next y-side
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_wall_dist;
+	int		step_x; //what direction to step in x-direction (either +1 or -1)
+	int		step_y; //what direction to step in y-direction (either +1 or -1)
+	int		hit;
+	int		line_height;
 }				t_raycasting;
 
 typedef struct s_minimap
