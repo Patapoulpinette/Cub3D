@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/17 14:48:20 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/17 16:31:00 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,9 @@ void	bhm_line(t_image *image, t_points *pt, int color);
 
 //raycasting
 void	raycasting_algo(t_image *image, t_player *player, t_raycasting *ray, t_minimap *minimap);
+void	calculate_step_and_initial_side_dist(t_player *player, t_raycasting *ray);
+void	perform_dda(t_image *image, t_player *player, t_raycasting *ray, t_minimap *minimap);
+void	calculate_walls(t_raycasting *ray);
 void	draw_vertival_lines(t_image *image, t_raycasting *raycasting, int x);
 
 //movements
