@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:03:34 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/18 10:39:01 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/18 17:36:45 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,19 @@ void	create_image(t_mlx *mlx, t_image *image)
 			&image->size_line, &image->endian);
 }
 
-/* void	create_textures(t_mlx *mlx, t_texture *texture)
+void	create_textures(t_mlx *mlx, t_texture *texture)
 {
-	texture->img = mlx_xpm_file_to_image(mlx->mlx, texture->path, texture->width, texture->height);
-} */
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{	
+		texture[i].img = mlx_xpm_file_to_image(mlx->mlx, texture[i].path, &texture[i].width, &texture[i].height);
+		texture[i].addr = mlx_get_data_addr(texture[i].img, &texture[i].bits_per_pixel,
+				&texture[i].size_line, &texture[i].endian);
+		i++;
+	}
+}
 
 int	press_key(int key, t_structs *structs)
 {
@@ -62,14 +71,15 @@ int	exit_program(t_structs *structs)
 void	link_structs(t_mlx *mlx, t_structs *structs)
 {
 	t_image			image;
-	t_texture		texture;
+	t_texture		*texture;
 	t_player		player;
 	t_raycasting	ray;
 	t_minimap		minimap;
 
 	structs->mlx = mlx;
 	structs->image = &image;
-	structs->texture = &texture;
+	texture = ft_calloc(5, sizeof(t_texture));
+	structs->texture = texture;
 	structs->player = &player;
 	structs->ray = &ray;
 	structs->minimap = &minimap;
@@ -87,7 +97,7 @@ void	display_window(void)
 	mlx.window = mlx_new_window(mlx.mlx, mlx.x_win, mlx.y_win, "Cub3D");
 	init_raycasting_values(&structs);
 	create_image(&mlx, structs.image);
-	//create_textures();
+	create_textures(&mlx, structs.texture);
 	draw_in_image(&structs);
 	mlx_hook(mlx.window, 02, 0L, press_key, &structs);
 	mlx_hook(mlx.window, 17, 1L << 5, exit_program, &structs);

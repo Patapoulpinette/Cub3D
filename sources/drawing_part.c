@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 18:43:02 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/18 12:05:00 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/18 17:20:25 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	draw_in_image(t_structs *structs)
 {
 	clear_image(structs->image);
-	raycasting_algo(structs->image, structs->player, structs->ray, structs->minimap);
+	raycasting_algo(structs->image, structs->player, structs->ray, structs->minimap, structs->texture);
 	draw_map2d(structs->image, structs->ray, structs->minimap);
 	draw_map2d_player(structs->image, structs->player, structs->minimap);
 	mlx_put_image_to_window(structs->mlx->mlx, structs->mlx->window, structs->image->img, 0, 0);

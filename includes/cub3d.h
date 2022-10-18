@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/18 12:11:14 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/18 17:19:41 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 # define SCREEN_WIDTH 640
 # define SCREEN_HEIGHT 480
+
 # define FLOOR_COLOR 0xdda15e
 # define WALL_COLOR 0x606c38
 # define SKY_COLOR 0xbde0fe
@@ -38,6 +39,14 @@
 # define LEFT_ARROW 123
 # define RIGHT_ARROW 124
 # define ESC 53
+
+typedef enum e_orientation
+{
+	north,
+	east,
+	south,
+	west,
+}			t_orientation;
 
 typedef struct s_mlx
 {
@@ -68,7 +77,6 @@ typedef struct s_texture
 	int		endian;
 	int		width;
 	int		height;
-	int		**catalog;
 }				t_texture;
 
 typedef struct s_line_algo
@@ -150,6 +158,10 @@ typedef struct s_structs
 void	init_raycasting_values(t_structs *structs);
 int		calculate_map_len_max(t_raycasting *ray);
 
+//texture
+void	draw_textures(t_image *image, t_player *player, t_raycasting *ray, t_texture *texture, int x);
+int		get_texture_pixel(t_texture texture, int x, int y);
+
 //graphical_part
 void	create_image(t_mlx *mlx, t_image *image);
 int		press_key(int key, t_structs *structs);
@@ -169,7 +181,7 @@ void	my_img_pixel_put(t_image *image, int x, int y, int color);
 void	bhm_line(t_image *image, t_points *pt, int color);
 
 //raycasting
-void	raycasting_algo(t_image *image, t_player *player, t_raycasting *ray, t_minimap *minimap);
+void	raycasting_algo(t_image *image, t_player *player, t_raycasting *ray, t_minimap *minimap, t_texture *texture);
 void	calculate_step_and_side_dist(t_player *player, t_raycasting *ray);
 void	perform_dda(t_image *image, t_player *player, t_raycasting *ray, t_minimap *minimap);
 void	calculate_walls(t_raycasting *ray);

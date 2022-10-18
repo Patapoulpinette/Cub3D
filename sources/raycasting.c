@@ -6,13 +6,13 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:02:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/18 12:11:14 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/18 15:37:38 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	raycasting_algo(t_image *image, t_player *player, t_raycasting *ray, t_minimap *minimap)
+void	raycasting_algo(t_image *image, t_player *player, t_raycasting *ray, t_minimap *minimap, t_texture *texture)
 {
 	int	x;
 
@@ -38,7 +38,7 @@ void	raycasting_algo(t_image *image, t_player *player, t_raycasting *ray, t_mini
 		perform_dda(image, player, ray, minimap);
 		calculate_walls(ray);
 		draw_vertival_lines(image, ray, x);
-		//draw_textures();
+		draw_textures(image, player, ray, texture, x);
 		x++;
 	}
 }
