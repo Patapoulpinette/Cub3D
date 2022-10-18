@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 18:43:02 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/14 14:32:46 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/18 12:05:00 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	draw_in_image(t_structs *structs)
 	clear_image(structs->image);
 	raycasting_algo(structs->image, structs->player, structs->ray, structs->minimap);
 	draw_map2d(structs->image, structs->ray, structs->minimap);
-	draw_player_on_map2d(structs->image, structs->player, structs->minimap);
+	draw_map2d_player(structs->image, structs->player, structs->minimap);
 	mlx_put_image_to_window(structs->mlx->mlx, structs->mlx->window, structs->image->img, 0, 0);
 }
 
@@ -51,27 +51,27 @@ void	draw_map2d(t_image *image, t_raycasting *ray, t_minimap *minimap)
 		while (ray->map[r][c])
 		{
 			if (ray->map[r][c] == '1')
-				draw_fill_rect(image, c * minimap->wall_zoom, r * minimap->wall_zoom, minimap->wall_zoom, minimap->wall_zoom, 0xFFFFFF);
-			//else
-			//	draw_fill_rect(image, c * minimap->wall_zoom, r * minimap->wall_zoom, minimap->wall_zoom, minimap->wall_zoom, 0x000000);
+				draw_fill_rect(image, c * minimap->wall_zoom, \
+					r * minimap->wall_zoom, minimap->wall_zoom, \
+					minimap->wall_zoom);
 			c++;
 		}
 		r++;
 	}
 }
 
-void	draw_rays_on_map2d(t_image *image, t_player *player, t_minimap *minimap, int x, int y)
+void	draw_map2d_rays(t_image *image, t_player *player, t_minimap *minimap, int x, int y)
 {
 	t_points	pt;
 
-	pt.x0 = player->y* minimap->wall_zoom;
-	pt.y0 = player->x* minimap->wall_zoom;
+	pt.x0 = player->y * minimap->wall_zoom;
+	pt.y0 = player->x * minimap->wall_zoom;
 	pt.x1 = y * minimap->wall_zoom;
 	pt.y1 = x * minimap->wall_zoom;
 	bhm_line(image, &pt, YELLOW);
 }
 
-void	draw_player_on_map2d(t_image *image, t_player *player, t_minimap *minimap)
+void	draw_map2d_player(t_image *image, t_player *player, t_minimap *minimap)
 {
 	t_points	pt;
 
@@ -81,7 +81,7 @@ void	draw_player_on_map2d(t_image *image, t_player *player, t_minimap *minimap)
 	pt.x1 = player->y * minimap->wall_zoom + player->dir_y * 10;
 	pt.y1 = player->x * minimap->wall_zoom + player->dir_x * 10;
 	bhm_line(image, &pt, PINK);
-	
+
 	my_img_pixel_put(image, player->y * minimap->wall_zoom - 1, player->x * minimap->wall_zoom - 1, PINK);
 	my_img_pixel_put(image, player->y * minimap->wall_zoom, player->x * minimap->wall_zoom - 1, PINK);
 	my_img_pixel_put(image, player->y * minimap->wall_zoom + 1, player->x * minimap->wall_zoom - 1, PINK);
@@ -103,7 +103,7 @@ void	my_img_pixel_put(t_image *image, int x, int y, int color)
 	*(unsigned int *) dst = color;
 }
 
-void	draw_fill_rect(t_image *image, int x, int y, int height, int width, int color)
+void	draw_fill_rect(t_image *image, int x, int y, int height, int width)
 {
 	t_points	pt;
 	int			wdth_coord;
@@ -115,7 +115,7 @@ void	draw_fill_rect(t_image *image, int x, int y, int height, int width, int col
 		pt.y0 = y;
 		pt.x1 = x;
 		pt.y1 = y + height;
-		bhm_line(image, &pt, color);
+		bhm_line(image, &pt, BLACK);
 		x++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:03:34 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/17 15:37:20 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/18 10:39:01 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	create_image(t_mlx *mlx, t_image *image)
 
 /* void	create_textures(t_mlx *mlx, t_texture *texture)
 {
-	texture->img = mlx_xpm_file_to_image(mlx->mlx, texture->path, texture->x_texture, texture->y_texture);
+	texture->img = mlx_xpm_file_to_image(mlx->mlx, texture->path, texture->width, texture->height);
 } */
 
 int	press_key(int key, t_structs *structs)
@@ -59,26 +59,34 @@ int	exit_program(t_structs *structs)
 	exit(EXIT_SUCCESS);
 }
 
-void	display_window(void)
+void	link_structs(t_mlx *mlx, t_structs *structs)
 {
-	t_mlx			mlx;
 	t_image			image;
+	t_texture		texture;
 	t_player		player;
 	t_raycasting	ray;
 	t_minimap		minimap;
-	t_structs		structs;
 
-	structs.mlx = &mlx;
-	structs.image = &image;
-	structs.player = &player;
-	structs.ray = &ray;
-	structs.minimap = &minimap;
+	structs->mlx = mlx;
+	structs->image = &image;
+	structs->texture = &texture;
+	structs->player = &player;
+	structs->ray = &ray;
+	structs->minimap = &minimap;
+}
+
+void	display_window(void)
+{
+	t_mlx		mlx;
+	t_structs	structs;
+
+	link_structs(&mlx, &structs);
 	mlx.x_win = SCREEN_WIDTH;
 	mlx.y_win = SCREEN_HEIGHT;
 	mlx.mlx = mlx_init();
 	mlx.window = mlx_new_window(mlx.mlx, mlx.x_win, mlx.y_win, "Cub3D");
-	init_raycasting_values(&player, &ray, &minimap);
-	create_image(&mlx, &image);
+	init_raycasting_values(&structs);
+	create_image(&mlx, structs.image);
 	//create_textures();
 	draw_in_image(&structs);
 	mlx_hook(mlx.window, 02, 0L, press_key, &structs);
