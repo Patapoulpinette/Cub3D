@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/20 16:19:11 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/21 18:37:53 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,10 @@ typedef struct s_texture
 	int		endian;
 	int		width;
 	int		height;
+	int		orientation;
+	double	wall_x; //where exactly the wall was hit
+	int		tex_x;
+	int		tex_y;
 }				t_texture;
 
 typedef struct s_line_algo
@@ -160,6 +164,9 @@ int		calculate_map_len_max(t_raycasting *ray);
 
 //texture
 void	draw_textures(t_image *image, t_player *player, t_raycasting *ray, t_texture *texture, int x);
+void	choose_orientation(t_raycasting *ray, t_texture *texture);
+void	calculate_wall_x(t_player *player, t_raycasting *ray, t_texture *texture);
+void	calculate_x_coordinate_on_texture(t_raycasting *ray, t_texture *texture);
 int		get_texture_pixel(t_texture texture, int x, int y);
 
 //graphical_part
