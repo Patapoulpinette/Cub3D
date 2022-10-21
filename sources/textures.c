@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 16:37:52 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/21 17:57:50 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/21 18:03:32 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,17 @@ void	draw_textures(t_image *image, t_player *player, t_raycasting *ray, t_textur
 
 	if (ray->side == 0)
 	{
-		i = north;
+		if (ray->ray_x >= 0)
+			i = north;
+		else
+			i = south;
 	}
 	else if (ray->side == 1)
 	{
-		i = east;
+		if (ray->ray_y >= 0)
+			i = east;
+		else
+			i = west;
 	}
 
 	//calculate value of wallX
