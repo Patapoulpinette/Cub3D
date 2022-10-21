@@ -6,7 +6,7 @@
 #    By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/03 14:53:19 by dbouron           #+#    #+#              #
-#    Updated: 2022/10/10 16:32:50 by apercebo         ###   ########.fr        #
+#    Updated: 2022/10/19 14:52:00 by apercebo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ HEADFILE += $(shell find GNL -name "*.h")
 HEADFILE += $(shell find libft -name "*.h")
 HEADFILE += $(shell find minilibx_macos -name "*.h")
 
-CFLAGS = -Wall -Wextra -Werror -I includes/ -I libft/ -I minilibx_macos/ -I GNL/ #-fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror -I includes/ -I libft/ -I minilibx_macos/ -I GNL/ -fsanitize=address -g3
 
 # **************************************************************************** #
 #                                    COLORS                                    #

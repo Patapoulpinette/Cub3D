@@ -6,37 +6,25 @@
 /*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:33:54 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/17 15:48:37 by apercebo         ###   ########.fr       */
+/*   Updated: 2022/10/20 21:55:54 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-/* void	display_window(void)
-{
-	t_image			image;
-	t_raycasting	ray;
-	t_structs		structs;
-
-	structs.mlx = &mlx;
-	structs.image = &image;
-	structs.ray = &ray;
-	init_raycasting_values(&ray);
-	create_image(&mlx, &image);
-	draw_in_image(&mlx, &image, &ray);
-} */
-
 int main(int argc, char *argv[])
 {
-	t_mlx	mlx;
 	t_algo	algo;
-	int		x;
-	char	**y;
+	t_data	data;
 
-	algoo(&mlx, &algo);
+	if (argc != 2)
+		return (0);
+	parsing(&data, argv);
+	algo.data = &data;
+	initialisation(&algo.mlx, &algo);
 	/* mlx_hook(mlx.window, 02, 0L, press_key, &structs);
 	mlx_hook(mlx.window, 17, 1L << 5, exit_program, &structs); */
-	mlx_loop(mlx.mlx_ptr);
+	mlx_loop(algo.mlx.mlx_ptr);
 }
 
 void	name_error(char *maplink)
@@ -49,7 +37,7 @@ void	name_error(char *maplink)
 	{
 		printf("%s\n%s\n", "Error", "The map is not a .cub");
 		exit(0);
-	}			
+	}
 }
 
 void	parsing(t_data *data, char **argv)
@@ -57,13 +45,13 @@ void	parsing(t_data *data, char **argv)
 	name_error(argv[1]);
 	count_line(data, argv[1]);
 	backtracking(data);
-	debug(data);
-	free_tab_c(data->game_map);
+	//debug(data);
+	/* free_tab_c(data->game_map);
 	free_tab_c(data->f_game_map);
 	free(data->no_path);
 	free(data->so_path);
 	free(data->we_path);
-	free(data->ea_path);
+	free(data->ea_path); */
 }
 
 /* int	main(int argc, char **argv)
