@@ -6,11 +6,15 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:03:34 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/18 17:36:45 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/20 14:22:16 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+
+void	put_text_on_image(t_image *image, t_texture *texture);//for testing
+void	get_1_pixel(t_image *image, t_texture *texture);//for testing
 
 void	create_image(t_mlx *mlx, t_image *image)
 {
@@ -21,7 +25,7 @@ void	create_image(t_mlx *mlx, t_image *image)
 			&image->size_line, &image->endian);
 }
 
-void	create_textures(t_mlx *mlx, t_texture *texture)
+void	load_textures(t_mlx *mlx, t_texture *texture)
 {
 	int	i;
 
@@ -29,8 +33,17 @@ void	create_textures(t_mlx *mlx, t_texture *texture)
 	while (i < 4)
 	{	
 		texture[i].img = mlx_xpm_file_to_image(mlx->mlx, texture[i].path, &texture[i].width, &texture[i].height);
-		texture[i].addr = mlx_get_data_addr(texture[i].img, &texture[i].bits_per_pixel,
-				&texture[i].size_line, &texture[i].endian);
+		if (!texture[i].img)
+		{
+			printf("Loading texture failed\n");
+			exit(EXIT_FAILURE);//TODO : do a function to free all mallocs
+		}
+		texture[i].addr = mlx_get_data_addr(texture[i].img, &texture[i].bits_per_pixel, &texture[i].size_line, &texture[i].endian);
+		if (!texture[i].addr)
+		{
+			printf("Loading texture failed: can't get addr of %s\n", texture[i].path);
+			exit(EXIT_FAILURE);
+		}
 		i++;
 	}
 }
@@ -97,7 +110,7 @@ void	display_window(void)
 	mlx.window = mlx_new_window(mlx.mlx, mlx.x_win, mlx.y_win, "Cub3D");
 	init_raycasting_values(&structs);
 	create_image(&mlx, structs.image);
-	create_textures(&mlx, structs.texture);
+	load_textures(&mlx, structs.texture);
 	draw_in_image(&structs);
 	mlx_hook(mlx.window, 02, 0L, press_key, &structs);
 	mlx_hook(mlx.window, 17, 1L << 5, exit_program, &structs);

@@ -6,11 +6,13 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:33:54 by dbouron           #+#    #+#             */
-/*   Updated: 2022/09/07 17:43:30 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/21 12:17:55 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	dec_to_hex(int decimal);
 
 int	main(int argc, char **argv)
 {

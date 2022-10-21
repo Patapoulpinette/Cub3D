@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/18 17:19:41 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/20 16:19:11 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ int		get_texture_pixel(t_texture texture, int x, int y);
 
 //graphical_part
 void	create_image(t_mlx *mlx, t_image *image);
+void	load_textures(t_mlx *mlx, t_texture *texture);
 int		press_key(int key, t_structs *structs);
 int		exit_program(t_structs *structs);
 void	display_window(void); //t_maps_coord *map
