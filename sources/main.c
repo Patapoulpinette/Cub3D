@@ -6,7 +6,7 @@
 /*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:33:54 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/20 21:55:54 by apercebo         ###   ########.fr       */
+/*   Updated: 2022/10/31 16:00:42 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,11 @@
 
 int main(int argc, char *argv[])
 {
-	t_algo	algo;
 	t_data	data;
 
 	if (argc != 2)
 		return (0);
 	parsing(&data, argv);
-	algo.data = &data;
-	initialisation(&algo.mlx, &algo);
-	/* mlx_hook(mlx.window, 02, 0L, press_key, &structs);
-	mlx_hook(mlx.window, 17, 1L << 5, exit_program, &structs); */
-	mlx_loop(algo.mlx.mlx_ptr);
 }
 
 void	name_error(char *maplink)

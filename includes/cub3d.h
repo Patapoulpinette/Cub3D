@@ -6,7 +6,7 @@
 /*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/21 16:04:27 by apercebo         ###   ########.fr       */
+/*   Updated: 2022/10/31 15:59:35 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,45 +85,6 @@ typedef struct s_data
 	t_incr	inc;
 }		t_data; //todo variable orientation joueur
 
-typedef struct s_algo
-{
-	t_data	*data;
-	double posX; //Position du joueur (X)
-	double posY; //Position du joueur (Y)
-	double dirX; //Vecteur de direction (ex: dir x=1 signifie que le joueur regarde vers la droite de la carte)
-	double dirY; //Vecteur de direction (ex: dir y=1 signifie que le joueur regarde vers le haut de la carte)
-	double planeX; //Position du Camera plane X
-	double planeY; //Position du Camera plane Y
-	double time; //Temps de l'image actuel (Permet de calculer les fps en regardant le temps entre 2 images)
-	double oldTime; //Temps de l'image précedente
-	double	w; //w = largeur de l'écran
-	double	h; //h = hauteur de l'écran
-	double cameraX; //Position de X sur le camera plane
-	double rayDirX; //Direction X du rayon
-	double rayDirY; //Direction Y du rayon
-	int	mapX; //X coordonné du carré de la map dans lequel on est situé
-	int mapY; //Y coordonné du carré de la map dans lequel on est situé
-	double sideDistX; //Distance initial que le rayon a à parcourir avant d'atteindre le prochain carré en X
-	double sideDistY; //Distance initial que le rayon a à parcourir avant d'atteindre le prochain carré en Y
-	double deltaDistX; //Distance parcouru pour joindre les 2 cotés X d'un bloc
-	double deltaDistY; //Distance parcouru pour joindre les 2 cotés Y d'un bloc
-	double perpWallDist; //Utile pour calculer la longueur du rayon (et donc la distance entre le joueur et le mur)
-	//what direction to step in x or y-direction (either +1 or -1)
-	int stepX; //La direction dans lequel est le prochain mur (1 = on va à droite, -1 = on va à gauche)
-	int stepY; //La direction dans lequel est le prochain mur (1 = on monte, -1 = on descend)
-	int hit; //Detecte si on a rencontré un mur
-	int side; //Determine de quel coté un mur a été toucher (0 = gauche/droite | 1 = haut/bas)
-	int lineHeight; //Calcule la longueur d'une ligne sur l'ecran (+ h est une grande valeur, plus les murs seront haut)
-	//Calcule le début de la ligne et la fin de la ligne (en prenant le milieu de l'ecran comme moitié)
-	int drawStart;
-	int drawEnd;
-	double oldDirX;
-	double oldPlaneX;
-	double moveSpeed; //Vitesse
-	double rotSpeed; //Rotation
-	t_mlx	mlx;
-}		t_algo;
-
 //---- MAIN ------------------------------------
 void	debug(t_data *data);
 void	name_error(char *maplink);
@@ -132,19 +93,6 @@ void	count_line(t_data *data, char *maplink);
 void	recup_map(t_data *data, int fd, int i, char *maplink);
 void	parsing(t_data *data, char **argv);
 void	free_tab_c(char **tab);
-//----------------------------------------------
-
-//---- ALGO ------------------------------------
-void	first_init(t_algo *algo);
-int		algoo(t_mlx *mlx, t_algo *algo);
-void	screen(int sWidth, int sHeight, t_mlx *mlx, char *str);
-void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
-int		algoo(t_mlx *mlx, t_algo *algo);
-void	second_init(t_algo *algo, int x);
-void	calc_dist_wall(t_algo *algo);
-void	drawline(int x, int drawStart, int drawEnd, int color, t_mlx *mlx);
-int		initialisation(t_mlx *mlx, t_algo *algo);
-int		key_hook(int keycode, t_algo *algo);
 //----------------------------------------------
 
 //---- PARSING ---------------------------------
