@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 16:37:52 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/21 18:39:50 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/31 16:32:21 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void	choose_orientation(t_raycasting *ray, t_texture *texture)
 	if (ray->side == 0)
 	{
 		if (ray->ray_x >= 0)
-			texture->orientation = north;
-		else
 			texture->orientation = south;
+		else
+			texture->orientation = north;
 	}
 	else if (ray->side == 1)
 	{

@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/19 16:36:25 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/31 16:30:57 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ void	init_raycasting_values(t_structs *structs)
 
 	structs->ray->map = map;
 
-	structs->texture[north].path = ft_strdup("./textures/redbrick.xpm");
-	structs->texture[east].path = ft_strdup("./textures/colorstone.xpm");
-	structs->texture[south].path = ft_strdup("./textures/bluestone.xpm");
-	structs->texture[west].path = ft_strdup("./textures/wood.xpm");
+	structs->texture[north].path = ft_strdup("./textures/forest-spring.xpm");
+	structs->texture[east].path = ft_strdup("./textures/forest-summer.xpm");
+	structs->texture[south].path = ft_strdup("./textures/forest-autumn.xpm");
+	structs->texture[west].path = ft_strdup("./textures/forest-winter.xpm");
 
 	structs->player->x = 10;
 	structs->player->y = 7;
