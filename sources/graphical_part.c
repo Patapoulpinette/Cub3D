@@ -98,11 +98,12 @@ void	link_structs(t_mlx *mlx, t_structs *structs)
 	structs->minimap = &minimap;
 }
 
-void	display_window(void)
+void	display_window(t_data *data)
 {
 	t_mlx		mlx;
 	t_structs	structs;
 
+	structs.data = data;
 	link_structs(&mlx, &structs);
 	mlx.x_win = SCREEN_WIDTH;
 	mlx.y_win = SCREEN_HEIGHT;

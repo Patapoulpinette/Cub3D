@@ -14,30 +14,12 @@
 
 void	init_raycasting_values(t_structs *structs)
 {
-	int		i = 0;
-	char	**map = calloc(20, sizeof(char *));
+	structs->ray->map = structs->data->f_game_map;
 
-	map[i++] = ft_strdup("1111111111111111111111111111");
-	map[i++] = ft_strdup("1000000000000100000000000001");
-	map[i++] = ft_strdup("1000000000000100000000000001");
-	map[i++] = ft_strdup("1001111111100100000010000001");
-	map[i++] = ft_strdup("1001000000000000000000000001");
-	map[i++] = ft_strdup("1001000000000000000000000001");
-	map[i++] = ft_strdup("1111000000011111111000001111");
-	map[i++] = ft_strdup("100000000001      1000001");
-	map[i++] = ft_strdup("100000000001      1000001");
-	map[i++] = ft_strdup("1000000000011111111000111");
-	map[i++] = ft_strdup("10000000000000000000001");
-	map[i++] = ft_strdup("10000000000000000000001");
-	map[i++] = ft_strdup("10000000000100000000001");
-	map[i++] = ft_strdup("11111111111111111111111");
-
-	structs->ray->map = map;
-
-	structs->texture[north].path = ft_strdup("./textures/forest-spring.xpm");
-	structs->texture[east].path = ft_strdup("./textures/forest-summer.xpm");
-	structs->texture[south].path = ft_strdup("./textures/forest-autumn.xpm");
-	structs->texture[west].path = ft_strdup("./textures/forest-winter.xpm");
+	structs->texture[north].path = structs->data->no_path;
+	structs->texture[east].path = structs->data->ea_path;
+	structs->texture[south].path = structs->data->so_path;
+	structs->texture[west].path = structs->data->we_path;
 
 	structs->player->x = 10;
 	structs->player->y = 7;
