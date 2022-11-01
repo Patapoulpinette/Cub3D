@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:33:54 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/21 12:17:55 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/01 16:55:26 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,3 +78,15 @@ void	debug(t_data *data)
 	printf("%d,%d,%d\n", data->ftabl[0], data->ftabl[1], data->ftabl[2]);
 	printf("%d,%d,%d\n", data->ctabl[0], data->ctabl[1], data->ctabl[2]);
 }
+
+/* 
+TODO
+- change texture path
+- change color of floor and ceilling
+- change coordonates of player and orientation
+- work on size of minimap to adapt with map size
+- protect malloc, instructions which can fail
+- check leaks
+- reorganize functions in files
+- norme
+ */
