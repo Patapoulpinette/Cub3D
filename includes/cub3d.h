@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/01 17:59:02 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/01 18:16:11 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,8 @@ typedef struct s_structs
 
 //initializing
 void	init_raycasting_values(t_structs *structs);
+void	set_player_orientation_ne(t_structs *structs);
+void	set_player_orientation_sw(t_structs *structs);
 int		calculate_map_len_max(t_raycasting *ray);
 int		create_trgb(int t, int r, int g, int b);
 
