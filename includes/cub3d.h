@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/21 18:37:53 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/01 17:59:02 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <math.h>
-# include <time.h>
+//# include <time.h>
 # include <string.h>
 
 # define SCREEN_WIDTH 640
 # define SCREEN_HEIGHT 480
 
-# define FLOOR_COLOR 0xdda15e
+//# define FLOOR_COLOR 0xdda15e
 # define WALL_COLOR 0x606c38
-# define SKY_COLOR 0xbde0fe
+//# define SKY_COLOR 0xbde0fe
 # define PINK 0xfb6f92
 # define YELLOW 0xe9c46a
 # define BLACK 0xFFFFFF
@@ -166,6 +166,8 @@ typedef struct s_raycasting
 	int		step_y; //what direction to step in y-direction (either +1 or -1)
 	int		hit;
 	int		line_height;
+	int		ceiling_color;
+	int		floor_color;
 }				t_raycasting;
 
 typedef struct s_minimap
@@ -197,6 +199,7 @@ typedef struct s_structs
 //initializing
 void	init_raycasting_values(t_structs *structs);
 int		calculate_map_len_max(t_raycasting *ray);
+int		create_trgb(int t, int r, int g, int b);
 
 //texture
 void	draw_textures(t_image *image, t_player *player, t_raycasting *ray, t_texture *texture, int x);

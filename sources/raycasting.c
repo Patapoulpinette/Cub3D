@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:02:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/19 12:05:58 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/01 17:47:07 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,11 +130,11 @@ void	draw_vertival_lines(t_image *image, t_raycasting *raycasting, int x)
 	pt.x1 = x;
 	pt.y0 = 0;
 	pt.y1 = raycasting->draw_start;
-	bhm_line(image, &pt, SKY_COLOR);
+	bhm_line(image, &pt, raycasting->ceiling_color);
 	//draw floor with vertical lines
 	pt.x0 = x;
 	pt.x1 = x;
 	pt.y0 = raycasting->draw_end;
 	pt.y1 = SCREEN_HEIGHT;
-	bhm_line(image, &pt, FLOOR_COLOR);
+	bhm_line(image, &pt, raycasting->floor_color);
 }

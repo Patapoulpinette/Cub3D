@@ -6,13 +6,11 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:33:54 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/01 17:14:35 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/01 17:59:09 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int	dec_to_hex(int decimal);
 
 int	main(int argc, char **argv)
 {
@@ -23,6 +21,9 @@ int	main(int argc, char **argv)
 		parsing(&data, argv);
 		display_window(&data);
 	}
+	else
+		printf("Wrong number of arguments : ./cub3d [path_of_map]\n");
+	return (0);
 }
 
 void	parsing(t_data *data, char **argv)
@@ -30,7 +31,7 @@ void	parsing(t_data *data, char **argv)
 	name_error(argv[1]);
 	count_line(data, argv[1]);
 	backtracking(data);
-	//debug(data);
+	debug(data);
 	/* free_tab_c(data->game_map);
 	free_tab_c(data->f_game_map);
 	free(data->no_path);
@@ -81,7 +82,6 @@ void	debug(t_data *data)
 
 /* 
 TODO
-- change color of floor and ceilling
 - change coordonates of player and orientation
 - work on size of minimap to adapt with map size
 - protect malloc, instructions which can fail

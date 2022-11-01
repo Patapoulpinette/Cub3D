@@ -9,10 +9,10 @@
          
 EA ./textures/forest-summer.xpm
      NO ./textures/forest-spring.xpm
-F 220,100,0
-SO ./textures/forest-autumn.xpm
+F 97,52,10
+SO                ./textures/forest-autumn.xpm
 WE ./textures/forest-winter.xpm
-C 225,30,0
+C 189,224,254
 
         1111111111111111111111111111
         1000000000110000000000000001

@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/01 17:14:24 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/01 17:52:20 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ void	init_raycasting_values(t_structs *structs)
 	structs->ray->plane_y = 0.66;
 	structs->ray->move_speed = 0.3;
 	structs->ray->rot_speed = 0.1;
+	structs->ray->ceiling_color = create_trgb(0, structs->data->ctabl[0],
+			structs->data->ctabl[1], structs->data->ctabl[2]);
+	structs->ray->floor_color = create_trgb(0, structs->data->ftabl[0],
+			structs->data->ftabl[1], structs->data->ftabl[2]);
 
 	structs->minimap->map_xlen = calculate_map_len_max(structs->ray);
 	structs->minimap->map_ylen = ft_tablen(structs->ray->map);
@@ -50,4 +54,9 @@ int	calculate_map_len_max(t_raycasting *ray)
 		j++;
 	}
 	return (result);
+}
+
+int	create_trgb(int t, int r, int g, int b)
+{
+	return (t << 24 | r << 16 | g << 8 | b);
 }
