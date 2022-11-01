@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:03:34 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/20 14:22:16 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/01 17:09:51 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	load_textures(t_mlx *mlx, t_texture *texture)
 
 	i = 0;
 	while (i < 4)
-	{	
+	{
 		texture[i].img = mlx_xpm_file_to_image(mlx->mlx, texture[i].path, &texture[i].width, &texture[i].height);
 		if (!texture[i].img)
 		{

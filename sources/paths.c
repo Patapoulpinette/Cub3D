@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   paths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 06:37:05 by apercebo          #+#    #+#             */
-/*   Updated: 2022/10/11 17:58:42 by apercebo         ###   ########.fr       */
+/*   Updated: 2022/11/01 17:12:56 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void	no_path(t_data *data)
 		data->no_path = malloc((data->j - data->save) + 1);
 		data->j = 0;
 		while (data->map[data->i][data->save]
-			&& data->map[data->i][data->save] != ' ')
+			&& data->map[data->i][data->save] != ' '
+			&& data->map[data->i][data->save] != '\n')
 			data->no_path[data->j++] = data->map[data->i][data->save++];
 		data->no_path[data->j] = '\0';
 		data->j = data->save;
@@ -61,7 +62,8 @@ void	so_path(t_data *data)
 		data->so_path = malloc((data->j - data->save) + 1);
 		data->j = 0;
 		while (data->map[data->i][data->save]
-			&& data->map[data->i][data->save] != ' ')
+			&& data->map[data->i][data->save] != ' '
+			&& data->map[data->i][data->save] != '\n')
 			data->so_path[data->j++] = data->map[data->i][data->save++];
 		data->so_path[data->j] = '\0';
 		data->j = data->save;
@@ -89,7 +91,8 @@ void	we_path(t_data *data)
 		data->we_path = malloc((data->j - data->save) + 1);
 		data->j = 0;
 		while (data->map[data->i][data->save]
-			&& data->map[data->i][data->save] != ' ')
+			&& data->map[data->i][data->save] != ' '
+			&& data->map[data->i][data->save] != '\n')
 			data->we_path[data->j++] = data->map[data->i][data->save++];
 		data->we_path[data->j] = '\0';
 		data->j = data->save;
@@ -117,7 +120,8 @@ void	ea_path(t_data *data)
 		data->ea_path = malloc((data->j - data->save) + 1);
 		data->j = 0;
 		while (data->map[data->i][data->save]
-			&& data->map[data->i][data->save] != ' ')
+			&& data->map[data->i][data->save] != ' '
+			&& data->map[data->i][data->save] != '\n')
 			data->ea_path[data->j++] = data->map[data->i][data->save++];
 		data->ea_path[data->j] = '\0';
 		data->j = data->save;
