@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:01:41 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/02 15:35:18 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/02 16:28:22 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,36 +56,36 @@ void	translate_player(int key, t_structs *strc)
 	}
 }
 
-void	rotate_camera_left(t_structs *strc)
+void	rotate_camera_left(t_structs *strc, double rot_speed)
 {
 	double	old_dir_x;
 	double	old_plane_x;
 
 	old_dir_x = strc->player->dir_x;
-	strc->player->dir_x = strc->player->dir_x * cos(strc->ray->rot_speed) \
-		- strc->player->dir_y * sin(strc->ray->rot_speed);
-	strc->player->dir_y = old_dir_x * sin(strc->ray->rot_speed) \
-		+ strc->player->dir_y * cos(strc->ray->rot_speed);
+	strc->player->dir_x = strc->player->dir_x * cos(rot_speed) \
+		- strc->player->dir_y * sin(rot_speed);
+	strc->player->dir_y = old_dir_x * sin(rot_speed) \
+		+ strc->player->dir_y * cos(rot_speed);
 	old_plane_x = strc->ray->plane_x;
-	strc->ray->plane_x = strc->ray->plane_x * cos(strc->ray->rot_speed) \
-		- strc->ray->plane_y * sin(strc->ray->rot_speed);
-	strc->ray->plane_y = old_plane_x * sin(strc->ray->rot_speed) \
-		+ strc->ray->plane_y * cos(strc->ray->rot_speed);
+	strc->ray->plane_x = strc->ray->plane_x * cos(rot_speed) \
+		- strc->ray->plane_y * sin(rot_speed);
+	strc->ray->plane_y = old_plane_x * sin(rot_speed) \
+		+ strc->ray->plane_y * cos(rot_speed);
 }
 
-void	rotate_camera_right(t_structs *strc)
+void	rotate_camera_right(t_structs *strc, double rot_speed)
 {
 	double	old_dir_x;
 	double	old_plane_x;
 
 	old_dir_x = strc->player->dir_x;
-	strc->player->dir_x = strc->player->dir_x * cos(-strc->ray->rot_speed) \
-		- strc->player->dir_y * sin(-strc->ray->rot_speed);
-	strc->player->dir_y = old_dir_x * sin(-strc->ray->rot_speed) \
-		+ strc->player->dir_y * cos(-strc->ray->rot_speed);
+	strc->player->dir_x = strc->player->dir_x * cos(-rot_speed) \
+		- strc->player->dir_y * sin(-rot_speed);
+	strc->player->dir_y = old_dir_x * sin(-rot_speed) \
+		+ strc->player->dir_y * cos(-rot_speed);
 	old_plane_x = strc->ray->plane_x;
-	strc->ray->plane_x = strc->ray->plane_x * cos(-strc->ray->rot_speed) \
-		- strc->ray->plane_y * sin(-strc->ray->rot_speed);
-	strc->ray->plane_y = old_plane_x * sin(-strc->ray->rot_speed) \
-		+ strc->ray->plane_y * cos(-strc->ray->rot_speed);
+	strc->ray->plane_x = strc->ray->plane_x * cos(-rot_speed) \
+		- strc->ray->plane_y * sin(-rot_speed);
+	strc->ray->plane_y = old_plane_x * sin(-rot_speed) \
+		+ strc->ray->plane_y * cos(-rot_speed);
 }

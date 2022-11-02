@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/02 15:35:02 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/02 16:28:02 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ typedef struct s_raycasting
 	int		line_height;
 	int		ceiling_color;
 	int		floor_color;
+	int		prev_mouse_x;
 }				t_raycasting;
 
 typedef struct s_minimap
@@ -242,8 +243,8 @@ void	draw_vertival_lines(t_image *image, t_raycasting *raycasting, int x);
 //movements
 void	move_player(int key, t_structs *structs);
 void	translate_player(int key, t_structs *structs);
-void	rotate_camera_left(t_structs *structs);
-void	rotate_camera_right(t_structs *structs);
+void	rotate_camera_left(t_structs *structs, double rot_speed);
+void	rotate_camera_right(t_structs *structs, double rot_speed);
 
 
 //---- MAIN ------------------------------------

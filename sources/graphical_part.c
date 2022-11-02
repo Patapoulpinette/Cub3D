@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:03:34 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/02 15:34:57 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/02 17:09:47 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,14 @@ void	load_textures(t_mlx *mlx, t_texture *texture)
 int	move_mouse(int x, int y, t_structs *structs)
 {
 	(void) y;
-	if (x >= 0 && x <= (SCREEN_WIDTH * 0.25))
-		rotate_camera_left(structs);
-	else if (x >= (SCREEN_WIDTH * 0.75) && x <= SCREEN_WIDTH)
-		rotate_camera_right(structs);
+	mlx_mouse_hide();
+	if ((x - structs->ray->prev_mouse_x) < 0)
+		rotate_camera_left(structs, 0.05);
+	else if ((x - structs->ray->prev_mouse_x) > 0)
+		rotate_camera_right(structs, 0.05);
 	draw_in_image(structs);
+	structs->ray->prev_mouse_x = x;
+	//mlx_mouse_show();
 	return (0);
 }
 
@@ -70,9 +73,9 @@ int	press_key(int key, t_structs *structs)
 		exit(EXIT_SUCCESS);
 	}
 	else if (key == LEFT_ARROW)
-		rotate_camera_left(structs);
+		rotate_camera_left(structs, structs->ray->rot_speed);
 	else if (key == RIGHT_ARROW)
-		rotate_camera_right(structs);
+		rotate_camera_right(structs, structs->ray->rot_speed);
 	else if (key == W || key == S || key == UP_ARROW || key == DOWN_ARROW)
 		move_player(key, structs);
 	else if (key == A || key == D)

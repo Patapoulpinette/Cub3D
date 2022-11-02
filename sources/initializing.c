@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/02 15:34:48 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/02 17:08:45 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ void	init_raycasting_values(t_structs *structs)
 	set_player_orientation_ne(structs);
 	set_player_orientation_sw(structs);
 
-	structs->ray->move_speed = 0.3;
+	structs->ray->move_speed = 0.2;
 	structs->ray->rot_speed = 0.1;
+	structs->ray->prev_mouse_x = SCREEN_HEIGHT * 0.5;
+	mlx_mouse_move(structs->mlx->window, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 	structs->ray->ceiling_color = create_trgb(0, structs->data->ctabl[0],
 			structs->data->ctabl[1], structs->data->ctabl[2]);
 	structs->ray->floor_color = create_trgb(0, structs->data->ftabl[0],
