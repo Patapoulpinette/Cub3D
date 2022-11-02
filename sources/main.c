@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:33:54 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/02 14:42:34 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/02 18:30:39 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ TODO
 - check leaks
 - reorganize functions in files
 - norme
+- TESTS LIKE IN CORRECTION
 
 TOFIX
 - exec bug when go straight to the wall in front of player when orientation is W

@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/02 18:25:33 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/02 18:48:41 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,71 +207,15 @@ typedef struct s_structs
 	t_mouse			*mouse;
 }				t_structs;
 
-//initializing
-void	init_raycasting_values(t_structs *structs);
-void	set_player_orientation_ne(t_structs *structs);
-void	set_player_orientation_sw(t_structs *structs);
-int		calculate_map_len_max(char **map);
-int		create_trgb(int t, int r, int g, int b);
-
-//texture
-void	draw_textures(t_image *image, t_player *player, t_raycasting *ray, t_texture *texture, int x);
-void	choose_orientation(t_raycasting *ray, t_texture *texture);
-void	calculate_wall_x(t_player *player, t_raycasting *ray, t_texture *texture);
-void	calculate_x_coordinate_on_texture(t_raycasting *ray, t_texture *texture);
-int		get_texture_pixel(t_texture texture, int x, int y);
-
-//graphical_part
-void	create_image(t_mlx *mlx, t_image *image);
-void	load_textures(t_mlx *mlx, t_texture *texture);
-void	link_structs(t_mlx *mlx, t_image *image, t_structs *structs);
-void	display_window(t_data *data);
-
-//inputs
-int		press_key(int key, t_structs *structs);
-int		press_mouse(int key, int x, int y, t_structs *structs);
-int		release_mouse(int key, int x, int y, t_structs *structs);
-int		move_mouse(int x, int y, t_structs *structs);
-int		exit_program(t_structs *structs);
-
-//drawing_part
-void	draw_in_image(t_structs *structs);
-void	draw_map2d(t_image *image, t_raycasting *ray, t_minimap *minimap);
-void	draw_map2d_rays(t_image *image, t_player *player, t_minimap *minimap, int x, int y);
-void	draw_map2d_player(t_image *image, t_player *player, t_minimap *minimap);
-
-//drawing_utils
-void	my_img_pixel_put(t_image *image, int x, int y, int color);
-void	clear_image(t_image *image);
-void	draw_fill_rect(t_image *image, int x, int y, int height, int width);
-
-//draw_line_algorithm
-void	bhm_line(t_image *image, t_points *pt, int color);
-
-//raycasting
-void	raycasting_algo(t_image *image, t_player *player, t_raycasting *ray, t_minimap *minimap, t_texture *texture);
-void	calculate_step_and_side_dist(t_player *player, t_raycasting *ray);
-void	perform_dda(t_image *image, t_player *player, t_raycasting *ray, t_minimap *minimap);
-void	calculate_walls(t_raycasting *ray);
-void	draw_vertival_lines(t_image *image, t_raycasting *raycasting, int x);
-
-//movements
-void	move_player(int key, t_structs *structs);
-void	translate_player(int key, t_structs *structs);
-void	rotate_camera_left(t_structs *structs, double rot_speed);
-void	rotate_camera_right(t_structs *structs, double rot_speed);
-
-
-//---- MAIN ------------------------------------
+//---- MAIN --------------------------------------------------------------------
 void	debug(t_data *data);
 void	name_error(char *maplink);
 void	get_data_info(t_data *data);
 void	count_line(t_data *data, char *maplink);
 void	recup_map(t_data *data, int fd, int i, char *maplink);
 void	parsing(t_data *data, char **argv);
-//----------------------------------------------
 
-//---- PARSING ---------------------------------
+//---- PARSING -----------------------------------------------------------------
 int		texturing(t_data *data);
 void	texturing_init(t_data *data);
 void	no_path(t_data *data);
@@ -285,9 +229,8 @@ int		map_error(t_data *data);
 int		skip_space(t_data *data);
 void	malloc_map(t_data *data);
 void	replace_dot(t_data *data);
-//----------------------------------------------
 
-//---- BACKTRACKING ----------------------------
+//---- BACKTRACKING ------------------------------------------------------------
 void	backtracking(t_data *data);
 int		ch_is_player(int j);
 void	check_path(t_data *data, int i, int j);
@@ -295,17 +238,68 @@ void	delete_walls(t_data *data);
 int		ch_is_in_map(t_data *data, int i, int j);
 int		ch_is_a_corner(t_data *data, int i, int j);
 void	display(t_data *data);
-//----------------------------------------------
 
-//---- UTILS -----------------------------------
-int		ft_atoi(const char *str);
+//---- INITIALIZING ------------------------------------------------------------
+void	init_raycasting_values(t_structs *structs);
+void	set_player_orientation_ne(t_structs *structs);
+void	set_player_orientation_sw(t_structs *structs);
+int		calculate_map_len_max(char **map);
+int		create_trgb(int t, int r, int g, int b);
+
+//---- GRAPHICAL PART ----------------------------------------------------------
+void	create_image(t_mlx *mlx, t_image *image);
+void	load_textures(t_mlx *mlx, t_texture *texture);
+void	link_structs(t_mlx *mlx, t_image *image, t_structs *structs);
+void	display_window(t_data *data);
+
+//---- DRAWING PART ------------------------------------------------------------
+void	draw_in_image(t_structs *structs);
+void	draw_map2d(t_image *image, t_raycasting *ray, t_minimap *minimap);
+void	draw_map2d_rays(t_image *image, t_player *player, t_minimap *minimap, int x, int y);
+void	draw_map2d_player(t_image *image, t_player *player, t_minimap *minimap);
+
+//---- DRAWING UTILS -----------------------------------------------------------
+void	my_img_pixel_put(t_image *image, int x, int y, int color);
+void	clear_image(t_image *image);
+void	draw_fill_rect(t_image *image, int x, int y, int height, int width);
+
+//--- DRAWLINE ALGO ------------------------------------------------------------
+void	bhm_line(t_image *image, t_points *pt, int color);
+
+//--- RAYCASTING ---------------------------------------------------------------
+void	raycasting_algo(t_image *image, t_player *player, t_raycasting *ray, t_minimap *minimap, t_texture *texture);
+void	calculate_step_and_side_dist(t_player *player, t_raycasting *ray);
+void	perform_dda(t_image *image, t_player *player, t_raycasting *ray, t_minimap *minimap);
+void	calculate_walls(t_raycasting *ray);
+void	draw_vertival_lines(t_image *image, t_raycasting *raycasting, int x);
+
+//---- TEXTURE -----------------------------------------------------------------
+void	draw_textures(t_image *image, t_player *player, t_raycasting *ray, t_texture *texture, int x);
+void	choose_orientation(t_raycasting *ray, t_texture *texture);
+void	calculate_wall_x(t_player *player, t_raycasting *ray, t_texture *texture);
+void	calculate_x_coordinate_on_texture(t_raycasting *ray, t_texture *texture);
+int		get_texture_pixel(t_texture texture, int x, int y);
+
+//---- INPUTS ------------------------------------------------------------------
+int		press_key(int key, t_structs *structs);
+int		press_mouse(int key, int x, int y, t_structs *structs);
+int		release_mouse(int key, int x, int y, t_structs *structs);
+int		move_mouse(int x, int y, t_structs *structs);
+int		exit_program(t_structs *structs);
+
+//---- MOVEMENTS ---------------------------------------------------------------
+void	move_player(int key, t_structs *structs);
+void	translate_player(int key, t_structs *structs);
+void	rotate_camera_left(t_structs *structs, double rot_speed);
+void	rotate_camera_right(t_structs *structs, double rot_speed);
+
+//---- UTILS -------------------------------------------------------------------
 int		search_ch(t_data *data, int j);
 int		search_ch_in_map(int j);
 int		ch_is_inside(int j);
 size_t	ft_tablen(char **tab);
 void	ft_error(void);
 void	free_tab_c(char **tab);
-void	free_tab_i(int **tab, int size);
-//----------------------------------------------
+//void	free_tab_i(int **tab, int size);
 
 #endif
