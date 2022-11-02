@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/02 11:16:43 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/02 15:34:48 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	init_raycasting_values(t_structs *structs)
 	structs->texture[west].path = structs->data->we_path;
 
 	structs->player->x = 10;
-	structs->player->y = 7;
+	structs->player->y = 4;
 	set_player_orientation_ne(structs);
 	set_player_orientation_sw(structs);
 

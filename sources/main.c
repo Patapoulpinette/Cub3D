@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:33:54 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/02 10:45:31 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/02 14:42:34 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,9 @@ TODO
 - check leaks
 - reorganize functions in files
 - norme
+
+TOFIX
+- exec bug when go straight to the wall in front of player when orientation is W
+- exec displays map error when the map doesn't end by a line of 1 enven if the map is closed before
+- exec don't displays window when there is line of 1 before the first line of 1
  */

@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:03:34 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/02 11:41:03 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/02 15:34:57 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,17 @@ void	load_textures(t_mlx *mlx, t_texture *texture)
 		}
 		i++;
 	}
+}
+
+int	move_mouse(int x, int y, t_structs *structs)
+{
+	(void) y;
+	if (x >= 0 && x <= (SCREEN_WIDTH * 0.25))
+		rotate_camera_left(structs);
+	else if (x >= (SCREEN_WIDTH * 0.75) && x <= SCREEN_WIDTH)
+		rotate_camera_right(structs);
+	draw_in_image(structs);
+	return (0);
 }
 
 int	press_key(int key, t_structs *structs)
@@ -114,6 +125,7 @@ void	display_window(t_data *data)
 	load_textures(&mlx, structs.texture);
 	draw_in_image(&structs);
 	mlx_hook(mlx.window, 2, 0, press_key, &structs);
+	mlx_hook(mlx.window, 6, 1L << 6, move_mouse, &structs);
 	mlx_hook(mlx.window, 17, 1L << 5, exit_program, &structs);
 	mlx_loop(mlx.mlx);
 }

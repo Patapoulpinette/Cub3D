@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/02 11:20:06 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/02 15:35:02 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,7 @@ int		get_texture_pixel(t_texture texture, int x, int y);
 //graphical_part
 void	create_image(t_mlx *mlx, t_image *image);
 void	load_textures(t_mlx *mlx, t_texture *texture);
+int 	move_mouse(int x, int y, t_structs *structs);
 int		press_key(int key, t_structs *structs);
 int		exit_program(t_structs *structs);
 void	display_window(t_data *data);
