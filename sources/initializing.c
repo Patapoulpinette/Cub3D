@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/02 17:08:45 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/02 18:00:01 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ void	init_raycasting_values(t_structs *structs)
 
 	structs->ray->move_speed = 0.2;
 	structs->ray->rot_speed = 0.1;
-	structs->ray->prev_mouse_x = SCREEN_HEIGHT * 0.5;
-	mlx_mouse_move(structs->mlx->window, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 	structs->ray->ceiling_color = create_trgb(0, structs->data->ctabl[0],
 			structs->data->ctabl[1], structs->data->ctabl[2]);
 	structs->ray->floor_color = create_trgb(0, structs->data->ftabl[0],
@@ -38,6 +36,10 @@ void	init_raycasting_values(t_structs *structs)
 	structs->minimap->map_xlen = calculate_map_len_max(structs->ray->map);
 	structs->minimap->map_ylen = ft_tablen(structs->ray->map);
 	structs->minimap->wall_zoom = 550 / structs->minimap->map_xlen;
+
+	structs->mouse->button_press = 0;
+	structs->mouse->prev_mouse_x = SCREEN_HEIGHT * 0.5;
+	mlx_mouse_move(structs->mlx->window, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 }
 
 void	set_player_orientation_ne(t_structs *structs)

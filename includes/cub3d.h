@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/02 16:28:02 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/02 17:58:27 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 //# include <time.h>
 # include <string.h>
 
+# define RESOLUTION_X 5120 //on iMac (Retina 5K, 27-inch, 2017)
+# define RESOLUTION_Y 2880 //on iMac (Retina 5K, 27-inch, 2017)
 # define SCREEN_WIDTH 640
 # define SCREEN_HEIGHT 480
 
@@ -170,7 +172,6 @@ typedef struct s_raycasting
 	int		line_height;
 	int		ceiling_color;
 	int		floor_color;
-	int		prev_mouse_x;
 }				t_raycasting;
 
 typedef struct s_minimap
@@ -179,6 +180,12 @@ typedef struct s_minimap
 	int	map_ylen;
 	int	wall_zoom;
 }				t_minimap;
+
+typedef struct s_mouse
+{
+	int	button_press;
+	int	prev_mouse_x;
+}				t_mouse;
 
 typedef struct s_points
 {
@@ -197,6 +204,7 @@ typedef struct s_structs
 	t_raycasting	*ray;
 	t_player		*player;
 	t_minimap		*minimap;
+	t_mouse			*mouse;
 }				t_structs;
 
 //initializing
@@ -219,6 +227,7 @@ void	load_textures(t_mlx *mlx, t_texture *texture);
 int 	move_mouse(int x, int y, t_structs *structs);
 int		press_key(int key, t_structs *structs);
 int		exit_program(t_structs *structs);
+void	link_structs(t_mlx *mlx, t_image *image, t_structs *structs);
 void	display_window(t_data *data);
 
 //drawing_part
