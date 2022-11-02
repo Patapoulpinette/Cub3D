@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/02 17:58:27 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/02 18:25:33 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,20 +224,26 @@ int		get_texture_pixel(t_texture texture, int x, int y);
 //graphical_part
 void	create_image(t_mlx *mlx, t_image *image);
 void	load_textures(t_mlx *mlx, t_texture *texture);
-int 	move_mouse(int x, int y, t_structs *structs);
-int		press_key(int key, t_structs *structs);
-int		exit_program(t_structs *structs);
 void	link_structs(t_mlx *mlx, t_image *image, t_structs *structs);
 void	display_window(t_data *data);
 
+//inputs
+int		press_key(int key, t_structs *structs);
+int		press_mouse(int key, int x, int y, t_structs *structs);
+int		release_mouse(int key, int x, int y, t_structs *structs);
+int		move_mouse(int x, int y, t_structs *structs);
+int		exit_program(t_structs *structs);
+
 //drawing_part
 void	draw_in_image(t_structs *structs);
-void	clear_image(t_image *image);
 void	draw_map2d(t_image *image, t_raycasting *ray, t_minimap *minimap);
 void	draw_map2d_rays(t_image *image, t_player *player, t_minimap *minimap, int x, int y);
 void	draw_map2d_player(t_image *image, t_player *player, t_minimap *minimap);
-void	draw_fill_rect(t_image *image, int x, int y, int height, int width);
+
+//drawing_utils
 void	my_img_pixel_put(t_image *image, int x, int y, int color);
+void	clear_image(t_image *image);
+void	draw_fill_rect(t_image *image, int x, int y, int height, int width);
 
 //draw_line_algorithm
 void	bhm_line(t_image *image, t_points *pt, int color);

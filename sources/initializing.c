@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/02 18:00:01 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/02 18:27:44 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	init_raycasting_values(t_structs *structs)
 
 	structs->minimap->map_xlen = calculate_map_len_max(structs->ray->map);
 	structs->minimap->map_ylen = ft_tablen(structs->ray->map);
-	structs->minimap->wall_zoom = 550 / structs->minimap->map_xlen;
+	structs->minimap->wall_zoom = 350 / structs->minimap->map_xlen;
 
 	structs->mouse->button_press = 0;
 	structs->mouse->prev_mouse_x = SCREEN_HEIGHT * 0.5;
