@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/01 18:17:06 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/02 11:16:43 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	init_raycasting_values(t_structs *structs)
 	structs->ray->floor_color = create_trgb(0, structs->data->ftabl[0],
 			structs->data->ftabl[1], structs->data->ftabl[2]);
 
-	structs->minimap->map_xlen = calculate_map_len_max(structs->ray);
+	structs->minimap->map_xlen = calculate_map_len_max(structs->ray->map);
 	structs->minimap->map_ylen = ft_tablen(structs->ray->map);
-	structs->minimap->wall_zoom = 350 / structs->minimap->map_xlen;
+	structs->minimap->wall_zoom = 550 / structs->minimap->map_xlen;
 }
 
 void	set_player_orientation_ne(t_structs *structs)
@@ -74,17 +74,17 @@ void	set_player_orientation_sw(t_structs *structs)
 	}
 }
 
-int	calculate_map_len_max(t_raycasting *ray)
+int	calculate_map_len_max(char **map)
 {
 	int	result;
 	int	j;
 
 	result = 0;
 	j = 0;
-	while (ray->map[j])
+	while (map[j])
 	{
-		if ((int)ft_strlen(ray->map[j]) > result)
-			result = ft_strlen(ray->map[j]);
+		if ((int)ft_strlen(map[j]) > result)
+			result = ft_strlen(map[j]);
 		j++;
 	}
 	return (result);

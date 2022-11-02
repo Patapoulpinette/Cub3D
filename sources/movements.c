@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:01:41 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/14 18:20:08 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/02 11:20:42 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	move_player(int key, t_structs *strc)
 {
-	if (key == W) //move forward
+	if (key == W || key == UP_ARROW) //move forward
 	{
 		if (strc->ray->map[(int)(strc->player->x + strc->player->dir_x \
 			* strc->ray->move_speed)][(int)(strc->player->y)] == '0')
@@ -23,7 +23,7 @@ void	move_player(int key, t_structs *strc)
 			+ strc->player->dir_y * strc->ray->move_speed)] == '0')
 			strc->player->y += strc->player->dir_y * strc->ray->move_speed;
 	}
-	if (key == S) //move backwards
+	if (key == S || key == DOWN_ARROW) //move backwards
 	{
 		if (strc->ray->map[(int)(strc->player->x - strc->player->dir_x \
 			* strc->ray->move_speed)][(int)(strc->player->y)] == '0')

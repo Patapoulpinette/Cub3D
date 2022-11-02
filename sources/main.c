@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:33:54 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/01 18:18:05 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/02 10:45:31 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	parsing(t_data *data, char **argv)
 	name_error(argv[1]);
 	count_line(data, argv[1]);
 	backtracking(data);
-	debug(data);
+	//debug(data);
 	/* free_tab_c(data->game_map);
 	free_tab_c(data->f_game_map);
 	free(data->no_path);
@@ -86,6 +86,7 @@ TODO
 - change coordonates of player
 - work on size of minimap to adapt with map size
 - protect malloc, instructions which can fail
+- do a function to free all mallocs when there is an error and the program quit (graphical_part.c)
 - check leaks
 - reorganize functions in files
 - norme

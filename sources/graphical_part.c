@@ -6,15 +6,11 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:03:34 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/01 17:09:51 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/02 11:41:03 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-
-void	put_text_on_image(t_image *image, t_texture *texture);//for testing
-void	get_1_pixel(t_image *image, t_texture *texture);//for testing
 
 void	create_image(t_mlx *mlx, t_image *image)
 {
@@ -32,16 +28,20 @@ void	load_textures(t_mlx *mlx, t_texture *texture)
 	i = 0;
 	while (i < 4)
 	{
-		texture[i].img = mlx_xpm_file_to_image(mlx->mlx, texture[i].path, &texture[i].width, &texture[i].height);
+		texture[i].img = mlx_xpm_file_to_image(mlx->mlx, texture[i].path,
+				&texture[i].width, &texture[i].height);
 		if (!texture[i].img)
 		{
 			printf("Loading texture failed\n");
 			exit(EXIT_FAILURE);//TODO : do a function to free all mallocs
 		}
-		texture[i].addr = mlx_get_data_addr(texture[i].img, &texture[i].bits_per_pixel, &texture[i].size_line, &texture[i].endian);
+		texture[i].addr = mlx_get_data_addr(texture[i].img,
+				&texture[i].bits_per_pixel, &texture[i].size_line,
+				&texture[i].endian);
 		if (!texture[i].addr)
 		{
-			printf("Loading texture failed: can't get addr of %s\n", texture[i].path);
+			printf("Loading texture failed: can't get addr of %s\n",
+				texture[i].path);
 			exit(EXIT_FAILURE);
 		}
 		i++;
@@ -62,7 +62,7 @@ int	press_key(int key, t_structs *structs)
 		rotate_camera_left(structs);
 	else if (key == RIGHT_ARROW)
 		rotate_camera_right(structs);
-	else if (key == W || key == S)
+	else if (key == W || key == S || key == UP_ARROW || key == DOWN_ARROW)
 		move_player(key, structs);
 	else if (key == A || key == D)
 		translate_player(key, structs);
@@ -113,7 +113,7 @@ void	display_window(t_data *data)
 	create_image(&mlx, structs.image);
 	load_textures(&mlx, structs.texture);
 	draw_in_image(&structs);
-	mlx_hook(mlx.window, 02, 0L, press_key, &structs);
+	mlx_hook(mlx.window, 2, 0, press_key, &structs);
 	mlx_hook(mlx.window, 17, 1L << 5, exit_program, &structs);
 	mlx_loop(mlx.mlx);
 }
