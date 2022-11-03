@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/02 18:27:44 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/03 10:03:09 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	init_raycasting_values(t_structs *structs)
 
 	structs->mouse->button_press = 0;
 	structs->mouse->prev_mouse_x = SCREEN_HEIGHT * 0.5;
-	mlx_mouse_move(structs->mlx->window, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 }
 
 void	set_player_orientation_ne(t_structs *structs)

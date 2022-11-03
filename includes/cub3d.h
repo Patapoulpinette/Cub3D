@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/02 18:48:41 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/03 09:57:48 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 //# include <time.h>
 # include <string.h>
 
-# define RESOLUTION_X 5120 //on iMac (Retina 5K, 27-inch, 2017)
-# define RESOLUTION_Y 2880 //on iMac (Retina 5K, 27-inch, 2017)
+//# define RESOLUTION_X 5120 //on iMac (Retina 5K, 27-inch, 2017)
+//# define RESOLUTION_Y 2880 //on iMac (Retina 5K, 27-inch, 2017)
 # define SCREEN_WIDTH 640
 # define SCREEN_HEIGHT 480
 
@@ -185,6 +185,8 @@ typedef struct s_mouse
 {
 	int	button_press;
 	int	prev_mouse_x;
+	int	save_x;
+	int	save_y;
 }				t_mouse;
 
 typedef struct s_points

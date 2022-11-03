@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:17:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/02 18:17:59 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/03 10:02:40 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int	press_key(int key, t_structs *structs)
 
 int	press_mouse(int key, int x, int y, t_structs *structs)
 {
-	(void) x;
-	(void) y;
+	structs->mouse->save_x = x;
+	structs->mouse->save_y = y;
 	structs->mouse->button_press = key;
 	mlx_mouse_hide();
 	return (0);
@@ -51,6 +51,8 @@ int	release_mouse(int key, int x, int y, t_structs *structs)
 	(void) x;
 	(void) y;
 	structs->mouse->button_press = 0;
+	mlx_mouse_move(structs->mlx->window, structs->mouse->save_x,
+		structs->mouse->save_y);
 	mlx_mouse_show();
 	return (0);
 }
@@ -61,9 +63,9 @@ int	move_mouse(int x, int y, t_structs *structs)
 	if (structs->mouse->button_press)
 	{
 		if ((x - structs->mouse->prev_mouse_x) < 0)
-			rotate_camera_left(structs, 0.05);
+			rotate_camera_left(structs, 0.06);
 		else if ((x - structs->mouse->prev_mouse_x) > 0)
-			rotate_camera_right(structs, 0.05);
+			rotate_camera_right(structs, 0.06);
 		draw_in_image(structs);
 		structs->mouse->prev_mouse_x = x;
 	}
