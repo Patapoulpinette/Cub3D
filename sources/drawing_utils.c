@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:22:37 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/02 18:24:14 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/03 10:23:27 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,19 @@ void	clear_image(t_image *image)
 	}
 }
 
-void	draw_fill_rect(t_image *image, int x, int y, int height, int width)
+void	draw_fill_rect(t_image *image, int x, int y, int height, int width, int color)
 {
 	t_points	pt;
 	int			wdth_coord;
 
-	wdth_coord = x + width;
+	wdth_coord = x + width - 1;
 	while (x < wdth_coord)
 	{
 		pt.x0 = x;
 		pt.y0 = y;
 		pt.x1 = x;
-		pt.y1 = y + height;
-		bhm_line(image, &pt, BLACK);
+		pt.y1 = y + height - 2;
+		bhm_line(image, &pt, color);
 		x++;
 	}
 }

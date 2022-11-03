@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 18:43:02 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/02 18:23:52 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/03 10:20:36 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	draw_map2d(t_image *image, t_raycasting *ray, t_minimap *minimap)
 			if (ray->map[r][c] == '1')
 				draw_fill_rect(image, c * minimap->wall_zoom, \
 					r * minimap->wall_zoom, minimap->wall_zoom, \
-					minimap->wall_zoom);
+					minimap->wall_zoom, BLACK);
 			c++;
 		}
 		r++;
@@ -64,12 +64,14 @@ void	draw_map2d_player(t_image *image, t_player *player, t_minimap *minimap)
 	pt.y1 = player->x * minimap->wall_zoom + player->dir_x * 10;
 	bhm_line(image, &pt, PINK);
 
-	my_img_pixel_put(image, player->y * minimap->wall_zoom - 1, player->x * minimap->wall_zoom - 1, PINK);
+/* 	my_img_pixel_put(image, player->y * minimap->wall_zoom - 1, player->x * minimap->wall_zoom - 1, PINK);
 	my_img_pixel_put(image, player->y * minimap->wall_zoom, player->x * minimap->wall_zoom - 1, PINK);
 	my_img_pixel_put(image, player->y * minimap->wall_zoom + 1, player->x * minimap->wall_zoom - 1, PINK);
 	my_img_pixel_put(image, player->y * minimap->wall_zoom - 1, player->x * minimap->wall_zoom, PINK);
 	my_img_pixel_put(image, player->y * minimap->wall_zoom + 1, player->x * minimap->wall_zoom, PINK);
 	my_img_pixel_put(image, player->y * minimap->wall_zoom - 1, player->x * minimap->wall_zoom + 1, PINK);
 	my_img_pixel_put(image, player->y * minimap->wall_zoom, player->x * minimap->wall_zoom + 1, PINK);
-	my_img_pixel_put(image, player->y * minimap->wall_zoom + 1, player->x * minimap->wall_zoom + 1, PINK);
+	my_img_pixel_put(image, player->y * minimap->wall_zoom + 1, player->x * minimap->wall_zoom + 1, PINK); */
+
+	draw_fill_rect(image, player->y * minimap->wall_zoom - 1, player->x * minimap->wall_zoom - 1, 3, 3, PINK);
 }

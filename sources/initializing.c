@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/03 10:03:09 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/03 10:58:20 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	init_raycasting_values(t_structs *structs)
 	set_player_orientation_ne(structs);
 	set_player_orientation_sw(structs);
 
-	structs->ray->move_speed = 0.2;
+	structs->ray->move_speed = 0.15;
 	structs->ray->rot_speed = 0.1;
 	structs->ray->ceiling_color = create_trgb(0, structs->data->ctabl[0],
 			structs->data->ctabl[1], structs->data->ctabl[2]);

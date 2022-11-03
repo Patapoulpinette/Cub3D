@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/03 09:57:48 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/03 10:56:38 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@
 //# define SKY_COLOR 0xbde0fe
 # define PINK 0xfb6f92
 # define YELLOW 0xe9c46a
-# define BLACK 0xFFFFFF
+# define WHITE 0xFFFFFF
+# define BLACK 0x000000
 
 # define W 13
 # define A 0
@@ -263,7 +264,7 @@ void	draw_map2d_player(t_image *image, t_player *player, t_minimap *minimap);
 //---- DRAWING UTILS -----------------------------------------------------------
 void	my_img_pixel_put(t_image *image, int x, int y, int color);
 void	clear_image(t_image *image);
-void	draw_fill_rect(t_image *image, int x, int y, int height, int width);
+void	draw_fill_rect(t_image *image, int x, int y, int height, int width, int color);
 
 //--- DRAWLINE ALGO ------------------------------------------------------------
 void	bhm_line(t_image *image, t_points *pt, int color);
