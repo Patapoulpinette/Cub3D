@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:17:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/04 17:46:16 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/04 18:19:06 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,13 @@ int	press_key(int key, t_structs *structs)
 
 int	press_mouse(int key, int x, int y, t_structs *structs)
 {
-	structs->mouse->save_x = x;
-	structs->mouse->save_y = y;
-	structs->mouse->button_press = key;
-	mlx_mouse_hide();
+	if (key == 1 | key == 2)
+	{
+		structs->mouse->save_x = x;
+		structs->mouse->save_y = y;
+		structs->mouse->button_press = key;
+		mlx_mouse_hide();
+	}
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/04 17:46:01 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/04 18:05:43 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@
 
 //# define RESOLUTION_X 5120 //on iMac (Retina 5K, 27-inch, 2017)
 //# define RESOLUTION_Y 2880 //on iMac (Retina 5K, 27-inch, 2017)
-# define SCREEN_WIDTH 640
-# define SCREEN_HEIGHT 480
+# define SCREEN_WIDTH 1280
+# define SCREEN_HEIGHT 960
+//# define SCREEN_WIDTH 640
+//# define SCREEN_HEIGHT 480
 
 //# define FLOOR_COLOR 0xdda15e
 # define WALL_COLOR 0x606c38
