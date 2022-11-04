@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:33:54 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/03 16:17:23 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/04 18:23:58 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void	debug(t_data *data)
 /* 
 TODO
 - change coordonates of player
-- work on size of minimap to adapt with map size
 - protect malloc, instructions which can fail
 - do a function to free all mallocs when there is an error and the program quit (graphical_part.c)
 - check leaks

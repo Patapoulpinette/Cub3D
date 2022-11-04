@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/04 17:56:46 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/04 21:54:08 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	init_raycasting_values(t_structs *structs)
 	structs->texture[west].path = structs->data->we_path;
 
 	structs->player->x = 1.5;
-	structs->player->y = 1.5;
+	structs->player->y = 10.5;
 	set_player_orientation_ne(structs);
 	set_player_orientation_sw(structs);
 
@@ -33,8 +33,8 @@ void	init_raycasting_values(t_structs *structs)
 	structs->ray->floor_color = create_trgb(0, structs->data->ftabl[0],
 			structs->data->ftabl[1], structs->data->ftabl[2]);
 
-	structs->minimap->map_xlen = calculate_map_len_max(structs->ray->map);
-	structs->minimap->map_ylen = ft_tablen(structs->ray->map);
+	structs->minimap->map_xlen = calculate_map_len_max(structs->ray->map); //if > 641 minimap out of the screen
+	structs->minimap->map_ylen = ft_tablen(structs->ray->map); //if > 480 minimap out of the screen
 	if (structs->minimap->map_xlen >= structs->minimap->map_ylen)
 		structs->minimap->wall_zoom = 300 / structs->minimap->map_xlen;
 	else

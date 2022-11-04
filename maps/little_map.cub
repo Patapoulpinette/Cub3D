@@ -7,19 +7,19 @@
 
 
          
-EA ./textures/forest-summer.xpm
-     NO ./textures/forest-spring.xpm
-F 97,52,10
-SO                ./textures/forest-autumn.xpm
-WE ./textures/forest-winter.xpm
+EA ./textures/vegetal_wall_2.xpm
+     NO ./textures/vegetal_wall_1.xpm
+F 100,100,100
+SO                ./textures/vegetal_wall_3.xpm
+WE ./textures/vegetal_wall_4.xpm
 C 189,224,254
 
 
 1111111111111111111
-1S00011000000000001
-1000011000000110001
-1000011000000110001
-1000000000000110001
+1S00000000000000001
+1000111000001110001
+1000111000001110001
+1000000000000000001
 1111111111111111111
 
 
