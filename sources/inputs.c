@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:17:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/03 10:02:40 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/04 17:46:16 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ int	press_key(int key, t_structs *structs)
 		move_player(key, structs);
 	else if (key == A || key == D)
 		translate_player(key, structs);
+	else if (key == PLUS)
+		structs->minimap->wall_zoom += 1;
+	else if (key == MINUS)
+		structs->minimap->wall_zoom -= 1;
 	else
 		dprintf(2, "key number : %d\n", key);
 	draw_in_image(structs);

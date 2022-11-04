@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/03 10:56:38 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/04 17:46:01 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@
 # define DOWN_ARROW 125
 # define UP_ARROW 126
 # define ESC 53
+# define PLUS 24
+# define MINUS 27
 
 typedef enum e_orientation
 {

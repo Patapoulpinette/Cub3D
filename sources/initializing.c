@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/03 10:58:20 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/04 17:41:50 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	init_raycasting_values(t_structs *structs)
 	structs->texture[south].path = structs->data->so_path;
 	structs->texture[west].path = structs->data->we_path;
 
-	structs->player->x = 10;
-	structs->player->y = 4;
+	structs->player->x = 1.5;
+	structs->player->y = 10.5;
 	set_player_orientation_ne(structs);
 	set_player_orientation_sw(structs);
 
@@ -35,7 +35,10 @@ void	init_raycasting_values(t_structs *structs)
 
 	structs->minimap->map_xlen = calculate_map_len_max(structs->ray->map);
 	structs->minimap->map_ylen = ft_tablen(structs->ray->map);
-	structs->minimap->wall_zoom = 350 / structs->minimap->map_xlen;
+	if (structs->minimap->map_xlen >= structs->minimap->map_ylen)
+		structs->minimap->wall_zoom = 300 / structs->minimap->map_xlen;
+	else
+		structs->minimap->wall_zoom = 300 / structs->minimap->map_ylen;
 
 	structs->mouse->button_press = 0;
 	structs->mouse->prev_mouse_x = SCREEN_HEIGHT * 0.5;

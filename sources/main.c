@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:33:54 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/02 18:30:39 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/03 16:17:23 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	main(int argc, char **argv)
 	if (argc == 2)
 	{
 		parsing(&data, argv);
+		dprintf(2, "PARSING_OK\n");
 		display_window(&data);
 	}
 	else
@@ -93,7 +94,5 @@ TODO
 - TESTS LIKE IN CORRECTION
 
 TOFIX
-- exec bug when go straight to the wall in front of player when orientation is W
-- exec displays map error when the map doesn't end by a line of 1 enven if the map is closed before
-- exec don't displays window when there is line of 1 before the first line of 1
+- segfault if there is no player in map
  */

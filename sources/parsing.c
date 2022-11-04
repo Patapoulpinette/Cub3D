@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 04:19:59 by apercebo          #+#    #+#             */
-/*   Updated: 2022/10/21 13:58:11 by apercebo         ###   ########.fr       */
+/*   Updated: 2022/11/04 17:05:17 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	recup_map(t_data *data, int fd, int i, char *maplink)
 	}
 	texturing_init(data);
 	if (texturing(data) == 0)
-		printf("SUCCESS\n");
+		//printf("SUCCESS\n");
 	if (map_parsing(data) == 1)
 	{
 		printf("MAP NOT CONFORM\n");
