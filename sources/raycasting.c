@@ -6,40 +6,47 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:02:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/04 11:54:40 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/07 09:43:13 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	raycasting_algo(t_image *image, t_player *player, t_raycasting *ray, t_minimap *minimap, t_texture *texture)
+void	raycasting_algo(t_structs *structs)
 {
 	int	x;
 
 	x = 0;
 	while (x < SCREEN_WIDTH)
 	{
-		ray->camera_x = 2 * x / (double)SCREEN_WIDTH - 1;//x coords in camera space
-		ray->ray_x = player->dir_x + ray->plane_x * ray->camera_x;
-		ray->ray_y = player->dir_y + ray->plane_y * ray->camera_x;
-		ray->map_x = (int)player->x;
-		ray->map_y = (int)player->y;
-		if (ray->ray_x == 0)
-		{
-			ray->delta_dist_x = 1e30;
-			ray->delta_dist_y = 1e30;
-		}
-		else
-		{
-			ray->delta_dist_x = fabs(1 / ray->ray_x);
-			ray->delta_dist_y = fabs(1 / ray->ray_y);
-		}
-		calculate_step_and_side_dist(player, ray);
-		perform_dda(image, player, ray, minimap);
-		calculate_walls(ray);
-		draw_vertival_lines(image, ray, x);
-		draw_textures(image, player, ray, texture, x);
+		start_algo(structs, x);
+		calculate_step_and_side_dist(structs->player, structs->ray);
+		perform_dda(structs);
+		calculate_walls(structs->ray);
+		draw_vertival_lines(structs->image, structs->ray, x);
+		draw_textures(structs->image, structs->player, structs->ray, structs->texture, x);
 		x++;
+	}
+}
+
+void	start_algo(t_structs *structs, int x)
+{
+	structs->ray->camera_x = 2 * x / (double)SCREEN_WIDTH - 1;//x coords in camera space
+	structs->ray->ray_x = structs->player->dir_x + structs->ray->plane_x
+		* structs->ray->camera_x;
+	structs->ray->ray_y = structs->player->dir_y + structs->ray->plane_y
+		* structs->ray->camera_x;
+	structs->ray->map_x = (int)structs->player->x;
+	structs->ray->map_y = (int)structs->player->y;
+	if (structs->ray->ray_x == 0)
+	{
+		structs->ray->delta_dist_x = 1e30;
+		structs->ray->delta_dist_y = 1e30;
+	}
+	else
+	{
+		structs->ray->delta_dist_x = fabs(1 / structs->ray->ray_x);
+		structs->ray->delta_dist_y = fabs(1 / structs->ray->ray_y);
 	}
 }
 
@@ -67,29 +74,29 @@ void	calculate_step_and_side_dist(t_player *player, t_raycasting *ray)
 	}
 }
 
-void	perform_dda(t_image *image, t_player *player, t_raycasting *ray, t_minimap *minimap)
+void	perform_dda(t_structs *structs)
 {
-	ray->hit = 0;
-	while (ray->hit == 0)
+	structs->ray->hit = 0;
+	while (structs->ray->hit == 0)
 	{
 		//jump to next map square, either in x-direction, or in y-direction
-		if (ray->side_dist_x < ray->side_dist_y)
+		if (structs->ray->side_dist_x < structs->ray->side_dist_y)
 		{
-			ray->side_dist_x += ray->delta_dist_x;
-			ray->map_x += ray->step_x;
-			ray->side = 0;
+			structs->ray->side_dist_x += structs->ray->delta_dist_x;
+			structs->ray->map_x += structs->ray->step_x;
+			structs->ray->side = 0;
 		}
 		else
 		{
-			ray->side_dist_y += ray->delta_dist_y;
-			ray->map_y += ray->step_y;
-			ray->side = 1;
+			structs->ray->side_dist_y += structs->ray->delta_dist_y;
+			structs->ray->map_y += structs->ray->step_y;
+			structs->ray->side = 1;
 		}
 		//check if ray has hit a wall
-		if (ray->map[ray->map_x][ray->map_y] != '0')
+		if (structs->ray->map[structs->ray->map_x][structs->ray->map_y] != '0')
 		{
-			ray->hit = 1;
-			draw_map2d_rays(image, player, minimap, ray->map_x, ray->map_y);
+			structs->ray->hit = 1;
+			draw_map2d_rays(structs, structs->ray->map_x, structs->ray->map_y);
 		}
 	}
 }

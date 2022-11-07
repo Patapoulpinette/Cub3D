@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/04 21:29:12 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/07 09:42:07 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ typedef struct s_data
 	int		save;
 	int		map_end;
 	char	pl_orientation;
+	int		pl_x;
+	int		pl_y;
 	char	*nbr;
 	t_incr	inc;
 }		t_data; //todo variable orientation joueur
@@ -262,7 +264,7 @@ void	display_window(t_data *data);
 //---- DRAWING PART ------------------------------------------------------------
 void	draw_in_image(t_structs *structs);
 void	draw_map2d(t_image *image, t_raycasting *ray, t_minimap *minimap);
-void	draw_map2d_rays(t_image *image, t_player *player, t_minimap *minimap, int x, int y);
+void	draw_map2d_rays(t_structs *structs, int x, int y);
 void	draw_map2d_player(t_image *image, t_player *player, t_minimap *minimap);
 
 //---- DRAWING UTILS -----------------------------------------------------------
@@ -274,9 +276,10 @@ void	draw_fill_rect(t_image *image, int x, int y, int height, int width, int col
 void	bhm_line(t_image *image, t_points *pt, int color);
 
 //--- RAYCASTING ---------------------------------------------------------------
-void	raycasting_algo(t_image *image, t_player *player, t_raycasting *ray, t_minimap *minimap, t_texture *texture);
+void	raycasting_algo(t_structs *structs);
+void	start_algo(t_structs *structs, int x);
 void	calculate_step_and_side_dist(t_player *player, t_raycasting *ray);
-void	perform_dda(t_image *image, t_player *player, t_raycasting *ray, t_minimap *minimap);
+void	perform_dda(t_structs *structs);
 void	calculate_walls(t_raycasting *ray);
 void	draw_vertival_lines(t_image *image, t_raycasting *raycasting, int x);
 

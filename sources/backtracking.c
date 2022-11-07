@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 11:40:28 by apercebo          #+#    #+#             */
-/*   Updated: 2022/11/03 15:58:48 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/07 09:15:47 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	backtracking(t_data *data)
 			break ;
 	}
 	data->pl_orientation = data->game_map[i][j];
+	data->pl_x = i;
+	data->pl_y = j;
 	check_path(data, i, j);
 	delete_walls(data);
 	replace_dot(data);

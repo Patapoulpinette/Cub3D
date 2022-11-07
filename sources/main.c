@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:33:54 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/04 18:23:58 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/07 09:27:23 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,6 @@ TODO
 
 TOFIX
 - segfault if there is no player in map
+- segfault if path of texture is after map description in map
+- segfault if there is the same texture path 2 times or more in map
  */
