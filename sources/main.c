@@ -3,14 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:33:54 by dbouron           #+#    #+#             */
-/*   Updated: 2022/10/11 17:50:41 by apercebo         ###   ########.fr       */
+/*   Updated: 2022/11/07 09:27:23 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	main(int argc, char **argv)
+{
+	t_data	data;
+
+	if (argc == 2)
+	{
+		parsing(&data, argv);
+		dprintf(2, "PARSING_OK\n");
+		display_window(&data);
+	}
+	else
+		printf("Wrong number of arguments : ./cub3d [path_of_map]\n");
+	return (0);
+}
+
+void	parsing(t_data *data, char **argv)
+{
+	name_error(argv[1]);
+	count_line(data, argv[1]);
+	backtracking(data);
+	//debug(data);
+	/* free_tab_c(data->game_map);
+	free_tab_c(data->f_game_map);
+	free(data->no_path);
+	free(data->so_path);
+	free(data->we_path);
+	free(data->ea_path); */
+}
 
 void	name_error(char *maplink)
 {
@@ -22,31 +51,7 @@ void	name_error(char *maplink)
 	{
 		printf("%s\n%s\n", "Error", "The map is not a .cub");
 		exit(0);
-	}			
-}
-
-void	parsing(t_data *data, char **argv)
-{
-	name_error(argv[1]);
-	count_line(data, argv[1]);
-	backtracking(data);
-	debug(data);
-	free_tab_c(data->game_map);
-	free_tab_c(data->f_game_map);
-	free(data->no_path);
-	free(data->so_path);
-	free(data->we_path);
-	free(data->ea_path);
-}
-
-int	main(int argc, char **argv)
-{
-	t_data			data;
-
-	if (argc != 2)
-		return (0);
-	parsing(&data, argv);
-	return (0);
+	}
 }
 
 void	debug(t_data *data)
@@ -74,4 +79,21 @@ void	debug(t_data *data)
 	printf("\n  The colors :\n\n");
 	printf("%d,%d,%d\n", data->ftabl[0], data->ftabl[1], data->ftabl[2]);
 	printf("%d,%d,%d\n", data->ctabl[0], data->ctabl[1], data->ctabl[2]);
+	printf("player orientation : %c\n", data->pl_orientation);
 }
+
+/* 
+TODO
+- change coordonates of player
+- protect malloc, instructions which can fail
+- do a function to free all mallocs when there is an error and the program quit (graphical_part.c)
+- check leaks
+- reorganize functions in files
+- norme
+- TESTS LIKE IN CORRECTION
+
+TOFIX
+- segfault if there is no player in map
+- segfault if path of texture is after map description in map
+- segfault if there is the same texture path 2 times or more in map
+ */

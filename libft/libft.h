@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 17:49:40 by dbouron           #+#    #+#             */
-/*   Updated: 2022/02/08 19:41:59 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/10/21 11:51:02 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	*ft_memchr(const void *s, int c, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 int		ft_atoi(const char *str);
+int		ft_atoi_base(char *str, char *base);
 void	*ft_calloc(size_t count, size_t type_size);
 char	*ft_strdup(const char *s1);
 

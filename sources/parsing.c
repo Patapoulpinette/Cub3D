@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 04:19:59 by apercebo          #+#    #+#             */
-/*   Updated: 2022/10/12 14:10:39 by apercebo         ###   ########.fr       */
+/*   Updated: 2022/11/07 10:42:08 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "cub3d.h"
 
 void	count_line(t_data *data, char *maplink)
 {
@@ -57,8 +57,8 @@ void	recup_map(t_data *data, int fd, int i, char *maplink)
 		i++;
 	}
 	texturing_init(data);
-	if (texturing(data) == 0)
-		printf("SUCCESS\n");
+	if (texturing(data) != 0)
+		printf("Texture failed\n");
 	if (map_parsing(data) == 1)
 	{
 		printf("MAP NOT CONFORM\n");
@@ -112,15 +112,15 @@ int	map_parsing(t_data *data)
 		return (1);
 	while (data->map[data->i++])
 	{
-		data->inc->j = -1;
-		while (data->map[data->i] && data->map[data->i][++data->inc->j])
-			if (search_ch(data, data->inc->j) == 1)
+		data->inc.j = -1;
+		while (data->map[data->i] && data->map[data->i][++data->inc.j])
+			if (search_ch(data, data->inc.j) == 1)
 				return (1);
 	}
-	data->inc->j = -1;
-	data->game_map = malloc(sizeof(char *) * (data->i - data->inc->save));
-	data->map_end = data->i - data->inc->save - 2;
-	dprintf(2, "%s\n", data->map[data->inc->save]);
+	data->inc.j = -1;
+	data->game_map = malloc(sizeof(char *) * (data->i - data->inc.save));
+	data->map_end = data->i - data->inc.save - 2;
+	//dprintf(2, "%s\n", data->map[data->inc.save]);
 	malloc_map(data);
 	if (map_error(data) == 1)
 	{

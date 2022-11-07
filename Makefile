@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+         #
+#    By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/03 14:53:19 by dbouron           #+#    #+#              #
-#    Updated: 2022/10/10 16:32:50 by apercebo         ###   ########.fr        #
+#    Updated: 2022/11/02 11:47:06 by dbouron          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME = cub3d
 #                               FILES and PATHS                                #
 # **************************************************************************** #
 
-MINILIBX = ./minilibx_macos
+MINILIBX = ./minilibx_opengl
 
 LIBFT = ./libft
 LIBFT_EXEC = ./libft/libft.a
@@ -26,9 +26,11 @@ SRCS +=	$(shell find GNL -name "*.c")
 HEADFILE = $(shell find includes -name "*.h")
 HEADFILE += $(shell find GNL -name "*.h")
 HEADFILE += $(shell find libft -name "*.h")
-HEADFILE += $(shell find minilibx_macos -name "*.h")
+HEADFILE += $(shell find minilibx_opengl -name "*.h")
 
-CFLAGS = -Wall -Wextra -Werror -I includes/ -I libft/ -I minilibx_macos/ -I GNL/ #-fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror
+CFLAGS += -I includes/ -I libft/ -I minilibx_opengl/ -I GNL/ -O3
+#CFLAGS += -fsanitize=address -g3
 
 # **************************************************************************** #
 #                                    COLORS                                    #
@@ -70,7 +72,7 @@ all : compile_minilibx compile_libft $(NAME)
 	@printf "\r$(LIGHT_GRAY)Loading...$(NO_COLOR)"
 
 $(NAME) : $(OBJS) $(HEADFILE) $(LIBFT_EXEC)
-	gcc $(CFLAGS) -o $(NAME) $(LIBFT_EXEC) $(SRCS) -L minilibx_macos -lmlx -framework OpenGL -framework AppKit -lm
+	gcc $(CFLAGS) -o $(NAME) $(LIBFT_EXEC) $(SRCS) -L minilibx_opengl -lmlx -framework OpenGL -framework AppKit -lm
 	@printf "\r$(LIGHT_GREEN)➞$(NO_COLOR) Compiled $(LIGHT_GREEN)✔$(NO_COLOR)\n"
 
 compile_minilibx :
@@ -78,6 +80,11 @@ compile_minilibx :
 
 compile_libft :
 	@make -C $(LIBFT)
+
+git :
+	@git add .
+	@printf "Message of the commit: " && read msg && git commit -m "$$msg"
+	@git push
 
 clean :
 	rm -rf $(OBJS)
@@ -92,4 +99,4 @@ fclean : clean
 
 re : fclean all
 
-.PHONY: all compile_minilibx compile_libft clean fclean re
+.PHONY: all compile_minilibx compile_libft git clean fclean re

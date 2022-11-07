@@ -1,0 +1,6 @@
+{
+	"git.postCommitCommand": "push",
+	"files.associations": {
+		"locale": "c"
+	}
+}
