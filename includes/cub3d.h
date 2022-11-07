@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/07 09:42:07 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/07 10:35:19 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,14 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <math.h>
-//# include <time.h>
 # include <string.h>
 
-//# define RESOLUTION_X 5120 //on iMac (Retina 5K, 27-inch, 2017)
-//# define RESOLUTION_Y 2880 //on iMac (Retina 5K, 27-inch, 2017)
 # define SCREEN_WIDTH 1280
 # define SCREEN_HEIGHT 960
 //# define SCREEN_WIDTH 640
 //# define SCREEN_HEIGHT 480
 
-//# define FLOOR_COLOR 0xdda15e
 # define WALL_COLOR 0x606c38
-//# define SKY_COLOR 0xbde0fe
 # define PINK 0xfb6f92
 # define YELLOW 0xe9c46a
 # define WHITE 0xFFFFFF
@@ -125,7 +120,7 @@ typedef struct s_texture
 	int		endian;
 	int		width;
 	int		height;
-	int		orientation;
+	int		orient;
 	double	wall_x; //where exactly the wall was hit
 	int		tex_x;
 	int		tex_y;
@@ -271,6 +266,7 @@ void	draw_map2d_player(t_image *image, t_player *player, t_minimap *minimap);
 void	my_img_pixel_put(t_image *image, int x, int y, int color);
 void	clear_image(t_image *image);
 void	draw_fill_rect(t_image *image, int x, int y, int height, int width, int color);
+void	draw_vertival_lines(t_image *image, t_raycasting *raycasting, int x);
 
 //--- DRAWLINE ALGO ------------------------------------------------------------
 void	bhm_line(t_image *image, t_points *pt, int color);
@@ -281,10 +277,9 @@ void	start_algo(t_structs *structs, int x);
 void	calculate_step_and_side_dist(t_player *player, t_raycasting *ray);
 void	perform_dda(t_structs *structs);
 void	calculate_walls(t_raycasting *ray);
-void	draw_vertival_lines(t_image *image, t_raycasting *raycasting, int x);
 
 //---- TEXTURE -----------------------------------------------------------------
-void	draw_textures(t_image *image, t_player *player, t_raycasting *ray, t_texture *texture, int x);
+void	draw_textures(t_structs *structs, int x);
 void	choose_orientation(t_raycasting *ray, t_texture *texture);
 void	calculate_wall_x(t_player *player, t_raycasting *ray, t_texture *texture);
 void	calculate_x_coordinate_on_texture(t_raycasting *ray, t_texture *texture);
@@ -310,6 +305,5 @@ int		ch_is_inside(int j);
 size_t	ft_tablen(char **tab);
 void	ft_error(void);
 void	free_tab_c(char **tab);
-//void	free_tab_i(int **tab, int size);
 
 #endif

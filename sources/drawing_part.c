@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 18:43:02 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/07 09:36:04 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/07 10:37:13 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,13 @@ void	draw_map2d_player(t_image *image, t_player *player, t_minimap *minimap)
 {
 	t_points	pt;
 
-	my_img_pixel_put(image, player->y * minimap->wall_zoom, player->x * minimap->wall_zoom, PINK);
+	my_img_pixel_put(image, player->y * minimap->wall_zoom, player->x \
+		* minimap->wall_zoom, PINK);
 	pt.x0 = player->y * minimap->wall_zoom;
 	pt.y0 = player->x * minimap->wall_zoom;
 	pt.x1 = player->y * minimap->wall_zoom + player->dir_y * 10;
 	pt.y1 = player->x * minimap->wall_zoom + player->dir_x * 10;
 	bhm_line(image, &pt, PINK);
-	draw_fill_rect(image, player->y * minimap->wall_zoom - 1, player->x * minimap->wall_zoom - 1, 3, 3, PINK);
+	draw_fill_rect(image, player->y * minimap->wall_zoom - 1, player->x \
+		* minimap->wall_zoom - 1, 3, 3, PINK);
 }

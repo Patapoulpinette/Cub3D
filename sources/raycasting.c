@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:02:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/07 09:43:13 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/07 10:33:37 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	raycasting_algo(t_structs *structs)
 		perform_dda(structs);
 		calculate_walls(structs->ray);
 		draw_vertival_lines(structs->image, structs->ray, x);
-		draw_textures(structs->image, structs->player, structs->ray, structs->texture, x);
+		draw_textures(structs, x);
 		x++;
 	}
 }
@@ -117,31 +117,4 @@ void	calculate_walls(t_raycasting *ray)
 	ray->draw_end = ray->line_height * 0.5 + SCREEN_HEIGHT * 0.5;
 	if (ray->draw_end >= SCREEN_HEIGHT)
 		ray->draw_end = SCREEN_HEIGHT - 1;
-}
-
-void	draw_vertival_lines(t_image *image, t_raycasting *raycasting, int x)
-{
-	t_points	pt;
-
-	//draw walls with vertical lines
-	pt.x0 = x;
-	pt.x1 = x;
-	pt.y0 = raycasting->draw_start;
-	pt.y1 = raycasting->draw_end;
-	if (raycasting->side == 1) //give x and y sides different brightness
-		bhm_line(image, &pt, WALL_COLOR * 0.5);
-	else
-		bhm_line(image, &pt, WALL_COLOR);
-	//draw ceilling with vertical lines
-	pt.x0 = x;
-	pt.x1 = x;
-	pt.y0 = 0;
-	pt.y1 = raycasting->draw_start;
-	bhm_line(image, &pt, raycasting->ceiling_color);
-	//draw floor with vertical lines
-	pt.x0 = x;
-	pt.x1 = x;
-	pt.y0 = raycasting->draw_end;
-	pt.y1 = SCREEN_HEIGHT;
-	bhm_line(image, &pt, raycasting->floor_color);
 }

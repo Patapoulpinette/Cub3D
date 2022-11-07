@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:22:37 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/04 14:16:09 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/07 10:33:47 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,31 @@ void	draw_fill_rect(t_image *image, int x, int y, int height, int width, int col
 		bhm_line(image, &pt, color);
 		x++;
 	}
+}
+
+void	draw_vertival_lines(t_image *image, t_raycasting *raycasting, int x)
+{
+	t_points	pt;
+
+	//draw walls with vertical lines
+	pt.x0 = x;
+	pt.x1 = x;
+	pt.y0 = raycasting->draw_start;
+	pt.y1 = raycasting->draw_end;
+	if (raycasting->side == 1) //give x and y sides different brightness
+		bhm_line(image, &pt, WALL_COLOR * 0.5);
+	else
+		bhm_line(image, &pt, WALL_COLOR);
+	//draw ceilling with vertical lines
+	pt.x0 = x;
+	pt.x1 = x;
+	pt.y0 = 0;
+	pt.y1 = raycasting->draw_start;
+	bhm_line(image, &pt, raycasting->ceiling_color);
+	//draw floor with vertical lines
+	pt.x0 = x;
+	pt.x1 = x;
+	pt.y0 = raycasting->draw_end;
+	pt.y1 = SCREEN_HEIGHT;
+	bhm_line(image, &pt, raycasting->floor_color);
 }
