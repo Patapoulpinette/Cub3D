@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 04:19:59 by apercebo          #+#    #+#             */
-/*   Updated: 2022/11/04 17:05:17 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/07 10:42:08 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	recup_map(t_data *data, int fd, int i, char *maplink)
 		i++;
 	}
 	texturing_init(data);
-	if (texturing(data) == 0)
-		//printf("SUCCESS\n");
+	if (texturing(data) != 0)
+		printf("Texture failed\n");
 	if (map_parsing(data) == 1)
 	{
 		printf("MAP NOT CONFORM\n");
