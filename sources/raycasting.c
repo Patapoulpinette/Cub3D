@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:02:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/07 10:33:37 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/07 17:38:12 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	raycasting_algo(t_structs *structs)
 		calculate_walls(structs->ray);
 		draw_vertival_lines(structs->image, structs->ray, x);
 		draw_textures(structs, x);
+		draw_map2d_rays(structs, structs->ray->map_x, structs->ray->map_y);
 		x++;
 	}
 }
@@ -94,10 +95,7 @@ void	perform_dda(t_structs *structs)
 		}
 		//check if ray has hit a wall
 		if (structs->ray->map[structs->ray->map_x][structs->ray->map_y] != '0')
-		{
 			structs->ray->hit = 1;
-			draw_map2d_rays(structs, structs->ray->map_x, structs->ray->map_y);
-		}
 	}
 }
 

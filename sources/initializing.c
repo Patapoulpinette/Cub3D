@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/07 15:35:17 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/07 18:55:27 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	set_player_orientation_ne(t_structs *structs)
 	}
 	else if (structs->data->pl_orientation == 'E')
 	{
-		structs->player->dir_x = 0;
+		structs->player->dir_x = 0.000001;
 		structs->player->dir_y = 1;
 		structs->ray->plane_x = 0.66;
 		structs->ray->plane_y = 0;
@@ -68,7 +68,7 @@ void	set_player_orientation_sw(t_structs *structs)
 	}
 	else if (structs->data->pl_orientation == 'W')
 	{
-		structs->player->dir_x = 0;
+		structs->player->dir_x = 0.000001;
 		structs->player->dir_y = -1;
 		structs->ray->plane_x = -0.66;
 		structs->ray->plane_y = 0;
