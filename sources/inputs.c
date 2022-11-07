@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:17:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/04 21:20:33 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/07 15:59:11 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,7 @@
 int	press_key(int key, t_structs *structs)
 {
 	if (key == ESC)
-	{
-		mlx_destroy_image(structs->mlx->mlx, structs->image->img);
-		mlx_destroy_window(structs->mlx->mlx, structs->mlx->window);
-		free(structs->mlx->mlx);
-		free_tab_c(structs->ray->map);
-		exit(EXIT_SUCCESS);
-	}
+		exit_program(structs);
 	else if (key == LEFT_ARROW)
 		rotate_camera_left(structs, structs->ray->rot_speed);
 	else if (key == RIGHT_ARROW)
@@ -85,5 +79,7 @@ int	exit_program(t_structs *structs)
 	mlx_destroy_window(structs->mlx->mlx, structs->mlx->window);
 	free(structs->mlx->mlx);
 	free_tab_c(structs->ray->map);
+	free(structs->minimap);
+	free(structs->texture);
 	exit(EXIT_SUCCESS);
 }

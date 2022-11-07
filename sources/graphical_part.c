@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:03:34 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/03 11:54:27 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/07 15:51:19 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,28 +51,30 @@ void	load_textures(t_mlx *mlx, t_texture *texture)
 void	link_structs(t_mlx *mlx, t_image *image, t_structs *structs)
 {
 	t_texture		*texture;
-	t_player		player;
-	t_raycasting	ray;
-	t_minimap		minimap;
-	t_mouse			mouse;
+	t_minimap		*minimap;
+	t_mouse			*mouse;
 
 	structs->mlx = mlx;
 	structs->image = image;
 	texture = ft_calloc(5, sizeof(t_texture));
 	structs->texture = texture;
-	structs->player = &player;
-	structs->ray = &ray;
-	structs->minimap = &minimap;
-	structs->mouse = &mouse;
+	minimap = ft_calloc(1, sizeof(t_minimap));
+	structs->minimap = minimap;
+	mouse = ft_calloc(1, sizeof(t_mouse));
+	structs->mouse = mouse;
 }
 
 void	display_window(t_data *data)
 {
-	t_mlx		mlx;
-	t_image		image;
-	t_structs	structs;
+	t_mlx			mlx;
+	t_image			image;
+	t_player		player;
+	t_raycasting	ray;
+	t_structs		structs;
 
 	structs.data = data;
+	structs.player = &player;
+	structs.ray = &ray;
 	link_structs(&mlx, &image, &structs);
 	mlx.x_win = SCREEN_WIDTH;
 	mlx.y_win = SCREEN_HEIGHT;

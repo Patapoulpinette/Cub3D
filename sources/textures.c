@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 16:37:52 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/07 10:30:27 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/07 16:24:59 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,9 @@ void	draw_textures(t_structs *structs, int x)
 		structs->texture->tex_y = (int) tex_pos & \
 			(structs->texture[structs->texture->orient].height - 1);
 		tex_pos += step;
-		//color = texture[i][texture[i].height * tex_y + tex_x];
 		color = get_texture_pixel(structs->texture[structs->texture->orient], \
 			structs->texture->tex_x, structs->texture->tex_y);
-		my_img_pixel_put(structs->image, x, y, color);//buffer[y][x] = color;
+		my_img_pixel_put(structs->image, x, y, color);
 		y++;
 	}
 }
