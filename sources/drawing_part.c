@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 18:43:02 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/07 17:37:40 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/07 21:10:07 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ void	draw_in_image(t_structs *structs)
 
 void	draw_map2d(t_image *image, t_raycasting *ray, t_minimap *minimap)
 {
-	int	r;
-	int	c;
+	int				r;
+	int				c;
+	t_dimensions	dim;
 
 	r = 0;
 	while (ray->map[r])
@@ -34,9 +35,13 @@ void	draw_map2d(t_image *image, t_raycasting *ray, t_minimap *minimap)
 		while (ray->map[r][c])
 		{
 			if (ray->map[r][c] == '1')
-				draw_fill_rect(image, c * minimap->wall_zoom, \
-					r * minimap->wall_zoom, minimap->wall_zoom, \
-					minimap->wall_zoom, BLACK);
+			{
+				dim.x = c * minimap->wall_zoom;
+				dim.y = r * minimap->wall_zoom;
+				dim.width = minimap->wall_zoom;
+				dim.height = minimap->wall_zoom;
+				draw_fill_rect(image, &dim, BLACK);
+			}
 			c++;
 		}
 		r++;
@@ -56,7 +61,8 @@ void	draw_map2d_rays(t_structs *structs, int x, int y)
 
 void	draw_map2d_player(t_image *image, t_player *player, t_minimap *minimap)
 {
-	t_points	pt;
+	t_points		pt;
+	t_dimensions	dim;
 
 	my_img_pixel_put(image, player->y * minimap->wall_zoom, player->x \
 		* minimap->wall_zoom, PINK);
@@ -65,6 +71,9 @@ void	draw_map2d_player(t_image *image, t_player *player, t_minimap *minimap)
 	pt.x1 = player->y * minimap->wall_zoom + player->dir_y * 10;
 	pt.y1 = player->x * minimap->wall_zoom + player->dir_x * 10;
 	bhm_line(image, &pt, PINK);
-	draw_fill_rect(image, player->y * minimap->wall_zoom - 1, player->x \
-		* minimap->wall_zoom - 1, 3, 3, PINK);
+	dim.x = player->y * minimap->wall_zoom - 1;
+	dim.y = player->x * minimap->wall_zoom - 1;
+	dim.width = 3;
+	dim.height = 3;
+	draw_fill_rect(image, &dim, PINK);
 }

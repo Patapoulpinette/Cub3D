@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 06:37:05 by apercebo          #+#    #+#             */
-/*   Updated: 2022/11/01 17:12:56 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/07 19:24:09 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	no_path(t_data *data)
 		}
 		while (data->map[data->i][data->j] == ' ')
 			data->j++;
-		data->no = 1;
+		data->no++;
 		data->save = data->j;
 		while (data->map[data->i][data->j]
 			&& data->map[data->i][data->j] != ' ')
@@ -54,7 +54,7 @@ void	so_path(t_data *data)
 		}
 		while (data->map[data->i][data->j] == ' ')
 			data->j++;
-		data->so = 1;
+		data->so++;
 		data->save = data->j;
 		while (data->map[data->i][data->j]
 			&& data->map[data->i][data->j] != ' ')
@@ -83,7 +83,7 @@ void	we_path(t_data *data)
 		}
 		while (data->map[data->i][data->j] == ' ')
 			data->j++;
-		data->we = 1;
+		data->we++;
 		data->save = data->j;
 		while (data->map[data->i][data->j]
 			&& data->map[data->i][data->j] != ' ')
@@ -112,7 +112,7 @@ void	ea_path(t_data *data)
 		}
 		while (data->map[data->i][data->j] == ' ')
 			data->j++;
-		data->ea = 1;
+		data->ea++;
 		data->save = data->j;
 		while (data->map[data->i][data->j]
 			&& data->map[data->i][data->j] != ' ')

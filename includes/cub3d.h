@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/07 10:35:19 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/07 21:05:59 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_data
 	int		c; //ceiling
 	int		i;  //data->i pour tabl
 	int		j;	//data->j pour tabl
+	int		save_i;  //data->save_i pour tabl
 	int		save;
 	int		map_end;
 	char	pl_orientation;
@@ -199,6 +200,14 @@ typedef struct s_points
 	int	y1;
 }				t_points;
 
+typedef struct s_dimensions
+{
+	int	x;
+	int	y;
+	int	height;
+	int	width;
+}				t_dimensions;
+
 typedef struct s_structs
 {
 	t_data			*data;
@@ -265,7 +274,7 @@ void	draw_map2d_player(t_image *image, t_player *player, t_minimap *minimap);
 //---- DRAWING UTILS -----------------------------------------------------------
 void	my_img_pixel_put(t_image *image, int x, int y, int color);
 void	clear_image(t_image *image);
-void	draw_fill_rect(t_image *image, int x, int y, int height, int width, int color);
+void	draw_fill_rect(t_image *image, t_dimensions *dim, int color);
 void	draw_vertival_lines(t_image *image, t_raycasting *raycasting, int x);
 
 //--- DRAWLINE ALGO ------------------------------------------------------------

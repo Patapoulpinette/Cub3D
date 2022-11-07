@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:33:54 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/07 09:27:23 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/07 19:02:38 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void	debug(t_data *data)
 
 /* 
 TODO
-- change coordonates of player
 - protect malloc, instructions which can fail
 - do a function to free all mallocs when there is an error and the program quit (graphical_part.c)
 - check leaks

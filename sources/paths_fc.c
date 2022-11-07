@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   paths_fc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 17:56:19 by apercebo          #+#    #+#             */
-/*   Updated: 2022/10/21 13:58:37 by apercebo         ###   ########.fr       */
+/*   Updated: 2022/11/07 19:24:38 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	f_color(t_data *data)
 		}
 		while (data->map[data->i][data->j] == ' ')
 			data->j++;
-		data->f = 1;
+		data->f++;
 		put_in_tab(data);
 	}
 }
@@ -91,7 +91,7 @@ void	c_color(t_data *data)
 		}
 		while (data->map[data->i][data->j] == ' ')
 			data->j++;
-		data->c = 1;
+		data->c++;
 		put_in_tab2(data);
 	}
 }
