@@ -6,7 +6,7 @@
 /*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:33:54 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/08 16:36:40 by apercebo         ###   ########.fr       */
+/*   Updated: 2022/11/08 17:28:02 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,6 @@ void	debug(t_data *data)
 
 /*
 TODO
-- reorganize functions in files
-- norme
+- comment to remove et renorme au cas ou ya besoin de renorme watashi wa alexis des
 - TESTS LIKE IN CORRECTION
-
  */

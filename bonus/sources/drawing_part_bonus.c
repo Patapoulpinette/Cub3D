@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing_part_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 18:43:02 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/08 13:46:45 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/08 19:38:45 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	draw_in_image(t_structs *structs)
 	draw_map2d_player(structs->image, structs->player, structs->minimap);
 	mlx_put_image_to_window(structs->mlx->mlx, structs->mlx->window, \
 		structs->image->img, 0, 0);
+	structs->hud->img = mlx_xpm_file_to_image(structs->mlx->mlx, "./textures/hud.xpm", &structs->hud->width, &structs->hud->height);
+	mlx_put_image_to_window(structs->mlx->mlx, structs->mlx->window, structs->hud->img, 0, SCREEN_HEIGHT - structs->hud->height);
 }
 
 void	draw_map2d(t_image *image, t_raycasting *ray, t_minimap *minimap)

@@ -6,7 +6,7 @@
 /*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:03:34 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/08 16:36:13 by apercebo         ###   ########.fr       */
+/*   Updated: 2022/11/08 19:36:42 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	load_textures(t_mlx *mlx, t_texture *texture)
 void	link_structs(t_mlx *mlx, t_image *image, t_structs *structs)
 {
 	t_texture		*texture;
+	t_hud			*hud;
 	t_minimap		*minimap;
 	t_mouse			*mouse;
 
@@ -58,6 +59,8 @@ void	link_structs(t_mlx *mlx, t_image *image, t_structs *structs)
 	structs->image = image;
 	texture = ft_calloc(5, sizeof(t_texture));
 	structs->texture = texture;
+	hud = ft_calloc(1, sizeof(t_hud));
+	structs->hud = hud;
 	minimap = ft_calloc(1, sizeof(t_minimap));
 	structs->minimap = minimap;
 	mouse = ft_calloc(1, sizeof(t_mouse));

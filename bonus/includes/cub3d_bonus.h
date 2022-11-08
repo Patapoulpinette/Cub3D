@@ -6,7 +6,7 @@
 /*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/08 17:19:58 by apercebo         ###   ########.fr       */
+/*   Updated: 2022/11/08 19:25:52 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,13 @@ typedef struct s_image
 	int		y_img;
 }				t_image;
 
+typedef struct s_hud
+{
+	void	*img;
+	int		height;
+	int		width;
+}				t_hud;
+
 typedef struct s_texture
 {
 	void	*img;
@@ -213,6 +220,7 @@ typedef struct s_structs
 	t_data			*data;
 	t_mlx			*mlx;
 	t_image			*image;
+	t_hud			*hud;
 	t_texture		*texture;
 	t_raycasting	*ray;
 	t_player		*player;
