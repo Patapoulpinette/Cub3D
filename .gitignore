@@ -1,6 +1,7 @@
 # Prerequisites
 *.d
 cub3d
+cub3d_bonus
 
 # Object files
 *.o
