@@ -6,7 +6,7 @@
 /*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 17:56:19 by apercebo          #+#    #+#             */
-/*   Updated: 2022/11/08 11:31:41 by apercebo         ###   ########.fr       */
+/*   Updated: 2022/11/08 16:34:21 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	put_in_tab(t_data *data)
 		data->inc.j = 0;
 		data->save = data->j;
 		data->nbr = malloc(sizeof(char) * 4);
+		if (!data->nbr)
+			exit(EXIT_FAILURE);
 		while (data->map[data->i][data->j] >= '0'
 			&& data->map[data->i][data->j] <= '9')
 			data->nbr[data->inc.j++] = data->map[data->i][data->j++];
@@ -66,6 +68,8 @@ void	put_in_tab2(t_data *data)
 		data->inc.j = 0;
 		data->save = data->j;
 		data->nbr = malloc(sizeof(int) * 4);
+		if (!data->nbr)
+			exit(EXIT_FAILURE);
 		while (data->map[data->i][data->j] >= '0'
 			&& data->map[data->i][data->j] <= '9')
 			data->nbr[data->inc.j++] = data->map[data->i][data->j++];

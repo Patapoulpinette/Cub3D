@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 04:19:59 by apercebo          #+#    #+#             */
-/*   Updated: 2022/11/08 13:46:20 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/08 16:28:54 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	recup_map(t_data *data, int fd, int i, char *maplink)
 {
 	data->height = i;
 	data->map = malloc(sizeof(char *) * (i + 1));
+	if (!data->map)
+		exit(EXIT_FAILURE);
 	if (!data->map)
 	{
 		printf("%s\n%s\n", "Error", "Malloc error");
@@ -130,6 +132,8 @@ int	map_parsing(t_data *data)
 	}
 	data->inc.j = -1;
 	data->game_map = malloc(sizeof(char *) * (data->i - data->inc.save));
+	if (!data->game_map)
+		exit(EXIT_FAILURE);
 	data->map_end = data->i - data->inc.save - 2;
 	//dprintf(2, "%s\n", data->map[data->inc.save]);
 	malloc_map(data);

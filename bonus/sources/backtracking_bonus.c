@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   backtracking_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 11:40:28 by apercebo          #+#    #+#             */
-/*   Updated: 2022/11/08 13:46:50 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/08 16:25:24 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,15 @@ void	delete_walls(t_data *data)
 {
 	data->inc.i = -1;
 	data->f_game_map = malloc(sizeof(char *) * (data->map_end + 2));
+	if (!data->f_game_map)
+		exit(EXIT_FAILURE);
 	while (data->game_map[++data->inc.i])
 	{
 		data->inc.j = -1;
 		data->f_game_map[data->inc.i] = malloc(sizeof(char)
 				* (ft_strlen(data->game_map[data->inc.i]) + 1));
+		if (!data->f_game_map[data->inc.i])
+			exit(EXIT_FAILURE);
 		while (data->game_map[data->inc.i][++data->inc.j])
 		{
 			if (ch_is_in_map(data, data->inc.i, data->inc.j) == 1)

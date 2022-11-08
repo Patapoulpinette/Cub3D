@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:33:54 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/08 13:30:15 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/08 16:36:40 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,6 @@ void	debug(t_data *data)
 
 /*
 TODO
-- protect malloc, instructions which can fail
-- do a function to free all mallocs when there is an error and the program quit (graphical_part.c)
-- check leaks
 - reorganize functions in files
 - norme
 - TESTS LIKE IN CORRECTION

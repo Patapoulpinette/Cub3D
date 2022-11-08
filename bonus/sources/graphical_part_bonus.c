@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphical_part_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:03:34 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/08 13:46:37 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/08 16:36:13 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	load_textures(t_mlx *mlx, t_texture *texture)
 		if (!texture[i].img)
 		{
 			printf("Loading texture failed\n");
-			exit(EXIT_FAILURE);//TODO : do a function to free all mallocs
+			exit(EXIT_FAILURE);
 		}
 		texture[i].addr = mlx_get_data_addr(texture[i].img,
 				&texture[i].bits_per_pixel, &texture[i].size_line,

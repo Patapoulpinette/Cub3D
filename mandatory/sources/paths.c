@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   paths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 06:37:05 by apercebo          #+#    #+#             */
-/*   Updated: 2022/11/07 19:24:09 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/08 16:34:50 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	no_path(t_data *data)
 			&& data->map[data->i][data->j] != ' ')
 			data->j++;
 		data->no_path = malloc((data->j - data->save) + 1);
+		if (!data->no_path)
+			exit(EXIT_FAILURE);
 		data->j = 0;
 		while (data->map[data->i][data->save]
 			&& data->map[data->i][data->save] != ' '
@@ -60,6 +62,8 @@ void	so_path(t_data *data)
 			&& data->map[data->i][data->j] != ' ')
 			data->j++;
 		data->so_path = malloc((data->j - data->save) + 1);
+		if (!data->so_path)
+			exit(EXIT_FAILURE);
 		data->j = 0;
 		while (data->map[data->i][data->save]
 			&& data->map[data->i][data->save] != ' '
@@ -89,6 +93,8 @@ void	we_path(t_data *data)
 			&& data->map[data->i][data->j] != ' ')
 			data->j++;
 		data->we_path = malloc((data->j - data->save) + 1);
+		if (!data->we_path)
+			exit(EXIT_FAILURE);
 		data->j = 0;
 		while (data->map[data->i][data->save]
 			&& data->map[data->i][data->save] != ' '
@@ -118,6 +124,8 @@ void	ea_path(t_data *data)
 			&& data->map[data->i][data->j] != ' ')
 			data->j++;
 		data->ea_path = malloc((data->j - data->save) + 1);
+		if (!data->ea_path)
+			exit(EXIT_FAILURE);
 		data->j = 0;
 		while (data->map[data->i][data->save]
 			&& data->map[data->i][data->save] != ' '

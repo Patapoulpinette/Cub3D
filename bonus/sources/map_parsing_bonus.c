@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parsing_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:03:39 by apercebo          #+#    #+#             */
-/*   Updated: 2022/11/08 14:27:58 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/08 16:28:05 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ void	malloc_map(t_data *data)
 		data->inc.j++;
 		data->game_map[data->inc.j] = malloc(sizeof(char)
 				* ((ft_strlen(data->map[data->inc.save]) + 1)));
+		if (!data->game_map[data->inc.j])
+			exit(EXIT_FAILURE);
 		data->inc.x = -1;
 		while (data->map[data->inc.save][++data->inc.x])
 		{
