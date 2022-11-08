@@ -6,7 +6,7 @@
 /*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 17:56:19 by apercebo          #+#    #+#             */
-/*   Updated: 2022/11/08 16:34:21 by apercebo         ###   ########.fr       */
+/*   Updated: 2022/11/08 17:19:16 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,11 @@ void	put_in_tab(t_data *data)
 			data->nbr[data->inc.j++] = data->map[data->i][data->j++];
 		if (data->j - data->save > 3 || (data->map[data->i][data->j]
 			!= ',' && data->inc.i != 2))
-		{
-			printf("error");
-			exit(0);
-		}
+			error_exit();
 		data->nbr[data->inc.j] = '\0';
 		data->ftabl[data->inc.i++] = ft_atoi(data->nbr);
-		if (data->ftabl[data->inc.i - 1] > 255 || data->ftabl[data->inc.i - 1] < 0)
+		if (data->ftabl[data->inc.i - 1] > 255
+			|| data->ftabl[data->inc.i - 1] < 0)
 		{
 			printf("ERROR IN FLOOR COLOR\n");
 			color_free_exit(data);
@@ -75,15 +73,13 @@ void	put_in_tab2(t_data *data)
 			data->nbr[data->inc.j++] = data->map[data->i][data->j++];
 		if (data->j - data->save > 3 || (data->map[data->i][data->j]
 			!= ',' && data->inc.i != 2))
-		{
-			printf("error");
-			exit(0);
-		}
+			error_exit();
 		data->nbr[data->inc.j] = '\0';
 		data->ctabl[data->inc.i++] = ft_atoi(data->nbr);
-		if (data->ctabl[data->inc.i - 1] > 255 || data->ctabl[data->inc.i - 1] < 0)
+		if (data->ctabl[data->inc.i - 1] > 255
+			|| data->ctabl[data->inc.i - 1] < 0)
 		{
-			printf("ERROR IN ROOF COLOR\n"); //free
+			printf("ERROR IN ROOF COLOR\n");
 			color_free_exit(data);
 		}
 		free(data->nbr);

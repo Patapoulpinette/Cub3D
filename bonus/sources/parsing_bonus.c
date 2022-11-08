@@ -6,7 +6,7 @@
 /*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 04:19:59 by apercebo          #+#    #+#             */
-/*   Updated: 2022/11/08 16:28:54 by apercebo         ###   ########.fr       */
+/*   Updated: 2022/11/08 17:08:40 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,6 @@ void	recup_map(t_data *data, int fd, int i, char *maplink)
 	data->map = malloc(sizeof(char *) * (i + 1));
 	if (!data->map)
 		exit(EXIT_FAILURE);
-	if (!data->map)
-	{
-		printf("%s\n%s\n", "Error", "Malloc error");
-		exit(0);
-	}
 	close(fd);
 	fd = open(maplink, O_RDONLY);
 	i = 0;
@@ -86,19 +81,9 @@ int	texturing(t_data *data)
 		data->j = 0;
 		while (data->map[data->i][data->j])
 		{
-			if (data->no == 0)
-				no_path(data);
-			if (data->so == 0)
-				so_path(data);
-			if (data->we == 0)
-				we_path(data);
-			if (data->ea == 0)
-				ea_path(data);
-			if (data->f == 0)
-				f_color(data);
-			if (data->c == 0)
-				c_color(data);
-			if (data->map[data->i][data->j] && data->map[data->i][data->j] != '\n' && data->map[data->i][data->j] != ' ')
+			data_checks(data);
+			if (data->map[data->i][data->j] && data->map[data->i][data->j]
+				!= '\n' && data->map[data->i][data->j] != ' ')
 			{
 				printf("Wrong map syntax\n");
 				free_tab_c(data->map);
@@ -124,18 +109,16 @@ int	map_parsing(t_data *data)
 	{
 		data->inc.j = -1;
 		while (data->map[data->i] && data->map[data->i][++data->inc.j])
+		{
 			if (search_ch(data, data->inc.j) == 1)
-			{
-				printf("%c\n", data->map[data->i][data->inc.j]);
 				return (1);
-			}
+		}
 	}
 	data->inc.j = -1;
 	data->game_map = malloc(sizeof(char *) * (data->i - data->inc.save));
 	if (!data->game_map)
 		exit(EXIT_FAILURE);
 	data->map_end = data->i - data->inc.save - 2;
-	//dprintf(2, "%s\n", data->map[data->inc.save]);
 	malloc_map(data);
 	if (map_error(data) == 1)
 	{

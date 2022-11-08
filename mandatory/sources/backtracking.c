@@ -6,7 +6,7 @@
 /*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 11:40:28 by apercebo          #+#    #+#             */
-/*   Updated: 2022/11/08 16:23:07 by apercebo         ###   ########.fr       */
+/*   Updated: 2022/11/08 16:56:09 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ void	backtracking(t_data *data)
 	}
 	if (!data->game_map[i])
 	{
-		printf("Wrong map format\n");
 		free_tab_c(data->game_map);
-		exit(0);
+		error_exit();
 	}
 	data->pl_orientation = data->game_map[i][j];
 	data->pl_x = i;
@@ -112,27 +111,4 @@ void	delete_walls(t_data *data)
 		data->f_game_map[data->inc.i][data->inc.j] = '\0';
 	}
 	delete_walls2(data);
-}
-
-int	ch_is_a_corner(t_data *data, int i, int j)
-{
-	int	nbr;
-
-	nbr = 0;
-	if (data->f_game_map[i][j] != ' ')
-		return (0);
-	if (i != 0 && (int)ft_strlen(data->f_game_map[i - 1])
-		>= j && data->f_game_map[i - 1][j] == '1')
-		nbr++;
-	if (j != 0 && data->f_game_map[i][j - 1] == '1')
-		nbr++;
-	if (j != (int)ft_strlen(data->f_game_map[i])
-		&& data->f_game_map[i][j + 1] == '1')
-		nbr++;
-	if (i != data->map_end && (int)ft_strlen(data->f_game_map[i + 1])
-		>= j && data->f_game_map[i + 1][j] == '1')
-		nbr++;
-	if (nbr > 1)
-		return (1);
-	return (0);
 }

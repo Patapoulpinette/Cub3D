@@ -6,7 +6,7 @@
 /*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 06:37:05 by apercebo          #+#    #+#             */
-/*   Updated: 2022/11/08 16:31:47 by apercebo         ###   ########.fr       */
+/*   Updated: 2022/11/08 17:14:04 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ void	no_path(t_data *data)
 	{
 		data->j = data->j + 2;
 		if (data->map[data->i][data->j] != ' ')
-		{
-			printf("error");
-			exit(0);
-		}
+			error_exit();
 		while (data->map[data->i][data->j] == ' ')
 			data->j++;
 		data->no++;
@@ -50,10 +47,7 @@ void	so_path(t_data *data)
 	{
 		data->j = data->j + 2;
 		if (data->map[data->i][data->j] != ' ')
-		{
-			printf("error");
-			exit(0);
-		}
+			error_exit();
 		while (data->map[data->i][data->j] == ' ')
 			data->j++;
 		data->so++;
@@ -81,10 +75,7 @@ void	we_path(t_data *data)
 	{
 		data->j = data->j + 2;
 		if (data->map[data->i][data->j] != ' ')
-		{
-			printf("error");
-			exit(0);
-		}
+			error_exit();
 		while (data->map[data->i][data->j] == ' ')
 			data->j++;
 		data->we++;
@@ -112,10 +103,7 @@ void	ea_path(t_data *data)
 	{
 		data->j = data->j + 2;
 		if (data->map[data->i][data->j] != ' ')
-		{
-			printf("error");
-			exit(0);
-		}
+			error_exit();
 		while (data->map[data->i][data->j] == ' ')
 			data->j++;
 		data->ea++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:05:01 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/08 13:42:16 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/08 17:20:02 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,6 +216,7 @@ int		skip_space(t_data *data);
 void	malloc_map(t_data *data);
 void	replace_dot(t_data *data);
 void	color_free_exit(t_data *data);
+void	data_checks(t_data *data);
 
 //---- BACKTRACKING ------------------------------------------------------------
 void	backtracking(t_data *data);
@@ -280,5 +281,6 @@ int		ch_is_inside(int j);
 size_t	ft_tablen(char **tab);
 void	ft_error(void);
 void	free_tab_c(char **tab);
+void	error_exit(void);
 
 #endif
