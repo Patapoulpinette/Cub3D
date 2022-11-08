@@ -6,7 +6,7 @@
 /*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:03:39 by apercebo          #+#    #+#             */
-/*   Updated: 2022/10/21 13:59:06 by apercebo         ###   ########.fr       */
+/*   Updated: 2022/11/08 15:47:59 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,5 @@ void	malloc_map(t_data *data)
 	}
 	data->game_map[data->inc.j + 1] = NULL;
 	//dprintf(2, "%s\n", data->game_map[1]);
-	data->inc.j = -1;
-	while (data->map[++data->inc.j])
-		free(data->map[data->inc.j]);
-	free(data->map);
+	free_tab_c(data->map);
 }
