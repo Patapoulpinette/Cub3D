@@ -3,10 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:33:54 by dbouron           #+#    #+#             */
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 /*   Updated: 2022/11/07 19:02:38 by dbouron          ###   ########lyon.fr   */
+=======
+/*   Updated: 2022/11/08 10:11:28 by apercebo         ###   ########.fr       */
+>>>>>>> Stashed changes
+=======
+/*   Updated: 2022/11/08 10:11:28 by apercebo         ###   ########.fr       */
+>>>>>>> Stashed changes
+=======
+/*   Updated: 2022/11/08 10:11:28 by apercebo         ###   ########.fr       */
+>>>>>>> Stashed changes
+=======
+/*   Updated: 2022/11/08 10:11:28 by apercebo         ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +98,7 @@ void	debug(t_data *data)
 	printf("player orientation : %c\n", data->pl_orientation);
 }
 
-/* 
+/*
 TODO
 - protect malloc, instructions which can fail
 - do a function to free all mallocs when there is an error and the program quit (graphical_part.c)

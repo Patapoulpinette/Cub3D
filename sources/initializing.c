@@ -3,10 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   initializing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/07 18:55:27 by dbouron          ###   ########lyon.fr   */
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+/*   Updated: 2022/11/08 10:14:31 by apercebo         ###   ########.fr       */
+=======
+/*   Updated: 2022/11/07 13:05:46 by apercebo         ###   ########.fr       */
+>>>>>>> Stashed changes
+=======
+/*   Updated: 2022/11/07 13:05:46 by apercebo         ###   ########.fr       */
+>>>>>>> Stashed changes
+=======
+/*   Updated: 2022/11/07 13:05:46 by apercebo         ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 

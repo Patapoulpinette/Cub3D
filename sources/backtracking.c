@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   backtracking.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 11:40:28 by apercebo          #+#    #+#             */
-/*   Updated: 2022/11/07 09:15:47 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/07 13:21:18 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ void	backtracking(t_data *data)
 				break ;
 		if (data->game_map[i][j] && ch_is_player(data->game_map[i][j]) == 1)
 			break ;
+	}
+	if (!data->game_map[i])
+	{
+		printf("Map Error\n"); //todo free
+		exit(0);
 	}
 	data->pl_orientation = data->game_map[i][j];
 	data->pl_x = i;

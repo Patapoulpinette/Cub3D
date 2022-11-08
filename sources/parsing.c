@@ -3,10 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 04:19:59 by apercebo          #+#    #+#             */
-/*   Updated: 2022/11/07 19:31:58 by dbouron          ###   ########lyon.fr   */
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+/*   Updated: 2022/11/08 10:14:27 by apercebo         ###   ########.fr       */
+=======
+/*   Updated: 2022/11/07 13:23:40 by apercebo         ###   ########.fr       */
+>>>>>>> Stashed changes
+=======
+/*   Updated: 2022/11/07 13:23:40 by apercebo         ###   ########.fr       */
+>>>>>>> Stashed changes
+=======
+/*   Updated: 2022/11/07 13:23:40 by apercebo         ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/03 14:53:19 by dbouron           #+#    #+#              #
-#    Updated: 2022/11/07 15:36:29 by dbouron          ###   ########lyon.fr    #
+#    Updated: 2022/11/08 10:18:27 by apercebo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ HEADFILE += $(shell find minilibx_opengl -name "*.h")
 
 CFLAGS = -Wall -Wextra -Werror
 CFLAGS += -I includes/ -I libft/ -I minilibx_opengl/ -I GNL/ -O3
-#CFLAGS += -fsanitize=address -g3
+CFLAGS += -fsanitize=address -g3
 
 # **************************************************************************** #
 #                                    COLORS                                    #
