@@ -1,6 +1,7 @@
 {
 	"git.postCommitCommand": "push",
 	"files.associations": {
-		"locale": "c"
+		"locale": "c",
+		"cub3d.h": "c"
 	}
 }

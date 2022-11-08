@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:12:19 by dbouron           #+#    #+#             */
-/*   Updated: 2022/06/03 18:04:29 by dbouron          ###   ########.fr       */
+/*   Updated: 2022/11/08 14:37:12 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	free_tab_c(char **tab)
 	free(tab);
 }
 
-void	free_tab_i(int **tab, int size)
+/* void	free_tab_i(int **tab, int size)
 {
 	int	i;
 
@@ -30,4 +30,4 @@ void	free_tab_i(int **tab, int size)
 	while (i < size)
 		free(tab[i++]);
 	free(tab);
-}
+} */

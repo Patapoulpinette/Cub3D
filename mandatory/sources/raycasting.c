@@ -6,7 +6,7 @@
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:02:13 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/07 20:14:35 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/08 13:40:34 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	raycasting_algo(t_structs *structs)
 		calculate_walls(structs->ray);
 		draw_vertival_lines(structs->image, structs->ray, x);
 		draw_textures(structs, x);
-		draw_map2d_rays(structs, structs->ray->map_x, structs->ray->map_y);
 		x++;
 	}
 }

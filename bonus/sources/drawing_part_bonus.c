@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   drawing_part.c                                     :+:      :+:    :+:   */
+/*   drawing_part_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 18:43:02 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/07 21:10:07 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/08 13:46:45 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	draw_in_image(t_structs *structs)
 {

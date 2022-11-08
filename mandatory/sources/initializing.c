@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initializing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 10:58:07 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/08 10:26:40 by apercebo         ###   ########.fr       */
+/*   Updated: 2022/11/08 13:38:41 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,6 @@ void	init_raycasting_values(t_structs *structs)
 			structs->data->ctabl[1], structs->data->ctabl[2]);
 	structs->ray->floor_color = create_trgb(0, structs->data->ftabl[0],
 			structs->data->ftabl[1], structs->data->ftabl[2]);
-	structs->minimap->map_xlen = calculate_map_len_max(structs->ray->map);
-	structs->minimap->map_ylen = ft_tablen(structs->ray->map);
-	if (structs->minimap->map_xlen >= structs->minimap->map_ylen)
-		structs->minimap->wall_zoom = 300 / structs->minimap->map_xlen;
-	else
-		structs->minimap->wall_zoom = 300 / structs->minimap->map_ylen;
-	structs->mouse->button_press = 0;
-	structs->mouse->prev_mouse_x = SCREEN_HEIGHT * 0.5;
 }
 
 void	set_player_orientation_ne(t_structs *structs)
@@ -73,22 +65,6 @@ void	set_player_orientation_sw(t_structs *structs)
 		structs->ray->plane_x = -0.66;
 		structs->ray->plane_y = 0;
 	}
-}
-
-int	calculate_map_len_max(char **map)
-{
-	int	result;
-	int	j;
-
-	result = 0;
-	j = 0;
-	while (map[j])
-	{
-		if ((int)ft_strlen(map[j]) > result)
-			result = ft_strlen(map[j]);
-		j++;
-	}
-	return (result);
 }
 
 int	create_trgb(int t, int r, int g, int b)

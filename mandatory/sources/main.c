@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:33:54 by dbouron           #+#    #+#             */
-/*   Updated: 2022/11/08 10:38:44 by apercebo         ###   ########.fr       */
+/*   Updated: 2022/11/08 13:30:15 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	main(int argc, char **argv)
 	if (argc == 2)
 	{
 		parsing(&data, argv);
-		dprintf(2, "PARSING_OK\n");
 		display_window(&data);
 	}
 	else
@@ -33,12 +32,6 @@ void	parsing(t_data *data, char **argv)
 	count_line(data, argv[1]);
 	backtracking(data);
 	//debug(data);
-	/* free_tab_c(data->game_map);
-	free_tab_c(data->f_game_map);
-	free(data->no_path);
-	free(data->so_path);
-	free(data->we_path);
-	free(data->ea_path); */
 }
 
 void	name_error(char *maplink)
@@ -91,5 +84,4 @@ TODO
 - norme
 - TESTS LIKE IN CORRECTION
 
-TOFIX
  */
