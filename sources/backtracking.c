@@ -6,7 +6,7 @@
 /*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 11:40:28 by apercebo          #+#    #+#             */
-/*   Updated: 2022/11/07 13:21:18 by apercebo         ###   ########.fr       */
+/*   Updated: 2022/11/08 11:37:18 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	backtracking(t_data *data)
 	}
 	if (!data->game_map[i])
 	{
-		printf("Map Error\n"); //todo free
+		printf("Wrong map format\n");
+		free_tab_c(data->game_map);
 		exit(0);
 	}
 	data->pl_orientation = data->game_map[i][j];

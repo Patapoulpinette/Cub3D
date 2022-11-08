@@ -6,23 +6,7 @@
 /*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:33:54 by dbouron           #+#    #+#             */
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-/*   Updated: 2022/11/07 19:02:38 by dbouron          ###   ########lyon.fr   */
-=======
-/*   Updated: 2022/11/08 10:11:28 by apercebo         ###   ########.fr       */
->>>>>>> Stashed changes
-=======
-/*   Updated: 2022/11/08 10:11:28 by apercebo         ###   ########.fr       */
->>>>>>> Stashed changes
-=======
-/*   Updated: 2022/11/08 10:11:28 by apercebo         ###   ########.fr       */
->>>>>>> Stashed changes
-=======
-/*   Updated: 2022/11/08 10:11:28 by apercebo         ###   ########.fr       */
->>>>>>> Stashed changes
+/*   Updated: 2022/11/08 10:38:44 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +92,4 @@ TODO
 - TESTS LIKE IN CORRECTION
 
 TOFIX
-- segfault if there is no player in map
-- segfault if path of texture is after map description in map
-- segfault if there is the same texture path 2 times or more in map
  */

@@ -6,19 +6,7 @@
 /*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 04:19:59 by apercebo          #+#    #+#             */
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-/*   Updated: 2022/11/08 10:14:27 by apercebo         ###   ########.fr       */
-=======
-/*   Updated: 2022/11/07 13:23:40 by apercebo         ###   ########.fr       */
->>>>>>> Stashed changes
-=======
-/*   Updated: 2022/11/07 13:23:40 by apercebo         ###   ########.fr       */
->>>>>>> Stashed changes
-=======
-/*   Updated: 2022/11/07 13:23:40 by apercebo         ###   ########.fr       */
->>>>>>> Stashed changes
+/*   Updated: 2022/11/08 11:51:12 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +96,12 @@ int	texturing(t_data *data)
 				f_color(data);
 			if (data->c == 0)
 				c_color(data);
+			if (data->map[data->i][data->j] && data->map[data->i][data->j] != '\n' && data->map[data->i][data->j] != ' ')
+			{
+				printf("Wrong map syntax\n");
+				free_tab_c(data->map);
+				exit(0);
+			}
 			if (data->map[data->i][data->j])
 				data->j++;
 		}
@@ -115,7 +109,9 @@ int	texturing(t_data *data)
 			&& data->ea == 1 && data->f == 1 && data->c == 1)
 			return (0);
 	}
-	return (1);
+	printf("Wrong map format\n");
+	free_tab_c(data->map);
+	exit(0);
 }
 
 int	map_parsing(t_data *data)
@@ -127,7 +123,10 @@ int	map_parsing(t_data *data)
 		data->inc.j = -1;
 		while (data->map[data->i] && data->map[data->i][++data->inc.j])
 			if (search_ch(data, data->inc.j) == 1)
+			{
+				printf("%c\n", data->map[data->i][data->inc.j]);
 				return (1);
+			}
 	}
 	data->inc.j = -1;
 	data->game_map = malloc(sizeof(char *) * (data->i - data->inc.save));
@@ -136,7 +135,8 @@ int	map_parsing(t_data *data)
 	malloc_map(data);
 	if (map_error(data) == 1)
 	{
-		printf("ERROR MAP\n");
+		printf("Wrong map format\n");
+		free_tab_c(data->game_map);
 		exit(0);
 	}
 	return (0);

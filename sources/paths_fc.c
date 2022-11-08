@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   paths_fc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 17:56:19 by apercebo          #+#    #+#             */
-/*   Updated: 2022/11/07 19:24:38 by dbouron          ###   ########lyon.fr   */
+/*   Updated: 2022/11/08 11:31:41 by apercebo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ void	put_in_tab(t_data *data)
 		}
 		data->nbr[data->inc.j] = '\0';
 		data->ftabl[data->inc.i++] = ft_atoi(data->nbr);
+		if (data->ftabl[data->inc.i - 1] > 255 || data->ftabl[data->inc.i - 1] < 0)
+		{
+			printf("ERROR IN FLOOR COLOR\n");
+			color_free_exit(data);
+		}
 		free(data->nbr);
 		data->j++;
 	}
@@ -72,6 +77,11 @@ void	put_in_tab2(t_data *data)
 		}
 		data->nbr[data->inc.j] = '\0';
 		data->ctabl[data->inc.i++] = ft_atoi(data->nbr);
+		if (data->ctabl[data->inc.i - 1] > 255 || data->ctabl[data->inc.i - 1] < 0)
+		{
+			printf("ERROR IN ROOF COLOR\n"); //free
+			color_free_exit(data);
+		}
 		free(data->nbr);
 		data->j++;
 	}
@@ -94,4 +104,10 @@ void	c_color(t_data *data)
 		data->c++;
 		put_in_tab2(data);
 	}
+}
+
+void	color_free_exit(t_data *data)
+{
+	free_tab_c(data->map);
+	exit(0);
 }
