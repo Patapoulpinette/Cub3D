@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   backtracking_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apercebo <apercebo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbouron <dbouron@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 11:40:28 by apercebo          #+#    #+#             */
-/*   Updated: 2022/11/08 16:55:47 by apercebo         ###   ########.fr       */
+/*   Updated: 2022/11/09 18:02:54 by dbouron          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,21 @@ void	replace_dot(t_data *data)
 void	check_path(t_data *data, int i, int j)
 {
 	data->game_map[i][j] = '.';
-	if (data->game_map[i + 1][j] == '0')
+	if (data->game_map[i + 1][j] == '0' || data->game_map[i + 1][j] == 'E'
+		|| data->game_map[i + 1][j] == 'S' || data->game_map[i + 1][j] == 'W'
+		|| data->game_map[i + 1][j] == 'N')
 		check_path(data, i + 1, j);
-	if (data->game_map[i][j + 1] == '0')
+	if (data->game_map[i][j + 1] == '0' || data->game_map[i][j + 1] == 'E'
+		|| data->game_map[i][j + 1] == 'S' || data->game_map[i][j + 1] == 'W'
+		|| data->game_map[i][j + 1] == 'N')
 		check_path(data, i, j + 1);
-	if (data->game_map[i - 1][j] == '0')
+	if (data->game_map[i - 1][j] == '0' || data->game_map[i - 1][j] == 'E'
+		|| data->game_map[i - 1][j] == 'S' || data->game_map[i - 1][j] == 'W'
+		|| data->game_map[i - 1][j] == 'N')
 		check_path(data, i - 1, j);
-	if (data->game_map[i][j - 1] == '0')
+	if (data->game_map[i][j - 1] == '0' || data->game_map[i][j - 1] == 'E'
+		|| data->game_map[i][j - 1] == 'S' || data->game_map[i][j - 1] == 'W'
+		|| data->game_map[i][j - 1] == 'N')
 		check_path(data, i, j - 1);
 }
 
